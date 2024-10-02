@@ -9,25 +9,46 @@
 */
 {
   "sections": {
+    "hamepage_main_section_cYjGn6": {
+      "type": "hamepage-main-section",
+      "settings": {
+        "section_padding_top_m": 0,
+        "section_padding_bottom_m": 0,
+        "section_padding_top_d": 0,
+        "section_padding_bottom_d": 0,
+        "heading": "<p>Find <strong>the best app</strong> for your Shopify store tailored to</p>",
+        "description": "Unleash your creativity with out-of-this-world app inspiration from across Shopify",
+        "header_product_title": "Title",
+        "header_product_text": "Text",
+        "header_product_link": ""
+      }
+    },
     "articles_list_PxnpgG": {
       "type": "articles-list",
       "blocks": {
         "block_CDQye7": {
           "type": "block",
           "settings": {
-            "article": "news\/cut-through-the-shopify-app-clutter-with-takeyour-app"
+            "article": "news/cut-through-the-shopify-app-clutter-with-takeyour-app"
           }
         },
         "block_Bfwa6k": {
           "type": "block",
           "settings": {
-            "article": "news\/black-friday-and-cyber-monday-2023-online-sales-results-and-stats"
+            "article": "news/black-friday-and-cyber-monday-2023-online-sales-results-and-stats"
+          }
+        },
+        "block_M79QrE": {
+          "type": "block",
+          "settings": {
+            "article": "news/the-best-wholesale-app-for-shopify"
           }
         }
       },
       "block_order": [
         "block_CDQye7",
-        "block_Bfwa6k"
+        "block_Bfwa6k",
+        "block_M79QrE"
       ],
       "settings": {
         "section_padding_top_m": 64,
@@ -38,8 +59,8 @@
         "section_padding_bottom_d": 120,
         "heading": "Recommended articles",
         "blog-text": "See all articles",
-        "link": "shopify:\/\/blogs\/news",
-        "layout": "dark",
+        "link": "shopify://blogs/news",
+        "layout": "light",
         "tags": false,
         "content": false,
         "author": false,
@@ -127,7 +148,7 @@
         "section_padding_top_d": 110,
         "section_padding_bottom_d": 120,
         "heading": "Recent reviews",
-        "link": "shopify:\/\/collections",
+        "link": "shopify://collections",
         "link-text": "Browse apps"
       }
     },
@@ -138,21 +159,21 @@
           "type": "faq",
           "settings": {
             "question": "How is Pickyourapp.com works?",
-            "answer": "<p><a href=\"https:\/\/takeyour.app\/\" title=\"https:\/\/pickyourapp.com\">Pickyourapp.com<\/a> carefully collects and gathers all Shopify apps into collections for convenient usage. Check out our unbiased apps reviews  to find the best solution for your needs<\/p>"
+            "answer": "<p><a href=\"https://takeyour.app/\" title=\"https://pickyourapp.com\">Pickyourapp.com</a> carefully collects and gathers all Shopify apps into collections for convenient usage. Check out our unbiased apps reviews  to find the best solution for your needs</p>"
           }
         },
         "faq_eAYhBg": {
           "type": "faq",
           "settings": {
             "question": "Can I post an app on the Pickyourapp.com?",
-            "answer": "<p>Sure! Reach us via<a href=\"https:\/\/pickyourapp.com\/pages\/contact-us\" title=\"https:\/\/pickyourapp.com\/pages\/contact-us\"> Contact form<\/a> with your app details and we'll add it to the listing.<\/p>"
+            "answer": "<p>Sure! Reach us via<a href=\"https://pickyourapp.com/pages/contact-us\" title=\"https://pickyourapp.com/pages/contact-us\"> Contact form</a> with your app details and we'll add it to the listing.</p>"
           }
         },
         "faq_K4BxM4": {
           "type": "faq",
           "settings": {
             "question": "Does app listing is free?",
-            "answer": "<p>Yes, your app can be listed on the Pickyourapp.com for free. <\/p><p>Anyway, you can book premium placement in the listing and search results. <a href=\"https:\/\/pickyourapp.com\/pages\/contact-us\" title=\"https:\/\/pickyourapp.com\/pages\/contact-us\">Contact us<\/a> for details.<\/p>"
+            "answer": "<p>Yes, your app can be listed on the Pickyourapp.com for free. </p><p>Anyway, you can book premium placement in the listing and search results. <a href=\"https://pickyourapp.com/pages/contact-us\" title=\"https://pickyourapp.com/pages/contact-us\">Contact us</a> for details.</p>"
           }
         }
       },
@@ -173,6 +194,7 @@
     }
   },
   "order": [
+    "hamepage_main_section_cYjGn6",
     "articles_list_PxnpgG",
     "reviews_Ej7t7a",
     "faq_9C8y9L"

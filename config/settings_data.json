@@ -1,10 +1,19 @@
+/*
+* ------------------------------------------------------------
+* IMPORTANT: The contents of this file are auto-generated.
+*
+* This file may be updated by the Shopify admin theme editor
+* or related systems. Please exercise caution as any changes
+* made to this file may be overwritten.
+* ------------------------------------------------------------
+*/
 {
   "current": {
     "gradient_1": "linear-gradient(91.66deg, rgba(0, 137, 80, 1) 51.85%, rgba(0, 226, 118, 1) 158.48%)",
     "gradient_2": "linear-gradient(180deg, rgba(245, 247, 255, 1) 68.49%, rgba(245, 247, 255, 0) 100%)",
     "text-primary": "#000000",
     "type_body_font": "inter_n4",
-    "favicon": "shopify:\/\/shop_images\/favicon.png",
+    "favicon": "shopify://shop_images/favicon.png",
     "star-color-empty": "#ECEBEB",
     "social_twitter_link": "",
     "social_facebook_link": "",
@@ -22,14 +31,14 @@
       "header": {
         "type": "header",
         "settings": {
-          "logo": "shopify:\/\/shop_images\/State_Desktop_2x_7843acdd-b5db-4614-979d-ca49a1eb416e.png",
+          "logo": "shopify://shop_images/State_Desktop_2x_7843acdd-b5db-4614-979d-ca49a1eb416e.png",
           "menu": "main-menu"
         }
       },
       "footer": {
         "type": "footer",
         "settings": {
-          "logo": "shopify:\/\/shop_images\/logo_0996b709-0cdf-4c7e-a330-31299f458ae3.png",
+          "logo": "shopify://shop_images/logo_0996b709-0cdf-4c7e-a330-31299f458ae3.png",
           "menu": "footer",
           "menu_2": "footer-menu"
         }
@@ -40,7 +49,7 @@
     ],
     "blocks": {
       "11877319286961345690": {
-        "type": "shopify:\/\/apps\/doc-404-broken-links-repair\/blocks\/404-fix-broken-links-widget\/f4f2d416-cb00-4540-bda9-816d588bad3e",
+        "type": "shopify://apps/doc-404-broken-links-repair/blocks/404-fix-broken-links-widget/f4f2d416-cb00-4540-bda9-816d588bad3e",
         "disabled": false,
         "settings": {
         }
