@@ -9,24 +9,15 @@
 */
 {
   "sections": {
-    "1796b800-014a-4c7d-af8e-e40363cfe6c6": {
-      "type": "collection-children",
-      "settings": {
-        "section_padding_top_m": 0,
-        "section_padding_bottom_m": 0,
-        "section_padding_top_d": 0,
-        "section_padding_bottom_d": 0
-      }
-    },
     "aa3d3189-638b-42e1-92db-fbb1683c8da7": {
       "type": "collection-products",
       "settings": {
-        "section_padding_top_m": 36,
-        "section_padding_bottom_m": 64,
-        "section_padding_top_t": 56,
-        "section_padding_bottom_t": 80,
-        "section_padding_top_d": 110,
-        "section_padding_bottom_d": 120,
+        "section_padding_top_m": 0,
+        "section_padding_bottom_m": 0,
+        "section_padding_top_t": 0,
+        "section_padding_bottom_t": 0,
+        "section_padding_top_d": 0,
+        "section_padding_bottom_d": 0,
         "not-found-img": "shopify://shop_images/Group_45305.png"
       }
     },
@@ -39,7 +30,6 @@
     }
   },
   "order": [
-    "1796b800-014a-4c7d-af8e-e40363cfe6c6",
     "aa3d3189-638b-42e1-92db-fbb1683c8da7",
     "b0792b1d-797d-40fd-b0ce-5e263dcc16ea"
   ]
