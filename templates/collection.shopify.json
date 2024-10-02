@@ -11,6 +11,7 @@
   "sections": {
     "a4fe9344-1d08-4ce5-bb27-34777373803a": {
       "type": "main-collection",
+      "disabled": true,
       "settings": {
         "section_padding_top_m": 24,
         "section_padding_bottom_m": 64,
@@ -23,10 +24,10 @@
     "1796b800-014a-4c7d-af8e-e40363cfe6c6": {
       "type": "collection-children",
       "settings": {
-        "section_padding_top_m": 36,
-        "section_padding_bottom_m": 64,
-        "section_padding_top_d": 120,
-        "section_padding_bottom_d": 120
+        "section_padding_top_m": 0,
+        "section_padding_bottom_m": 0,
+        "section_padding_top_d": 0,
+        "section_padding_bottom_d": 0
       }
     },
     "aa3d3189-638b-42e1-92db-fbb1683c8da7": {
