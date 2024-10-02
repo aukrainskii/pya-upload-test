@@ -18,8 +18,9 @@
         "section_padding_bottom_d": 0,
         "heading": "<p>Find <strong>the best app</strong> for your Shopify store tailored to</p>",
         "description": "Unleash your creativity with out-of-this-world app inspiration from across Shopify",
-        "header_product_title": "Title",
-        "header_product_text": "Text",
+        "header_product_image": "shopify://shop_images/CMfzu9PG-IMDEAE.png",
+        "header_product_title": "Title goes here",
+        "header_product_text": "Text description goes here",
         "header_product_link": ""
       }
     },
