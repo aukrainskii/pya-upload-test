@@ -24,40 +24,18 @@
         "button_link": "/"
       }
     },
-    "collection_products_mtxgBC": {
-      "type": "collection-products",
+    "collection_children_k9TzYE": {
+      "type": "collection-children",
       "settings": {
         "section_padding_top_m": 0,
         "section_padding_bottom_m": 0,
-        "section_padding_top_t": 0,
-        "section_padding_bottom_t": 0,
         "section_padding_top_d": 0,
-        "section_padding_bottom_d": 0,
-        "not-found-img": "shopify://shop_images/Best_Shopify_apps.webp"
-      }
-    },
-    "newsletter_atAkzh": {
-      "type": "newsletter",
-      "blocks": {
-        "newsletter_3XQ4PP": {
-          "type": "newsletter",
-          "settings": {
-            "text": "Try Shopify for free, no credit card required. By entering your email, you agree to receive marketing emails from Shopify."
-          }
-        }
-      },
-      "block_order": [
-        "newsletter_3XQ4PP"
-      ],
-      "settings": {
-        "title": "Start your online business today. For free.",
-        "text": "Sign up for Shopify's free trial to access all of the tools and services you need to start, run, and grow your business."
+        "section_padding_bottom_d": 0
       }
     }
   },
   "order": [
     "main",
-    "collection_products_mtxgBC",
-    "newsletter_atAkzh"
+    "collection_children_k9TzYE"
   ]
 }
