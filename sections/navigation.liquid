@@ -1,0 +1,79 @@
+<div class="container-grid">
+  <ul class="nav-list">
+  {% for link in section.settings.menu.links %}
+      <li>
+          <a class="" href="{{link.url}}">{{link.title}}</a>
+      </li>
+  {% endfor%}
+  </ul>
+</div>
+
+{% style %}
+  .section-nav {
+    {% if section.settings.layout == "accent" %}
+      background: {{ settings.accent-color_1 }};
+      color: {{ settings.primary-color }};
+    {% else %}
+      background: {{ settings.primary-color }};
+      color: {{ settings.text-secondary }};
+    {% endif %}
+  }
+{% endstyle %}
+
+<script>
+// Navigation Sections
+
+let NavItems = Array.from(document.querySelectorAll(".nav-list a"));
+
+NavItems.forEach((item) => {
+    item.addEventListener("click", (ev) => {
+        let popularSection = findHeadingById(item.getAttribute("href").replace("/#", ""));
+        if (popularSection) {
+            ev.preventDefault();
+            ev.stopPropagation();
+            const position = popularSection.offsetTop - (popularSection.offsetHeight / 8);
+            window.scrollTo({
+                top: position,
+                behavior: 'smooth'
+            });
+        }
+    })
+});
+</script>
+
+{% schema %}
+{
+  "name": "Navigation",
+  "class": "section section-nav",
+  "tag": "section",
+  "presets": [
+    {
+        "name": "Navigation"
+    }
+  ],
+  "settings": [
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Select Menu"
+    },
+    {
+      "type": "select",
+      "options": [
+        {
+          "label": "Accent Color",
+          "value": "accent"
+        },
+        {
+          "label": "Primary Color",
+          "value": "primary"
+        }
+      ],
+      "id": "layout",
+      "label": "Collor Settings",
+      "default": "accent"
+    }
+  ],
+  "blocks": []
+}
+{% endschema %}

@@ -1,0 +1,134 @@
+{% unless template == 'index' or template == 'cart' or template == 'list-collections' or template == '404' %}
+
+{% assign t = template | split: '.' | first %}
+
+<nav class="breadcrumbs" role="navigation" aria-label="breadcrumbs">
+  <ul class="breadcrumbs__list {% if collection.template_suffix == "shopify" %}breadcrumbs__list--collections{% endif %}">
+    <li>
+      <a class="breadcrumb breadcrumb--home" href="/" title="Home">
+        {{ 'accessibility.home' | t }}
+        {% render 'breadcrumb-arrow-icon' %}
+      </a>
+    </li>
+
+  {% case t %}
+
+  {% when 'page' %}
+    {% if page.template_suffix == "developer" %}
+      <li>
+        <a class="breadcrumb" href="/" title="{{ 'accessibility.developer' | t }}">{{ 'accessibility.developer' | t }}
+          {% render 'breadcrumb-arrow-icon' %}
+        </a>
+      </li>
+
+      <li>
+        <a class="breadcrumb breadcrumb--no-arrow" href="{{ page.url }}" aria-current="page">{{ page.title }}</a>
+      </li>
+    {% else %}
+      <li>
+        <a class="breadcrumb breadcrumb--no-arrow" href="{{ page.url }}" aria-current="page">{{ page.title }}</a>
+      </li>
+    {% endif %}
+
+  {% when 'product' %}
+    {% if product.template_suffix == "theme" or product.type == "theme" %}
+      <li>
+          <a class="breadcrumb" href="/collections/shopify-themes">{{ 'accessibility.themes' | t }} {% render 'breadcrumb-arrow-icon' %}</a>
+      </li>
+      <li>
+        <a class="breadcrumb breadcrumb--no-arrow" href="{{ product.url }}" aria-current="page">{{ product.title }}</a>
+      </li>
+    {% else %}
+      {% if collections[product.metafields.appstore.primary_category_slug.value] != blank %}
+        <li>
+          <a class="breadcrumb" href="{{ collections[product.metafields.appstore.primary_category_slug.value].url }}">{{ collections[product.metafields.appstore.primary_category_slug.value].title }} {% render 'breadcrumb-arrow-icon' %}</a>
+        </li>
+      {% endif %}
+      <li>
+        <a class="breadcrumb breadcrumb--no-arrow" href="{{ product.url }}" aria-current="page">{{ product.title }}</a>
+      </li>
+    {% endif %}
+
+  {% when 'collection' and collection.handle %}
+
+    {% if current_tags %}
+      <li>{{ collection.title | link_to: collection.url }}{% render 'breadcrumb-arrow-icon' %}</li>
+      <li>
+        {% capture tag_url %}{{ collection.url }}/{{ current_tags | join: "+"}}{% endcapture %}
+        <a class="breadcrumb breadcrumb--no-arrow" href="{{ tag_url }}" aria-current="page">{{ current_tags | join: " + "}}</a>
+      </li>
+    {% else %}
+      {% if collection.template_suffix == "shopify" %}
+        {% assign col = collections[collection.metafields.appstore.parent] %}
+        {% for i in (0..5) %}
+          {% if col != blank %}
+            <li data-index="{{ i }}">
+              <a class="breadcrumb breadcrumb--parent" href="{{ col.url }}" title="{{ col.title }}">{{ col.title }}
+                {% render 'breadcrumb-arrow-icon' %}
+              </a>
+            </li>
+            {% assign col = collections[col.metafields.appstore.parent] %}
+          {% endif %}
+        {% endfor %}
+      {% endif %}
+      <li>
+        <a class="breadcrumb breadcrumb--no-arrow" href="{{ collection.url }}" aria-current="page">{{ collection.title }}</a>
+      </li>
+    {% endif %}
+
+  {% when 'blog' %}
+
+    {% if current_tags %}
+      <li>
+        <a class="breadcrumb" href="{{ blog.url }}" aria-current="page">{{ blog.title }}{% render 'breadcrumb-arrow-icon' %}</a>
+      </li>
+      <li>
+        {% capture tag_url %}{{blog.url}}/tagged/{{ current_tags | handle | join: "+" }}{% endcapture %}
+        <a class="breadcrumb breadcrumb--no-arrow" href="{{ tag_url }}" aria-current="page">{{ current_tags | join: " + " }}</a>
+      </li>
+    {% else %}
+      <li>
+        <a class="breadcrumb breadcrumb--no-arrow" href="{{ blog.url }}" aria-current="page">{{ blog.title }}</a>
+      </li>
+    {% endif %}
+
+  {% when 'article' %}
+
+    <li>
+      <a class="breadcrumb" href="{{ blog.url }}">{{ blog.title }} {% render 'breadcrumb-arrow-icon' %}</a>
+    </li>
+    <li>
+      <a class="breadcrumb breadcrumb--no-arrow" href="{{ article.url }}" aria-current="page">{{ article.title }}</a>
+    </li>
+
+  {% when 'search' %}
+
+    {% if search.types.size == 1 and search.types contains "product" %}  
+      <li>
+        <a class="breadcrumb" href="/collections/all">{{ 'search.apps' | t }} {% render 'breadcrumb-arrow-icon' %}</a>
+      </li>
+
+      <li aria-current="search">
+        <a class="breadcrumb breadcrumb--no-arrow" href="{{ request.path }}" aria-current="search">{{ "search.title" | t : terms: search.terms }}</a>
+      </li>
+
+    {% elsif search.types.size == 1 and search.types contains "article" %}
+
+      <li aria-current="search">
+        <a class="breadcrumb breadcrumb--no-arrow" href="{{ request.path }}" aria-current="search">{{ "search.title" | t : terms: search.terms }}</a>
+      </li>
+
+    {% endif %}
+    
+
+  {% else %}
+
+    <li aria-current="page">
+      <a class="breadcrumb breadcrumb--no-arrow" href="{{ request.path }}" aria-current="page">{{ page_title }}</a>
+    </li>
+
+  {% endcase %}
+
+  </ul>
+</nav>
+{% endunless %}

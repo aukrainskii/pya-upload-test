@@ -1,0 +1,40 @@
+{% if canonical_url contains "/tools/compare/" %}
+    <style>
+        .section-comparison-panel {
+            display: none;
+        }
+    </style>
+{% endif %}
+
+<comparison-panel class="comparison-panel" data-state="0" data-handles>
+    <div class="comparison-panel__apps">
+        
+    </div>
+    <div class="comparison-panel__buttons">
+        <div>
+            {{ 'compare.state-1-text' | t }}
+        </div>
+        {% assign text = 'compare.compare' | t %}
+        {% render 'linkTo', text: text, id: "link-to-compare", target_b: "true" %}
+    </div>
+</comparison-panel>
+
+<script src="{{ 'sections-comparison-panel.js' | asset_url }}" defer="defer"></script>
+{% schema %}
+{
+    "name": "Comparison Panel",
+    "class": "section section-comparison-panel",
+    "tag": "section",
+    "presets": [
+        {
+            "name": "Comparison Panel"
+        }
+    ],
+    "settings": [
+        
+    ],
+    "blocks": [
+        
+    ]
+}
+{% endschema %}

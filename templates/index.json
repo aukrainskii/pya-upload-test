@@ -1,0 +1,385 @@
+/*
+* ------------------------------------------------------------
+* IMPORTANT: The contents of this file are auto-generated.
+*
+* This file may be updated by the Shopify admin theme editor
+* or related systems. Please exercise caution as any changes
+* made to this file may be overwritten.
+* ------------------------------------------------------------
+*/
+{
+  "sections": {
+    "hamepage_main_section_e3iWkV": {
+      "type": "hamepage-main-section",
+      "blocks": {
+        "app_itbNBe": {
+          "type": "app",
+          "settings": {
+            "app": "easy-sale"
+          }
+        },
+        "app_4AFgh7": {
+          "type": "app",
+          "settings": {
+            "app": "easy-stock"
+          }
+        },
+        "app_dYJfpr": {
+          "type": "app",
+          "settings": {
+            "app": "product-description-tabs"
+          }
+        },
+        "app_nnenti": {
+          "type": "app",
+          "settings": {
+            "app": "easyorder"
+          }
+        },
+        "app_EQygM6": {
+          "type": "app",
+          "settings": {
+            "app": "spin-studio"
+          }
+        },
+        "app_yaimEN": {
+          "type": "app",
+          "settings": {
+            "app": "social-sign-in"
+          }
+        },
+        "app_9Pwy3G": {
+          "type": "app",
+          "settings": {
+            "app": "product-description-accordion"
+          }
+        }
+      },
+      "block_order": [
+        "app_itbNBe",
+        "app_4AFgh7",
+        "app_dYJfpr",
+        "app_nnenti",
+        "app_EQygM6",
+        "app_yaimEN",
+        "app_9Pwy3G"
+      ],
+      "settings": {
+        "section_padding_top_m": 36,
+        "section_padding_bottom_m": 0,
+        "section_padding_top_t": 56,
+        "section_padding_bottom_t": 32,
+        "section_padding_top_d": 112,
+        "section_padding_bottom_d": 148,
+        "heading": "<p>Find the <strong>best app<\/strong> for your Shopify store <strong>tailored<\/strong><\/p>",
+        "description": "",
+        "background": "shopify:\/\/shop_images\/hero-bg.png",
+        "image": "shopify:\/\/shop_images\/img_ff6fc36f-6f30-4352-a37f-c89967ebba0c.png",
+        "dynemic_collections": [
+          "marketing-and-conversion-cart-recovery-abandoned-cart",
+          "store-management-privacy-and-security-age-verifier",
+          "store-management-operations-bulk-editor",
+          "marketing-and-conversion-cart-modification-cart-modification",
+          "selling-products-digital-products"
+        ]
+      }
+    },
+    "popular_categories_zBJ6BA": {
+      "type": "popular-categories",
+      "blocks": {
+        "category_YBKJag": {
+          "type": "category",
+          "settings": {
+            "collection": "store-design"
+          }
+        },
+        "category_CDP7KX": {
+          "type": "category",
+          "settings": {
+            "collection": "orders-and-shipping"
+          }
+        },
+        "category_CKT8Dq": {
+          "type": "category",
+          "settings": {
+            "collection": "marketing-and-conversion"
+          }
+        }
+      },
+      "block_order": [
+        "category_YBKJag",
+        "category_CDP7KX",
+        "category_CKT8Dq"
+      ],
+      "settings": {
+        "section_padding_top_m": 48,
+        "section_padding_bottom_m": 68,
+        "section_padding_top_t": 0,
+        "section_padding_bottom_t": 128,
+        "section_padding_top_d": 0,
+        "section_padding_bottom_d": 120,
+        "heading": "Apps from popular categories"
+      }
+    },
+    "most_apps_CKCYnG": {
+      "type": "most-apps",
+      "blocks": {
+        "category_PWJQBA": {
+          "type": "category",
+          "settings": {
+            "collection": "store-design-images-and-media-3d-ar-vr"
+          }
+        },
+        "category_8jfgQU": {
+          "type": "category",
+          "settings": {
+            "collection": "marketing-and-conversion-social-trust-product-reviews"
+          }
+        },
+        "category_H7zBDk": {
+          "type": "category",
+          "settings": {
+            "collection": "marketing-and-conversion-advertising"
+          }
+        }
+      },
+      "block_order": [
+        "category_PWJQBA",
+        "category_8jfgQU",
+        "category_H7zBDk"
+      ],
+      "settings": {
+        "section_padding_top_m": 64,
+        "section_padding_bottom_m": 64,
+        "section_padding_top_t": 80,
+        "section_padding_bottom_t": 80,
+        "section_padding_top_d": 120,
+        "section_padding_bottom_d": 120,
+        "heading": "Most popular apps"
+      }
+    },
+    "articles_list_PxnpgG": {
+      "type": "articles-list",
+      "blocks": {
+        "block_CDQye7": {
+          "type": "block",
+          "settings": {
+            "article": "news\/cut-through-the-shopify-app-clutter-with-takeyour-app"
+          }
+        },
+        "block_Bfwa6k": {
+          "type": "block",
+          "settings": {
+            "article": "news\/black-friday-and-cyber-monday-2023-online-sales-results-and-stats"
+          }
+        }
+      },
+      "block_order": [
+        "block_CDQye7",
+        "block_Bfwa6k"
+      ],
+      "settings": {
+        "section_padding_top_m": 64,
+        "section_padding_bottom_m": 64,
+        "section_padding_top_t": 80,
+        "section_padding_bottom_t": 80,
+        "section_padding_top_d": 120,
+        "section_padding_bottom_d": 120,
+        "heading": "Recommended articles",
+        "blog-text": "See all articles",
+        "link": "shopify:\/\/blogs\/news",
+        "layout": "dark",
+        "tags": false,
+        "content": false,
+        "author": false,
+        "date": true
+      }
+    },
+    "reviews_Ej7t7a": {
+      "type": "reviews",
+      "blocks": {
+        "review_ytxxHy": {
+          "type": "review",
+          "settings": {
+            "product": "easysearch",
+            "content": "App is great - support is even better!  The app works wonderfully and is very simple to set up. The app and company really shine when it comes to their support offered, ensuring everything runs smoothly and quick to help in times of need. 5 stars!",
+            "author": "RV SnapPad",
+            "date": "January 22, 2024",
+            "rate": 5
+          }
+        },
+        "review_GRLewF": {
+          "type": "review",
+          "settings": {
+            "product": "product-description-accordion",
+            "content": "Outstanding service. We had an issue which may have been of our own making which was solved within minutes. I spent 3 days trying to find the problem, they sorted it in minutes despite being late on Friday night.  App now works perfectly, is very simple to use but makes a real difference to tidying up the product pages by using Accordions. Very flexible, very cost effective and highly recommended.",
+            "author": "1stMobile.UK",
+            "date": "January 13, 2024",
+            "rate": 5
+          }
+        },
+        "review_yKep9a": {
+          "type": "review",
+          "settings": {
+            "product": "easy-stock",
+            "content": "Does what is says. Rarely did i need support over the years. It’s a good app. But when i needed one, they acted on my request in lightning speed. Even on christmas eve!",
+            "author": "Kueh Lapis By Mom",
+            "date": "December 24, 2023",
+            "rate": 5
+          }
+        },
+        "review_pTT8nt": {
+          "type": "review",
+          "settings": {
+            "product": "404-fix-broken-links",
+            "content": "User-friendly and intuitive app that does everything I need it to do. Excellent support team!",
+            "author": "The Timeless Watches",
+            "date": "February 1, 2024",
+            "rate": 5
+          }
+        },
+        "review_QCxQjm": {
+          "type": "review",
+          "settings": {
+            "product": "product-description-tabs",
+            "content": "We had an issue with some tabs not showing up. Karina did a great job in assisting on the activation with prompt responses while explaining clearly how it was due to app version and its relation to themes. We've been using this app for almost 2 years with hardly any issues so we're glad it continues to serve us well and such excellent service continues to be rendered!",
+            "author": "Centrum Leisure | Singapore's",
+            "date": "December 29, 2023",
+            "rate": 5
+          }
+        },
+        "review_XcdE7A": {
+          "type": "review",
+          "settings": {
+            "product": "easywholesale-wholesale-bulk-orders",
+            "content": "We received response the next day for our design issues, and everything was resolved in days. The app works as expected. If you end up adding order minimum restrictions at cart anytime we will be over the moon. Thank you guys!",
+            "author": "tea.o.graphy wholesale",
+            "date": "February 3, 2024",
+            "rate": 5
+          }
+        }
+      },
+      "block_order": [
+        "review_ytxxHy",
+        "review_GRLewF",
+        "review_yKep9a",
+        "review_pTT8nt",
+        "review_QCxQjm",
+        "review_XcdE7A"
+      ],
+      "disabled": true,
+      "settings": {
+        "section_padding_top_m": 64,
+        "section_padding_bottom_m": 64,
+        "section_padding_top_t": 80,
+        "section_padding_bottom_t": 80,
+        "section_padding_top_d": 110,
+        "section_padding_bottom_d": 120,
+        "heading": "Recent reviews",
+        "link": "shopify:\/\/collections",
+        "link-text": "Browse apps"
+      }
+    },
+    "faq_9C8y9L": {
+      "type": "faq",
+      "blocks": {
+        "faq_3dTf3X": {
+          "type": "faq",
+          "settings": {
+            "question": "How is Pickyourapp.com works?",
+            "answer": "<p><a href=\"https:\/\/takeyour.app\/\" title=\"https:\/\/pickyourapp.com\">Pickyourapp.com<\/a> carefully collects and gathers all Shopify apps into collections for convenient usage. Check out our unbiased apps reviews  to find the best solution for your needs<\/p>"
+          }
+        },
+        "faq_eAYhBg": {
+          "type": "faq",
+          "settings": {
+            "question": "Can I post an app on the Pickyourapp.com?",
+            "answer": "<p>Sure! Reach us via<a href=\"https:\/\/pickyourapp.com\/pages\/contact-us\" title=\"https:\/\/pickyourapp.com\/pages\/contact-us\"> Contact form<\/a> with your app details and we'll add it to the listing.<\/p>"
+          }
+        },
+        "faq_K4BxM4": {
+          "type": "faq",
+          "settings": {
+            "question": "Does app listing is free?",
+            "answer": "<p>Yes, your app can be listed on the Pickyourapp.com for free. <\/p><p>Anyway, you can book premium placement in the listing and search results. <a href=\"https:\/\/pickyourapp.com\/pages\/contact-us\" title=\"https:\/\/pickyourapp.com\/pages\/contact-us\">Contact us<\/a> for details.<\/p>"
+          }
+        }
+      },
+      "block_order": [
+        "faq_3dTf3X",
+        "faq_eAYhBg",
+        "faq_K4BxM4"
+      ],
+      "settings": {
+        "section_padding_top_m": 64,
+        "section_padding_bottom_m": 64,
+        "section_padding_top_t": 80,
+        "section_padding_bottom_t": 80,
+        "section_padding_top_d": 120,
+        "section_padding_bottom_d": 120,
+        "heading": "FAQ"
+      }
+    },
+    "changelog_xkUjmy": {
+      "type": "changelog",
+      "blocks": {
+        "changelog_Pz9PW3": {
+          "type": "changelog",
+          "settings": {
+            "product": "osync-export-orders-to-sheets",
+            "date": "27, January",
+            "content": "<p>Launching the OSync! The app to Export Orders to Google Spreadsheets.<\/p>"
+          }
+        },
+        "changelog_9EjQWw": {
+          "type": "changelog",
+          "settings": {
+            "product": "404-fix-broken-links",
+            "date": "26, January",
+            "content": "<p>Launching the Doc 404 app. The app to Fix Broken Links & 404 Pages<\/p>"
+          }
+        },
+        "changelog_4Q3wMJ": {
+          "type": "changelog",
+          "settings": {
+            "product": "easy-stock",
+            "date": "12, January",
+            "content": "<p>EasyStock - Custom badges have arrived! We are happy to announce that the <a href=\"https:\/\/apps.shopify.com\/easy-stock\" target=\"_blank\" title=\"https:\/\/apps.shopify.com\/easy-stock\">EasyStock <\/a>app now has Custom Badges, which could be assigned to the exact product or whole product collection regardless of inventory availability.<\/p>"
+          }
+        }
+      },
+      "block_order": [
+        "changelog_Pz9PW3",
+        "changelog_9EjQWw",
+        "changelog_4Q3wMJ"
+      ],
+      "disabled": true,
+      "settings": {
+        "section_padding_top_m": 0,
+        "section_padding_bottom_m": 0,
+        "section_padding_top_t": 0,
+        "section_padding_bottom_t": 0,
+        "section_padding_top_d": 0,
+        "section_padding_bottom_d": 0,
+        "heading": "What’s New?"
+      }
+    },
+    "5ddd8795-3333-4fbe-ab26-53a2bfda91cf": {
+      "type": "navigation",
+      "settings": {
+        "menu": "section-navigation",
+        "layout": "accent"
+      }
+    }
+  },
+  "order": [
+    "hamepage_main_section_e3iWkV",
+    "popular_categories_zBJ6BA",
+    "most_apps_CKCYnG",
+    "articles_list_PxnpgG",
+    "reviews_Ej7t7a",
+    "faq_9C8y9L",
+    "changelog_xkUjmy",
+    "5ddd8795-3333-4fbe-ab26-53a2bfda91cf"
+  ]
+}

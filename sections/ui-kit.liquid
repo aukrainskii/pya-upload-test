@@ -1,0 +1,291 @@
+{% liquid
+  render 'sec-heading'
+  render 'sec-description'
+%}
+
+{% capture checkboxes %}
+  <fieldset class="ui-kit-elements-wrap ui-kit-elements-wrap--short">
+    <legend>kit checkboxes</legend>
+    {% render 'checkbox', label: 'checkbox' %}
+    {% render 'checkbox', label: 'checkbox with very-very and very-very long label' %}
+    {% render 'checkbox', label: 'withveryverylonglabelwithoutspacingsbetweenwords' %}
+    {% render 'checkbox', label: 'with value', value: 'same-value' %}
+    {% render 'checkbox', label: 'checked', checked: true %}
+    {% render 'checkbox', label: 'disabled', disabled: true %}
+    {% render 'checkbox', label: 'checked & disabled', checked: true, disabled: true %}
+  </fieldset>
+{% endcapture %}
+
+{% capture radiobuttons %}
+  <fieldset class="ui-kit-elements-wrap ui-kit-elements-wrap--short">
+    <legend>kit radio buttons</legend>
+    {% render 'radio', label: 'radio' %}
+    {% render 'radio', label: 'radio with very-very and very-very long label' %}
+    {% render 'radio', label: 'withveryverylonglabelwithoutspacingsbetweenwords' %}
+    {% render 'radio', label: 'with value', value: 'same-value' %}
+    {% render 'radio', label: 'checked', checked: true %}
+    {% render 'radio', label: 'disabled', disabled: true %}
+    {% render 'radio', label: 'checked & disabled', checked: true, disabled: true, name: 'disabled-name' %}
+  </fieldset>
+{% endcapture %}
+
+{% capture buttons %}
+  <fieldset class="ui-kit-elements-wrap">
+    <legend>kit buttons</legend>
+    {% render 'button', text: 'base' %}
+    {% render 'button', text: 'base disabled', disabled: true %}
+    
+    {% render 'button', class: 'button--primary', text: 'primary' %}
+    {% render 'button', class: 'button--primary', text: 'primary disabled', disabled: true %}
+    
+    {% render 'button', class: 'button--accent', text: 'accent' %}
+    {% render 'button', class: 'button--accent', text: 'accent disabled', disabled: true %}
+
+    {% render 'button', class: 'button--primary', text: 'primary submit', type: 'submit' %}
+
+    {% render 'button', text: 'link', tag: 'link' %}
+    {% render 'button', text: 'link disabled', disabled: true, tag: 'link' %}
+
+    {% render 'button', class: 'button--primary', text: 'link primary', tag: 'link' %}
+    {% render 'button', class: 'button--primary', text: 'link primary disabled', disabled: true, tag: 'link' %}
+
+    {% capture icon_account %}
+      {% render 'icon-account' %}
+    {% endcapture %}
+    {% render 'button', text: 'with icon', icon: icon_account %}
+    {% render 'button', class: 'button--primary', text: 'icon after', icon: icon_account, icon_position: 'after', disabled: true %}
+    {% render 'button', class: 'button--accent', text: 'link with icon', icon: icon_account %}
+  </fieldset>
+{% endcapture %}
+
+{% capture special_arrow %}
+  {% render 'icon-account' %}
+{% endcapture %}
+
+{%- capture selects -%}
+<fieldset class="ui-kit-elements-wrap">
+  <legend>kit selects</legend>
+  {% render 'select' %}
+  {% render 'select', multiple: true %}
+  {% render 'select', disabled: true %}
+  {% render 'select', multiple: true, disabled: true, size: 8 %}
+  {% render 'select', icon: special_arrow %}
+</fieldset>
+{% endcapture %}
+
+{%- capture textareas -%}
+<fieldset class="ui-kit-elements-wrap">
+  <legend>kit textareas</legend>
+  {% render 'textarea', placeholder: ' ' %}
+  {% render 'textarea', disabled: true, content: 'disabled' %}
+  {% render 'textarea', readonly: true, content: 'readonly' %}
+</fieldset>
+{% endcapture %}
+
+{%- capture font_sizes -%}
+  <h1><strong>H1 Tag</strong> without classes = XXL Size Font</h1>
+  <div class="fontsize-xxl">XXL Size Font – Lorem, ipsum dolor sit amet consectetur adipisicing elit.</div>
+  <h2><strong>H2 Tag</strong> without classes = XL Size Font</h2>
+  <div class="fontsize-xl">XL Size Font – Iste velit quidem dignissimos? Nihil adipisci ratione aut, dolore possimus libero optio officia dicta nobis id!</div>
+  <h3><strong>H3 Tag</strong> without classes = L Size Font</h3>
+  <div class="fontsize-l">L Size Font – Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum aliquid eos officia facere molestias exercitationem quaerat rem possimus, eligendi earum doloribus, laudantium veniam quod neque reprehenderit, totam ut! Nulla dicta repellendus qui.</div>
+  <h4><strong>H4 Tag</strong> without classes = M Size Font</h4>
+  <p><strong>P Tag</strong> without classes = M – Size Font – Ut exercitationem voluptates, dignissimos est ipsa repudiandae. Distinctio nesciunt magni rem mollitia similique necessitatibus, at placeat quaerat sunt nobis recusandae exercitationem corrupti ducimus enim inventore?</p>
+  <div class="fontsize-m">M Size Font – Asperiores, nisi recusandae amet aut dolor corrupti ex molestias aperiam dignissimos illo repellendus ipsa excepturi ipsum, mollitia dolore optio ullam vel, sunt nobis! Ut exercitationem voluptates, dignissimos est ipsa repudiandae. Distinctio nesciunt magni rem mollitia similique necessitatibus, at placeat quaerat sunt nobis recusandae exercitationem corrupti ducimus enim inventore?</div>
+  <h5><strong>H5 Tag</strong> without classes = S Size Font</h5>
+  <div class="fontsize-s">S Size Font – Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum adipisci at laudantium sint autem quis aspernatur, deleniti iusto alias itaque aliquid labore neque sapiente qui perferendis aut natus dolores impedit cum nam.</div>
+  <h6><strong>H6 Tag</strong> without classes = XS Size Font</h6>
+  <div class="fontsize-xs">XS Size Font – Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolores recusandae numquam vitae. Iste aspernatur repellendus, quaerat voluptas iure sed? Provident ut dolore dolorem esse error dolorum minus! Explicabo repudiandae fugiat placeat, perspiciatis, et repellat quo amet harum quas delectus voluptatem?</div>
+  <div class="fontsize-xxs">XXS Size Font – Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequuntur vero delectus explicabo cumque. Cum sint asperiores debitis! Quos quo a incidunt reiciendis. Quod sint repellat corrupti, praesentium nobis corporis veritatis accusamus, ullam illo minima dicta dolorem unde facilis, doloremque eos.</div>
+{% endcapture %}
+
+{%- capture text_inputs -%}
+<fieldset class="ui-kit-elements-wrap">
+  <legend>kit text inputs</legend>
+  {% render 'text-input' %}
+  {% render 'text-input', type: 'password', required: true %}
+  {% render 'text-input', type: 'email', required: true %}
+  {% render 'text-input', type: 'radio' %}
+</fieldset>
+{% endcapture %}
+
+{%- capture links -%}
+<fieldset class="ui-kit-elements-wrap">
+  <legend>kit links</legend>
+  <a href="#rand-{{ "now" | date: "%N" }}">link</a>
+  <a href="#rand-{{ "now" | date: "%N" }}" class="link">with class .link</a>
+  <a href="/">visited link</a>
+  <a>link without href</a>
+  <a class="link">link with class .link and without href</a>
+  <a  href="/" class="link link--unvisited">alweys unvisited</a>
+
+</fieldset>
+{% endcapture %}
+
+{% capture details %}
+  <h3>details snippet</h3>
+  {% capture details_content %}
+    content from special capture
+  {% endcapture %} 
+  {% render 'details' %}
+  {% render 'details', details__content: details_content, icon: special_arrow %}
+{% endcapture %}
+
+{% capture table %}
+<h3>table snippet</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Lorem ipsum dolor sit amet.</th>
+        <th>Expedita officia quo praesentium quae.</th>
+        <th>Maxime voluptas iure qui ad.</th>
+        <th>Quae minus sint quo eligendi.</th>
+        <th>Similique autem ipsum molestias amet.</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugiat dolor modi laborum.</td>
+        <td>Minus, veritatis. Nesciunt facilis veritatis fuga! Omnis voluptatibus magni dignissimos assumenda magnam.</td>
+        <td>Voluptates inventore nobis culpa non tempore maiores possimus quasi veritatis ipsam exercitationem.</td>
+        <td>Molestiae temporibus qui quis est id natus repellat delectus deleniti assumenda ducimus.</td>
+        <td>Autem saepe nemo eveniet et tenetur beatae! Placeat unde tempore incidunt doloribus!</td>
+      </tr>
+    </tbody>
+  
+  </table>
+
+  <table class="table-bordered">
+    <thead>
+      <tr>
+        <th>Lorem ipsum dolor sit amet.</th>
+        <th>Expedita officia quo praesentium quae.</th>
+        <th>Maxime voluptas iure qui ad.</th>
+        <th>Quae minus sint quo eligendi.</th>
+        <th>Similique autem ipsum molestias amet.</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugiat dolor modi laborum.</td>
+        <td>Minus, veritatis. Nesciunt facilis veritatis fuga! Omnis voluptatibus magni dignissimos assumenda magnam.</td>
+        <td>Voluptates inventore nobis culpa non tempore maiores possimus quasi veritatis ipsam exercitationem.</td>
+        <td>Molestiae temporibus qui quis est id natus repellat delectus deleniti assumenda ducimus.</td>
+        <td>Autem saepe nemo eveniet et tenetur beatae! Placeat unde tempore incidunt doloribus!</td>
+      </tr>
+    </tbody>
+  
+  </table>
+{% endcapture %}
+
+{%- capture section_content -%}
+  <div class="section__content section__content--with-gap">
+    {{ font_sizes }}
+  </div>
+
+  <h2> Fonts with M-size viewport emulation </h2>
+  <div class="section__content section__content--with-gap emulate-viewport-m">
+    {{ font_sizes }}
+  </div>
+
+  <h2> Fonts with XS-size viewport emulation </h2>
+  <div class="section__content section__content--with-gap emulate-viewport-xs">
+    {{ font_sizes }}
+  </div>
+
+  <div class="section__content">
+    {{ textareas }}
+    {{ selects }}
+    {{ checkboxes }}
+    {{ radiobuttons }}
+    {{ buttons }}
+    {{ text_inputs }}
+    {{ links }}
+
+    {{ details }}
+    {{ table }}
+
+    <div class="reversed">
+      {{ checkboxes }}
+      {{ radiobuttons }}
+      {{ buttons }}
+    </div>
+  </div>
+{%- endcapture -%}
+
+{{ section_content }}
+
+
+
+
+{% schema %}
+{
+  "name": "Ui kit",
+  "class": "section section-ui-kit",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_heading",
+      "default": true,
+      "label": "Show heading"
+    },
+    {
+      "type": "richtext",
+      "id": "heading",
+      "default": "<p>Ui kit <em>Heading</em></p>",
+      "label": "Add heading text"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "options": [
+        {
+          "value": "m",
+          "label": "m"
+        },
+        {
+          "value": "l",
+          "label": "l"
+        },
+        {
+          "value": "xl",
+          "label": "xl"
+        },
+        {
+          "value": "xxl",
+          "label": "xxl"
+        }
+      ],
+      "default": "xl",
+      "label": "Heading size"
+    },
+    {
+      "type": "select",
+      "id": "heading_alignment",
+      "label": "Heading alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "left"
+        },
+        {
+          "value": "center",
+          "label": "center"
+        },
+        {
+          "value": "right",
+          "label": "right"
+        }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "<p>Ui kit Description</p>"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,20 @@
+{
+  "sections": {
+    "main_contact_us_TP6z6g": {
+      "type": "main-contact-us",
+      "settings": {
+        "section_padding_top_m": 36,
+        "section_padding_bottom_m": 64,
+        "section_padding_top_t": 48,
+        "section_padding_bottom_t": 80,
+        "section_padding_top_d": 0,
+        "section_padding_bottom_d": 120,
+        "sec_heading": "Contact Us",
+        "sec_description": ""
+      }
+    }
+  },
+  "order": [
+    "main_contact_us_TP6z6g"
+  ]
+}

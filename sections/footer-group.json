@@ -1,0 +1,23 @@
+{
+  "type": "footer",
+  "name": "Footer group",
+  "sections": {
+    "comparison-panel": {
+      "type": "comparison-panel",
+      "settings": {
+      }
+    },
+    "footer": {
+      "type": "footer",
+      "settings": {
+        "logo": "shopify:\/\/shop_images\/logo_2x_bf9eac00-8e04-46dd-8220-9ca9b2021958.png",
+        "menu": "footer",
+        "menu_2": "footer-menu"
+      }
+    }
+  },
+  "order": [
+    "comparison-panel",
+    "footer"
+  ]
+}

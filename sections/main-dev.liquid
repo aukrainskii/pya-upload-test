@@ -1,0 +1,281 @@
+{% liquid
+    assign raiting = page.metafields.appstore.rating.value | abs
+    assign raiting_c = raiting | round
+    assign number_of_apps = page.metafields.appstore.number_of_apps.value
+    assign experience = page.metafields.appstore.experience.value
+
+    assign apps = page.metafields.appstore.apps.value
+
+    assign website_text_handle = "page.website" | t | handleize
+    assign website = page.metafields.appstore.website.value
+    
+    assign facebook_handle = "page.facebook" | t | handleize
+    assign facebook = page.metafields.appstore.facebook.value
+    
+    assign instagram_handle = "page.instagram" | t | handleize
+    assign instagram = page.metafields.appstore.instagram.value
+
+    assign phone_number = page.metafields.appstore.phone_number.value 
+    assign email = page.metafields.appstore.email.value
+
+    assign page_title_handle = page.title | handleize
+    assign page_text_handle =  "page.shopify_store" | t | handleize
+    assign shopify_page = page.metafields.appstore.page_on_shopify.value
+    
+    assign socials = section.blocks | where: "type", "social"
+    assign socials_bottom = section.blocks | where: "type", "social_bottom"
+    assign shopify_btns = section.blocks | where: "type", "shopify"
+
+    assign logo = page.metafields.appstore.logo.value
+
+    for product in apps
+        if product.metafields.appstore.support_email.value != blank and email == blank
+            assign email = product.metafields.appstore.support_email.value
+        endif
+
+        if product.metafields.appstore.support_phone.value != blank and email == blank
+            assign phone_number = product.metafields.appstore.support_phone.value
+        endif
+    endfor
+%}
+
+{% style %}
+    #shopify-section-{{ section.id }} {
+		padding-top: {{ section.settings.section_padding_top_m }}px;
+		padding-bottom: {{ section.settings.section_padding_bottom_m }}px;
+	}
+
+    @media screen and (min-width: 600px) {
+        #shopify-section-{{ section.id }} {
+            padding-top: {{ section.settings.section_padding_top_t }}px;
+            padding-bottom: {{ section.settings.section_padding_bottom_t }}px;
+        }
+    }
+
+    @media screen and (min-width: 1240px) {
+        #shopify-section-{{ section.id }} {
+            padding-top: {{ section.settings.section_padding_top_d }}px;
+            padding-bottom: {{ section.settings.section_padding_bottom_d }}px;
+        }
+    }
+{% endstyle %}
+
+{% render 'breadcrumbs' %}
+<div class="container">
+    <div class="main-dev">
+        {% render 'sec-heading-1', align: "left", sec_heading: page.title %}
+
+        <ul class="main-dev__info">
+            <li class="">
+                <p>{{ "page.experience" | t }}</p>
+                <div>{{ experience }}</div>
+            </li>
+
+            <li class="">
+                <p>{{ "page.developed" | t }}</p>
+                <div>{{ number_of_apps }} {{ "accessibility.apps" | t }}</div>
+            </li>
+
+            <li class="">
+                {{ "page.raiting_text_html" | t }}
+                <div>
+                {{ raiting }} 
+                {% for i in (1..5) %}
+                    <span class="review-star-icon {% if i > raiting_c %}review-star-icon--empty{% endif %}">
+                        {{ settings.star-icon }}
+                    </span>
+                {% endfor %}
+                </div>
+            </li>
+        </ul>
+
+        {% if socials != blank %}
+            <div class="main-dev__social">
+                <p>{{ "page.contact_us" | t }}</p>
+                {% if website != blank %}
+                    <a href="{{ website | append: "?utm_medium=referral&utm_source=takeyourapp" | append: "&utm_campaign=" | append: page_title_handle | append: "&utm_content=" | append: website_text_handle }}" class="no-underline" target="blank" rel="nofollow">{{ "page.website" | t }}</a>
+                {% endif %}
+                {% if facebook != blank %}
+                    <a href="{{ facebook | append: "?utm_medium=referral&utm_source=takeyourapp" | append: "&utm_campaign=" | append: page_title_handle | append: "&utm_content=" | append: facebook_handle }}" class="no-underline" target="blank" rel="nofollow">{{ "page.facebook" | t }}</a>
+                {% endif %}
+                {% if instagram != blank %}
+                    <a href="{{ instagram  | append: "?utm_medium=referral&utm_source=takeyourapp" | append: "&utm_campaign=" | append: page_title_handle | append: "&utm_content=" | append: instagram_handle }}" class="no-underline" target="blank" rel="nofollow">{{ "page.instagram" | t }}</a>
+                {% endif %}
+                <div class="main-dev__social-bottom">
+                    {% if phone_number != blank %}
+                        <a href="tel:{{ phone_number }}" class="no-underline" target="blank" rel="nofollow">{{ phone_number }}</a>
+                    {% endif %}
+                    {% if email != blank %}
+                        <a href="mailto:{{- email -}}" class="no-underline" target="blank" rel="nofollow">{{ email }}</a>
+                    {% endif %}
+                </div>
+            </div>
+        {% endif %}
+
+        <div class="main-dev__links">
+            {% if shopify_page != blank %}
+                <a href="{{ shopify_page | append: "?utm_medium=referral&utm_source=takeyourapp" | append: "&utm_campaign=" | append: page_title_handle | append: "&utm_content=" | append: page_text_handle }}" class="main-dev__link-store link-to link-to--circle" target="blank" rel="nofollow">{{ "page.shopify_store" | t }}{% render 'icon-arrow' %}</a>
+            {% endif %}
+            {% if page.content != blank %}
+                {% assign read_more_about = "page.read_more_about" | t | append: page.title %}
+                {% render 'linkTo' | text: read_more_about , link: "#about", id: "link_to_about"  %}
+            {% endif %}
+        </div>
+    </div>
+    {% if logo != blank %}
+        <div class="main-dev-image">
+            {%- capture sizes -%}(min-width: 992px) 600px, (min-width: 580px) 720px, (min-width: 440px) 500px, 360px{%- endcapture -%}
+            {{ logo | image_url: width: 1440 | image_tag:
+                width: 350,
+                height: 205,
+                loading: 'lazy',
+                sizes: sizes,
+                widths: '360, 500, 600, 720, 1000, 1200, 1440',
+                alt: logo.alt
+            }}
+        </div>
+    {% endif %}
+</div>
+{% schema %}
+{
+    "name": "Main DevPage",
+    "class": "section section-main-dev",
+    "tag": "section",
+    "presets": [
+        {
+            "name": "Main DevPage"
+        }
+    ],
+    "settings": [
+        {
+            "type": "range",
+            "id": "section_padding_top_m",
+            "label": "Section Padding Top (mobile)",
+            "min": 0,
+            "max": 200,
+            "step": 2,
+            "default": 0,
+            "unit": "px"
+        },
+        {
+            "type": "range",
+            "id": "section_padding_bottom_m",
+            "label": "Section Padding Bottom (mobile)",
+            "min": 0,
+            "max": 200,
+            "step": 2,
+            "default": 0,
+            "unit": "px"
+        },
+            {
+            "type": "range",
+            "id": "section_padding_top_t",
+            "label": "Section Padding Top (tablet)",
+            "min": 0,
+            "max": 200,
+            "step": 2,
+            "default": 0,
+            "unit": "px"
+        },
+        {
+            "type": "range",
+            "id": "section_padding_bottom_t",
+            "label": "Section Padding Bottom (tablet)",
+            "min": 0,
+            "max": 200,
+            "step": 2,
+            "default": 0,
+            "unit": "px"
+        },
+            {
+            "type": "range",
+            "id": "section_padding_top_d",
+            "label": "Section Padding Top (desktop)",
+            "min": 0,
+            "max": 200,
+            "step": 2,
+            "default": 0,
+            "unit": "px"
+        },
+        {
+            "type": "range",
+            "id": "section_padding_bottom_d",
+            "label": "Section Padding Bottom (desktop)",
+            "min": 0,
+            "max": 200,
+            "step": 2,
+            "default": 0,
+            "unit": "px"
+        },
+        {
+            "type": "text",
+            "id": "heading",
+            "label": "Title",
+            "default": "About"
+        }
+    ],
+    "blocks": [
+        {
+            "type": "social",
+            "name": "Social",
+            "settings": [
+                {
+                    "type": "text",
+                    "id": "label",
+                    "label": "Link Label"
+                },
+                {
+                    "type": "url",
+                    "id": "link",
+                    "label": "Link"
+                }
+            ]
+        },
+        {
+            "type": "shopify",
+            "name": "Shopify Link",
+            "limit": 1,
+            "settings": [
+                {
+                    "type": "text",
+                    "id": "label",
+                    "label": "Link Label"
+                },
+                {
+                    "type": "url",
+                    "id": "link",
+                    "label": "Link"
+                }
+            ]
+        },
+        {
+            "type": "social_bottom",
+            "name": "Phone Number or Email",
+            "settings": [
+                {
+                    "type": "text",
+                    "id": "label",
+                    "label": "Link Label"
+                },
+                {
+                    "type": "url",
+                    "id": "link",
+                    "label": "Link"
+                }
+            ]
+        },
+        {
+            "type": "image",
+            "name": "Dev Image",
+            "limit": 1,
+            "settings": [
+                {
+                    "type": "image_picker",
+                    "id": "image",
+                    "label": "Developer Logo"
+                }
+            ]
+        }
+    ]
+}
+{% endschema %}

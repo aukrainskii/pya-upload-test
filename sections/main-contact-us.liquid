@@ -1,0 +1,239 @@
+{% style %}
+    #shopify-section-{{ section.id }} {
+		padding-top: {{ section.settings.section_padding_top_m }}px;
+		padding-bottom: {{ section.settings.section_padding_bottom_m }}px;
+	}
+
+    @media screen and (min-width: 600px) {
+        #shopify-section-{{ section.id }} {
+            padding-top: {{ section.settings.section_padding_top_t }}px;
+            padding-bottom: {{ section.settings.section_padding_bottom_t }}px;
+        }
+    }
+
+    @media screen and (min-width: 1240px) {
+        #shopify-section-{{ section.id }} {
+            padding-top: {{ section.settings.section_padding_top_d }}px;
+            padding-bottom: {{ section.settings.section_padding_bottom_d }}px;
+        }
+    }
+{% endstyle %}
+
+{% render 'breadcrumbs' %}
+{% assign question_blocks = section.blocks | where: "type", "question" %}
+
+<div class="container contact-us">
+    <div class="contact-us__left">
+        {% render 'sec-heading-1', align: "left", sec_heading: page.title %}
+        {% render 'sec-description', sec_description: page.content %}
+
+        {% form 'contact', class: 'contact-us__form' %}
+            {%- if form.posted_successfully? -%}
+                <h2 class="contact-us__status" tabindex="-1" autofocus>
+                  {% render 'icon-success' %}
+                  Thanks for contacting us. We'll get back to you as soon as possible.
+                </h2>
+              {%- elsif form.errors -%}
+                <div class="contact-us__message">
+                  <h2 class="contact-us__status" role="alert" tabindex="-1" autofocus>
+                    {% render 'icon-error' %}
+                    Please adjust the following:
+                  </h2>
+                </div>
+                <ul class="contact-us__status-list" role="list">
+                  <li>
+                    <a href="#ContactForm-email" class="contact-us__link">
+                      {{ form.errors.translated_fields.email | capitalize }}
+                      {{ form.errors.messages.email }}
+                    </a>
+                  </li>
+                </ul>
+              {%- endif -%}
+        
+            <label class="contact-us__label" for="ContactForm-name">
+                Name
+                <input placeholder="Name" class="contact-us__input" autocomplete="name" type="text" id="ContactForm-name" name="contact[name]" value="{% if form.name %}{{ form.name }}{% elsif customer %}{{ customer.name }}{% endif %}">
+            </label>
+
+
+            <label class="contact-us__label" for="ContactForm-email">
+                Email <span class="contact-us__required">*</span>
+                <input
+                    placeholder="Address" 
+                    autocomplete="email"
+                    type="email"
+                    id="ContactForm-email"
+                    class="contact-us__input"
+                    name="contact[email]"
+                    spellcheck="false"
+                    autocapitalize="off"
+                    value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}"
+                    {% if form.errors contains 'email' %}
+                      aria-invalid="true"
+                      aria-describedby="ContactForm-email-error"
+                    {% endif %}
+                  >      
+                  
+                {%- if form.errors contains 'email' -%}
+                    <small class="contact-us__field-error" id="ContactForm-email-error">
+                      <span class="contact-us__message">
+                        {%- render 'icon-error' -%}
+                        {{- form.errors.translated_fields.email | capitalize }}
+                        {{ form.errors.messages.email -}}
+                      </span>
+                    </small>
+                  {%- endif -%}
+        
+            </label>
+            
+            <label class="contact-us__label" for="ContactForm-body">
+                Message
+                <textarea
+                    rows="6"
+                    id="ContactForm-body"
+                    class="text-area field__input"
+                    name="contact[body]"
+                    placeholder="Type your message here" 
+                >
+                {{- form.body -}}
+                </textarea>
+            </label>
+
+            <button type="submit" class="contact-us__button">
+                Submit
+            </button>
+        {% endform %}
+    </div>
+
+    <div class="contact-us__right">
+        {% if question_blocks.size == 0 %}
+            <div class="contact-us__image">
+                <img
+                    src="{{ 'contact-us-empty.png' | asset_img_url: '1400x' }}" 
+                    alt="Background" 
+                    srcset="{{ 'contact-us-empty.png' | asset_img_url: '700x' }} 1x,
+                            {{ 'contact-us-empty.png' | asset_img_url: '1400x' }} 2x"
+                    width="700" 
+                    height="560" 
+                    loading="lazy">
+            
+            </div>
+        {% else %}
+            {% for block in question_blocks %}
+                {% capture question_icon %}
+                    <div class="contact-us__details-icon">
+
+                    </div>
+                {% endcapture %}
+                {% render 'details', summary_heading: block.settings.block_heading, details_content: block.settings.block_description, icon: question_icon %}
+            {% endfor %}
+        {% endif %}
+    </div>
+</div>
+
+{% schema %}
+{
+"name": "Main Contact Us",
+"class": "section section-contact-us",
+"tag": "section",
+"presets": [
+    {
+        "name": "Main Contact Us"
+    }
+],
+"settings": [
+    {
+      "type": "range",
+      "id": "section_padding_top_m",
+      "label": "Section Padding Top (mobile)",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "default": 0,
+      "unit": "px"
+  },
+  {
+      "type": "range",
+      "id": "section_padding_bottom_m",
+      "label": "Section Padding Bottom (mobile)",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "default": 0,
+      "unit": "px"
+  },
+      {
+      "type": "range",
+      "id": "section_padding_top_t",
+      "label": "Section Padding Top (tablet)",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "default": 0,
+      "unit": "px"
+  },
+  {
+      "type": "range",
+      "id": "section_padding_bottom_t",
+      "label": "Section Padding Bottom (tablet)",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "default": 0,
+      "unit": "px"
+  },
+      {
+      "type": "range",
+      "id": "section_padding_top_d",
+      "label": "Section Padding Top (desktop)",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "default": 0,
+      "unit": "px"
+  },
+  {
+      "type": "range",
+      "id": "section_padding_bottom_d",
+      "label": "Section Padding Bottom (desktop)",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "default": 0,
+      "unit": "px"
+  },
+    {
+        "type": "text",
+        "id": "sec_heading",
+        "label": "Section Title",
+        "default": "Contact Us"
+    },
+    {
+        "type": "richtext",
+        "id": "sec_description",
+        "label": "Section Description",
+        "default": "<p>We're thrilled to hear from you! Whether you have a question about our services, need assistance, or just want to say hi, we're here to help.</p>"
+    }
+],
+"blocks":[
+    {
+        "type": "question",
+        "name": "Popular question",
+        "settings": [
+            {
+                "type": "text",
+                "id": "block_heading",
+                "label": "Block Title",
+                "default": "Question"
+            },
+            {
+                "type": "richtext",
+                "id": "block_description",
+                "label": "Block Description",
+                "default": "<p>Answer</p>"
+            }
+        ]
+    }
+]
+}
+{% endschema %}

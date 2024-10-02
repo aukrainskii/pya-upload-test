@@ -1,0 +1,503 @@
+{% assign sec_id = section.id | slice: -6, 6 | replace: '-', '_' %}
+{% assign sec_id = sec_id | prepend: 'pw' %}
+
+{% capture languages %}
+  {% assign language_active = 0 %}
+  {% assign language_count = 0 %}
+  {% assign active_tag = 0 %}
+  {% for filter in collection.filters %}
+    {% if filter.param_name != "filter.p.m.appstore.only_free_plan" %}
+      {% assign active_tag = active_tag | plus: filter.active_values.size %}
+    {% endif %}
+    {% if filter.param_name ==  "filter.p.m.appstore.languages_1" or filter.param_name ==  "filter.p.m.appstore.languages" %}
+      {% assign language_active = language_active | plus: filter.active_values.size %}
+      {% assign language_count = language_count | plus: filter.values.size  %}
+      {%- for filter_value in filter.values -%}
+        <li class="{% if forloop.index <= 6 %}visible{% endif %}">
+          {% assign value = filter_value.param_name | append: "=" | append: filter_value.value | replace: " ", "+" %}
+          {% assign disabled = false %}
+          {% if filter_value.count == 0 and filter_value.active == false %}
+            {% assign disabled = true %}
+          {% endif %}
+          {% assign label = filter_value.label | append: "(" | append: filter_value.count | append: ")" %}
+          {% render 'checkbox', label: label, value: value, checked: filter_value.active, name: filter_value.param_name, disabled: disabled %}
+        </li>
+      {%- endfor -%}
+    {% endif %}
+  {% endfor %}
+{% endcapture %}
+
+{% style %}
+#shopify-section-{{ section.id }} {
+  padding-top: {{ section.settings.section_padding_top_m }}px;
+  padding-bottom: {{ section.settings.section_padding_bottom_m }}px;
+}
+@media screen and (min-width: 750px) {
+  #shopify-section-{{ section.id }} {
+  padding-top: {{ section.settings.section_padding_top_d }}px;
+  padding-bottom: {{ section.settings.section_padding_bottom_d }}px;
+  }
+}
+{% endstyle %}
+
+
+<div class="pw-collection pw-section__{{sec_id}}">
+  <div class="pw-layout">
+
+    <div class="pw-sidebar-wrapper">
+      <div class="pw-sidebar">
+        <div class="pw-sidebar-inner">
+          <ul class="pw-sidebar-menu">
+            <li>
+              <a href="/">All categories</a>
+            </li>
+            {% for collection in collections %}
+              {% if collection.metafields.appstore.parent == blank and collection.metafields.appstore.in_sidebar == true %}
+                <li class="{% if request.path contains collection.url %} current {% endif %} {% if collection.metafields.appstore.popular == true %} popular {%endif %}">
+                  <a href="{{ collection.url }}">{{ collection.title }}</a>
+                </li>
+              {% endif %}
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="pw-main-wrapper ">
+      <div class="pw-main">
+
+        {% render 'breadcrumbs' %}
+
+        <div class="pw-children-search-wrapper">
+
+          <div class="search-content">
+
+            {% assign placeholder = 'accessibility.app_search_placeholder' | t %}
+
+            <div class="">
+              {% render 'sec-heading-1' | align: 'left', class: "search-content__title" %}
+
+              {% render 'sec-description' %}
+            </div>
+            
+            {% render 'search-field' | input_name: "homepage-search" , placeholder: placeholder , search_type: "product" %}
+          </div>
+
+        </div>
+
+        <div class="main-collection">
+          {% render 'sec-heading-1', align: "left", sec_heading: collection.title %}
+          <div class="main-collection__description">
+             {{ collection.metafields.appstore.description.value }}
+          </div>
+          {% assign text_link = 'collection.read_about' | t %}
+          {% assign text_link = text_link | append: collection.title %}
+          {% if collection.description != blank %}
+              {% render 'linkTo' | text: text_link , id: "link_to_about" , link: "#about" , class: "main-collection__link" %}
+          {% endif %}
+        </div>
+
+        <div class="containe_r dev-products">
+          <div class="dev-products__grid">
+            <products-filter class="dev-products__filter filter">
+              <form class="filter-form">
+                <div class="active-filters filter">
+
+                  {% paginate collection.products by 99999 %}
+                    {% assign filter_title = "page.filter_products_html" | t : count: collection.products.size %}
+                    {% assign products_count = collection.products.size %}
+                  {% endpaginate %}
+
+                  <div class="filters-holder">
+
+                  {%- for filter in collection.filters -%}
+
+                  {% if filter.param_name !=  "filter.p.m.appstore.languages_1" and filter.param_name != "filter.p.m.appstore.only_free_plan" %}
+                    
+                    {%- case filter.type -%}
+                      {%- when 'boolean' or 'list' -%}
+                        {% if filter.param_name == "filter.p.m.appstore.rating" %}
+                          <div class="filter-item filter-item--rating">
+
+                            {% assign j_counter = 0 %}
+                            {% assign k_counter = 0 %}
+
+                            {%- for filter_value in filter.values -%}
+                              {% if filter_value.active == true %}
+                                {% assign integer_part = filter_value.value | split: "." | first %}
+                                {% assign digits = integer_part | split: "" %}
+                                {% for digit in digits %}
+                                  {% if unique_digits contains digit %}
+                                  {% else %}
+                                    {% assign unique_digits = unique_digits | append: digit %}
+                                  {% endif %}
+                                {% endfor %}
+                              {%- endif -%}
+                            {%- endfor -%}
+
+                            {% assign j_counter = unique_digits | size %}
+
+                            {% if j_counter > 1 %}
+                              {% assign k_counter = j_counter | minus: 1 %}
+                            {% endif %}
+
+                            <p class="filter-dropdown-title">{{ filter.label }} <span class="filter-dropdown-title-current"> </span>{% if j_counter > 1 %}<span>+{{k_counter}} more</span>{% endif %}</p>
+                              {% liquid 
+                              assign f_v = blank
+                              assign f_v_active = blank
+                              assign v_name = blank
+                              assign v_disabled = blank
+                              for filter_value in filter.values
+                                assign v_name = filter_value.param_name
+                                assign v_disabled = filter_value.count
+                                
+                                if f_v == blank
+                                  assign f_v = filter_value.value
+                                else
+                                  assign f_v = f_v | append: "," | append: filter_value.value
+                                endif
+
+                                if filter_value.active
+                                  if f_v_active == blank
+                                    assign f_v_active = filter_value.value
+                                  else
+                                    assign f_v_active = f_v_active | append: "," | append: filter_value.value
+                                  endif
+                                endif
+                              endfor
+                            %}
+                            <div class="filter-dropdown">
+                              <ul>
+                                {% for row in (0..5) %}
+                                  <li class="visible">
+                                  
+                                    {% capture stars %}
+                                      {{ row }}.0
+                                      <div class="filter__stars">
+                                        {% for i in (1..5) %}
+                                          <span class="review-star-icon">
+                                            {% if row < i %}
+                                              {{ settings.star-icon-empty }}
+                                            {% else %}
+                                              {{ settings.star-icon }}
+                                            {% endif %}
+                                          </span>
+                                        {% endfor %}
+                                      </div>
+                                    {% endcapture %}
+
+                                    {% liquid
+                                      assign active = false
+                                      assign disabled = true
+                                      assign d_array = f_v | split: ","
+                                      assign array = f_v_active | split: ","
+                                      assign min = row 
+                                      assign max = row | plus: 0.9
+                                      
+                                      if v_disabled == 0
+                                        assign disabled = true
+                                      endif
+
+                                      for a in array
+                                        assign a1 = a | plus: 0.0
+                                        if  a1 <= max and a1 >= min
+                                          assign active = true
+                                        endif
+                                      endfor
+
+                                      for a in d_array
+                                        assign a1 = a | plus: 0.0
+                                        if  a1 <= max and a1 >= min
+                                          assign disabled = false
+                                        endif
+                                      endfor
+
+                                      case row
+                                        when 0
+                                          assign value = ""
+                                          for v in d_array
+                                            assign v_num = v | abs
+                                            if v_num >= 0 and v_num < 1
+                                              assign value = value | append: v_name | append: "=" | append: v_num | append: "&"
+                                            endif
+                                          endfor
+                                        when 1
+                                          assign value = ""
+                                          for v in d_array
+                                            assign v_num = v | abs
+                                            if v_num >= 1 and v_num < 2
+                                              assign value = value | append: v_name | append: "=" | append: v_num | append: "&"
+                                            endif
+                                          endfor
+                                        when 2
+                                          assign value = ""
+                                          for v in d_array
+                                            assign v_num = v | abs
+                                            if v_num >= 2 and v_num < 3
+                                              assign value = value | append: v_name | append: "=" | append: v_num | append: "&"
+                                            endif
+                                          endfor
+                                        when 3
+                                          assign value = ""
+                                          for v in d_array
+                                            assign v_num = v | abs
+                                            if v_num >= 3 and v_num < 4
+                                              assign value = value | append: v_name | append: "=" | append: v_num | append: "&"
+                                            endif
+                                          endfor
+                                        when 4
+                                          assign value = ""
+                                          for v in d_array
+                                            assign v_num = v | abs
+                                            if v_num >= 4 and v_num < 5
+                                              assign value = value | append: v_name | append: "=" | append: v_num | append: "&"
+                                            endif
+                                          endfor
+                                        when 5
+                                          assign value = ""
+                                          for v in d_array
+                                            assign v_num = v | abs
+                                            if v_num == 5
+                                              assign value = value | append: v_name | append: "=" | append: v_num | append: "&"
+                                            endif
+                                          endfor
+                                        endcase
+                                    %}
+                                    {% render 'checkbox', label: stars, value: value, checked: active, name: "star raiting", disabled: disabled %}
+                                  </li>
+                                {% endfor %}
+                              </ul>
+                            </div>
+                          </div>
+                        {% elsif filter.param_name ==  "filter.p.m.appstore.languages" %}
+                          <div class="filter-item" data-filter="{{ filter.param_name }}">
+                            <p class="filter-dropdown-title">{{ filter.label }}</p>
+                            <div class="filter-dropdown">
+                              <ul>
+                                {{ languages }}
+                              </ul>
+                              {% if language_count > 6 %}
+                                <button type="button" open-category class="filter-item__button filter-item__button--open">{{ 'collection.show_more' | t }}</button>
+                                <button type="button" close-category class="filter-item__button filter-item__button--close">{{ 'collection.show_less' | t }}</button>
+                            </div>
+                            {% endif %}
+                          </div>
+                        {% else %}
+                          <div class="filter-item" data-filter={{ filter.param_name }}>
+
+                            {% assign f_counter = 0 %}
+                            {% assign m_counter = 0 %}
+
+                            {%- for filter_value in filter.values -%}
+                              {% if filter_value.active == true %}
+                                {% assign f_counter = f_counter | plus: 1 %}
+                              {% endif %}
+                            {%- endfor -%}
+                            
+                            {% if f_counter > 1 %}
+                              {% assign m_counter = f_counter | minus: 1 %}
+                            {% endif %}
+
+                            <p class="filter-dropdown-title">{{ filter.label }}<span class="filter-dropdown-title-current"></span> {% if f_counter > 1 %}<span>+{{m_counter}} more</span>{% endif %}</p>
+                            <div class="filter-dropdown">
+                              <ul>
+                                
+                                {%- for filter_value in filter.values -%}
+                                  <li class="{% if forloop.index <= 6 %}visible{% endif %}">
+                                    {% assign value = filter_value.param_name | append: "=" | append: filter_value.value | replace: " ", "+" %}
+                                    {% assign disabled = false %}
+                                    {% if filter_value.count == 0 and filter_value.active == false %}
+                                      {% assign disabled = true %}
+                                    {% endif %}
+                                    {% assign label = filter_value.label | append: "(" | append: filter_value.count | append: ")" %}
+                                    {% render 'checkbox', label: label, value: value, checked: filter_value.active, name: filter_value.param_name, disabled: disabled %}
+                                  </li>
+                                {%- endfor -%}
+                              </ul>
+                              {% if filter.values.size > 6 %}
+                                <button type="button" open-category class="filter-item__button filter-item__button--open">{{ 'collection.show_more' | t }}</button>
+                                <button type="button" close-category class="filter-item__button filter-item__button--close">{{ 'collection.show_less' | t }}</button>
+                              {% endif %}
+
+                            </div>
+
+                          </div>
+                        {% endif %}
+                      {%- when 'price_range' -%}
+                        
+                    {%- endcase -%}
+                    {% endif %}
+                  {%- endfor -%}
+
+                    <div class="filter__buttons" {% if active_tag > 0 %}style="display:inline-block"{% endif %}>
+                      <button type="button" remove-filter class="filter__remove-all">{{ "page.reset_all" | t }}</button>
+                    </div>
+                  </div> <!-- filter-holder -->
+
+                </div>
+              </form>
+            </products-filter>
+
+            <collection-product-tabs>
+              {% assign free = false %}
+              {% for filter in collection.filters %}
+                {% if filter.param_name == "filter.p.m.appstore.only_free_plan" and filter.active_values[0].label == "true" %}
+                     {% assign free = true %}
+                {% endif %}
+              {% endfor %}
+             <button {% if collection.sort_by == blank and free == false %}active{% endif %} value=''>{{ 'collection.all_apps' | t }}<span class="products-count">{{products_count}}</span></button>
+              <button {% if free == true %}active{%endif%} value='filter.p.m.appstore.only_free_plan=true'>{{ 'collection.free_apps' | t }}<span class="products-count">{{products_count}}</span></button>
+              <button {% if collection.sort_by == "price-descending" %}active{% endif %} value='sort_by=price-descending'>{{ 'collection.best_apps' | t }}<span class="products-count">{{products_count}}</span></button>
+              {% capture select-icon %}
+                <svg width="14" height="7" viewBox="0 0 14 7" class="icon icon-select" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 0.5L7 5.5L13 0.5" stroke="#1E1E1E"/></svg>
+              {% endcapture %}
+
+              {% capture select-tabs %}
+                <option
+                  value=""
+                  {% if collection.sort_by == blank and free == false %}selected{% endif %}> 
+                  {{ 'collection.all_apps' | t }}
+                </option>
+                <option
+                  value="filter.p.m.appstore.only_free_plan=true"
+                  {% if free == true %}selected{%endif%} > 
+                  {{ 'collection.free_apps' | t }}
+                </option>
+                <option
+                  value="sort_by=price-descending"
+                  {% if collection.sort_by == "price-descending" %}selected{% endif %}> 
+                  {{ 'collection.best_apps' | t }}
+                </option>
+              {% endcapture %}
+              <p class="filtered-apps-number">{{ filter_title }}</p>
+              {% render 'select' | select_options: select-tabs, icon: select-icon %}
+            </collection-product-tabs>
+
+            <div class="dev-products__list">
+              {% paginate collection.products by 18 %}
+                <product-list>
+                  {% if collection.products.size > 0 %}
+                    <div class="pw-row collection-child__app">
+                      {% assign sorted_products = collection.products | sort: 'price' | reverse %}
+                      {% for product in sorted_products %}
+                         <div class="pw-col-xl-4 pw-col-lg-6 pw-col-md-12 pw-col-sm-6">
+                            {% render 'product-card', product: product %}
+                          </div>
+                      {% endfor %}
+                    </div>
+                    {% render 'pagination', paginate: paginate %}
+                  {% else %}
+                    <div class="products-not-found">
+                      <div class="products-not-found__img">
+                        {% render 'products-not-found' %}
+                      </div>
+                      <p class="products-not-found__text">
+                        {{ 'collection.not-found' | t }}
+                      </p>
+                    </div>
+                  {% endif %}
+                </product-list>
+              {% endpaginate %}
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+
+
+<script src="{{ 'sections-collection-products.js' | asset_url }}" defer="defer"></script>
+
+
+{% if collection.metafields.appstore.children.value != blank %}
+  {% style %}
+    .section-collection-products {
+      display: none;
+    }
+  {% endstyle %}
+{% endif %}
+{% schema %}
+{
+  "name": "Collection Products",
+  "class": "section section-collection-products",
+  "tag": "section",
+  "presets": [
+    {
+        "name": "Collection Products"
+    }
+  ],
+  "settings": [
+    {
+      "type": "range",
+      "id": "section_padding_top_m",
+      "label": "Section Padding Top (mobile)",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "default": 0,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom_m",
+      "label": "Section Padding Bottom (mobile)",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "default": 0,
+      "unit": "px"
+    },
+        {
+      "type": "range",
+      "id": "section_padding_top_t",
+      "label": "Section Padding Top (tablet)",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "default": 0,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom_t",
+      "label": "Section Padding Bottom (tablet)",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "default": 0,
+      "unit": "px"
+    },
+        {
+      "type": "range",
+      "id": "section_padding_top_d",
+      "label": "Section Padding Top (desktop)",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "default": 0,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom_d",
+      "label": "Section Padding Bottom (desktop)",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "default": 0,
+      "unit": "px"
+    },
+    {
+      "type": "image_picker",
+      "id": "not-found-img",
+      "label": "No App Found Img"
+    }
+  ],
+  "blocks": []
+}
+{% endschema %}

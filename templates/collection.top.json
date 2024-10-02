@@ -1,0 +1,13 @@
+{
+  "sections": {
+    "top_collection_inAMxB": {
+      "type": "top-collection",
+      "settings": {
+        "collection": "top",
+      }
+    }
+  },
+  "order": [
+    "top_collection_inAMxB"
+  ]
+}

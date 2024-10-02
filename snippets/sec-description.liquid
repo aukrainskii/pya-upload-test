@@ -1,0 +1,13 @@
+{% liquid
+    assign sec_set = section.settings
+
+    if sec_description 
+        assign sec_description = sec_description
+    else
+        assign sec_description = sec_set.description | remove: "<p>" | remove: "</p>"
+    endif
+%}
+
+{%- if sec_description != blank -%}
+    <p class="section__description">{{ sec_description }}</p>
+{%- endif -%}

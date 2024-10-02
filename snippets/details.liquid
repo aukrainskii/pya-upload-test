@@ -1,0 +1,42 @@
+{% comment %} 
+
+use capture for content editing
+{% capture details_content %}
+    your content here
+{% endcapture %} 
+
+{% endcomment %}
+
+{% liquid
+    assign id = id | default: ''
+    assign class = class | default: ''
+    assign attributes = attributes | default: ''
+
+    assign summary_heading = summary_heading | default: "summary heading"
+    assign details_content = details_content | default: "details content"
+
+    assign icon = icon | default: 'default_icon'
+
+    capture default_icon
+        render 'icon-expand-arrow'
+    endcapture
+
+    if icon == 'default_icon'
+        assign render_icon = default_icon
+    else 
+        assign render_icon = icon
+    endif
+%}
+
+<details class="details{% if class != blank %} {{ class }} {% endif %}"
+    {% if id != blank %} {{ id }}{% endif %}
+    {% if attributes != blank %} {{ attributes }}{% endif %}
+>
+    <summary class="summary">
+        {{ render_icon }}
+        <span class="summary__heading">{{ summary_heading }}</span>
+    </summary>
+    <div class="details__content">
+        {{ details_content }}
+    </div>
+</details>

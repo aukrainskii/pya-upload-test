@@ -1,0 +1,124 @@
+{% liquid 
+  assign f_v = blank
+  assign f_v_active = blank
+  assign v_name = blank
+  assign v_disabled = blank
+  for filter_value in filter.values
+    assign v_name = filter_value.param_name
+    assign v_disabled = filter_value.count
+    
+    if f_v == blank
+      assign f_v = filter_value.value
+    else
+      assign f_v = f_v | append: "," | append: filter_value.value
+    endif
+
+    if filter_value.active
+      if f_v_active == blank
+        assign f_v_active = filter_value.value
+      else
+        assign f_v_active = f_v_active | append: "," | append: filter_value.value
+      endif
+    endif
+  endfor
+%}
+<div class="filter-dropdown">
+  <ul>
+    {% for row in (0..5) %}
+      <li class="visible">
+        {% capture stars %}
+          {{ row }}.0
+          <div class="filter__stars">
+            {% for i in (1..5) %}
+              <span class="review-star-icon">
+                {% if row < i %}
+                  {{ settings.star-icon-empty }}
+                {% else %}
+                  {{ settings.star-icon }}
+                {% endif %}
+              </span>
+            {% endfor %}
+          </div>
+        {% endcapture %}
+        {% liquid
+          assign active = false
+          assign disabled = true
+          assign d_array = f_v | split: ","
+          assign array = f_v_active | split: ","
+          assign min = row 
+          assign max = row | plus: 0.9
+          
+          if v_disabled == 0
+            assign disabled = true
+          endif
+
+          for a in array
+            assign a1 = a | plus: 0.0
+            if  a1 <= max and a1 >= min
+              assign active = true
+            endif
+          endfor
+
+          for a in d_array
+            assign a1 = a | plus: 0.0
+            if  a1 <= max and a1 >= min
+              assign disabled = false
+            endif
+          endfor
+
+          case row
+            when 0
+              assign value = ""
+              for v in d_array
+                assign v_num = v | abs
+                if v_num >= 0 and v_num < 1
+                  assign value = value | append: v_name | append: "=" | append: v_num | append: "&"
+                endif
+              endfor
+            when 1
+              assign value = ""
+              for v in d_array
+                assign v_num = v | abs
+                if v_num >= 1 and v_num < 2
+                  assign value = value | append: v_name | append: "=" | append: v_num | append: "&"
+                endif
+              endfor
+            when 2
+              assign value = ""
+              for v in d_array
+                assign v_num = v | abs
+                if v_num >= 2 and v_num < 3
+                  assign value = value | append: v_name | append: "=" | append: v_num | append: "&"
+                endif
+              endfor
+            when 3
+              assign value = ""
+              for v in d_array
+                assign v_num = v | abs
+                if v_num >= 3 and v_num < 4
+                  assign value = value | append: v_name | append: "=" | append: v_num | append: "&"
+                endif
+              endfor
+            when 4
+              assign value = ""
+              for v in d_array
+                assign v_num = v | abs
+                if v_num >= 4 and v_num < 5
+                  assign value = value | append: v_name | append: "=" | append: v_num | append: "&"
+                endif
+              endfor
+            when 5
+              assign value = ""
+              for v in d_array
+                assign v_num = v | abs
+                if v_num == 5
+                  assign value = value | append: v_name | append: "=" | append: v_num | append: "&"
+                endif
+              endfor
+            endcase
+        %}
+        {% render 'checkbox', label: stars, value: value, checked: active, name: "star raiting", disabled: disabled %}
+      </li>
+    {% endfor %}
+  </ul>
+</div>

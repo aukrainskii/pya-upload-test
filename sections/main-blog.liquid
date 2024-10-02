@@ -1,0 +1,244 @@
+{% style %}
+    #shopify-section-{{ section.id }} {
+        padding-top: {{ section.settings.section_padding_top_m }}px;
+        padding-bottom: {{ section.settings.section_padding_bottom_m }}px;
+    }
+
+    @media screen and (min-width: 600px) {
+        #shopify-section-{{ section.id }} {
+            padding-top: {{ section.settings.section_padding_top_t }}px;
+            padding-bottom: {{ section.settings.section_padding_bottom_t }}px;
+        }
+    }
+
+    @media screen and (min-width: 1240px) {
+        #shopify-section-{{ section.id }} {
+            padding-top: {{ section.settings.section_padding_top_d }}px;
+            padding-bottom: {{ section.settings.section_padding_bottom_d }}px;
+        }
+    }
+{% endstyle %}
+
+{% if collection %}
+{% paginate collection.products by 10 %}
+<div class="blog-articles blog-articles--{{ section.settings.layout }}">
+    {% for product in collection.products %}
+        {% liquid
+            assign title = product.title
+            if section.settings.layout == "one-columns"
+                assign description = product.content | strip_html | truncatewords: 35
+            else
+                assign description = product.content | strip_html | truncatewords: 18
+            endif
+            assign date = product.created_at | date: "%d/%m/%Y"
+            assign text = 'collection.read_more' | t
+        %}
+        <div class="blog-article blog-article--{{ section.settings.layout }}">
+            {% render 'sec-heading-3' | sec_heading_3: title, link: product.url %}
+            <div class="block-img-wrap theme-image">
+                {% if product.featured_image != blank %}
+                    {%- capture sizes -%}(min-width: 480px) 590px, 360px{%- endcapture -%}
+                    {{  product.featured_image | image_url: width: 1180 | image_tag:
+                        width: 340,
+                        height: 175,
+                        loading: 'lazy',
+                        sizes: sizes,
+                        widths: '360, 590, 720, 1180',
+                        alt: product.title
+                    }}
+                {% endif %}
+            </div>
+            
+            {% render 'sec-description' | sec_description: description %}
+            {% render 'linkTo' | text: text, link: product.url, class: "blog-article__link" %}
+        </div>
+    {% endfor %}
+    {% render 'pagination', paginate: paginate %}
+</div>
+{% endpaginate %}
+{% else %}
+    {% paginate blog.articles by 6 %}
+    <div class="blog-articles blog-articles--{{ section.settings.layout }}">
+        {% for article in blog.articles %}
+            {% liquid
+                assign title = article.title
+                if section.settings.layout == "one-columns"
+                    assign description = article.content | strip_html | truncatewords: 35
+                else
+                    assign description = article.content | strip_html | truncatewords: 18
+                endif
+                assign date = article.created_at | date: "%d/%m/%Y"
+            %}
+            <a class="blog-article" href="{{ article.url }}">
+                <div class="block-img-wrap">
+                    {% if article.image != blank %}
+                        {%- capture sizes -%}(min-width: 992px) 800px, (min-width: 720px) 720px, 360px{%- endcapture -%}
+                        {{  article.image | image_url: width: 1600 | image_tag:
+                            width: 340,
+                            height: 340,
+                            loading: 'lazy',
+                            sizes: sizes,
+                            widths: '360, 720, 800, 1440, 1600',
+                            alt: article.title
+                        }}
+                    {% endif %}
+                </div>
+                <div class="blog-article__tags">
+                    {% for tag in article.tags %}
+                        <span>{{ tag }}</span>
+                    {% endfor %}
+                </div>
+                {% render 'sec-heading-3' | sec_heading_3: title, link: product.url %}
+                {% render 'sec-description' | sec_description: description %}
+                <div class="blog-article__info">{% render 'date' | text: date %}</div>
+            </a>
+        {% endfor %}
+        {% render 'pagination', paginate: paginate %}
+    </div>
+    {% endpaginate %}
+{% endif %}
+
+{% if collection %}
+    {% assign themes = section.blocks | where: "type", "theme" %}
+    {% assign url = "https://apps.shopify.com/kava-sections-page-builder?utm_medium=referral&utm_source=pickyourapp&utm_campaign=themes-lisitng&utm_term=get-started-with-kava&utm_content=turbocharge-theme" %}
+    {% render "kava-banner", url: url %}
+    {% render "link-list", articles: themes %}
+{% else %}
+    {% assign rec_articles = section.blocks | where: "type", "article" %}
+    <div class="blog-tags">
+        {% for tag_current in current_tags %}
+            {% assign apps = 'accessibility.apps' | t %}
+            {% assign tag_current = tag_current %}
+            {% assign tag_current_handle = tag_current | handle %}
+            {% assign linkText = 'accessibility.explore_all' | t | append: " " | append: tag_current | append: " " | append: apps %}
+            {% assign linkCollection = "/collections/" | append: tag_current_handle %}
+        {% endfor %}
+
+        {% assign sec_heading = 'blog.blog_topics' | t  %}
+        {% render 'sec-heading' | sec_heading: sec_heading, align: "left" %}
+
+        {% for tag in blog.all_tags %}
+            <div class="blog-tag {% if tag_current == tag %}active{% endif %}">{{ tag | link_to_tag: tag }}</div>
+        {% endfor %}
+        {% if tag_current %}
+            {% render 'linkTo' | text: linkText, link: linkCollection, class: "blog-tags__link" %}
+        {% endif %}
+    </div>
+
+    {% render "link-list", articles: rec_articles %}
+{% endif %}
+
+{% schema %}
+{
+    "name": "Blog & Themes Collection",
+    "class": "section section-blog",
+    "tag": "section",
+    "presets": [
+            {
+                "name": "Blog  & Themes Collection"
+            }
+        ],
+    "settings": [
+        {
+            "type": "range",
+            "id": "section_padding_top_m",
+            "label": "Section Padding Top (mobile)",
+            "min": 0,
+            "max": 200,
+            "step": 2,
+            "default": 0,
+            "unit": "px"
+        },
+        {
+            "type": "range",
+            "id": "section_padding_bottom_m",
+            "label": "Section Padding Bottom (mobile)",
+            "min": 0,
+            "max": 200,
+            "step": 2,
+            "default": 0,
+            "unit": "px"
+        },
+            {
+            "type": "range",
+            "id": "section_padding_top_t",
+            "label": "Section Padding Top (tablet)",
+            "min": 0,
+            "max": 200,
+            "step": 2,
+            "default": 0,
+            "unit": "px"
+        },
+        {
+            "type": "range",
+            "id": "section_padding_bottom_t",
+            "label": "Section Padding Bottom (tablet)",
+            "min": 0,
+            "max": 200,
+            "step": 2,
+            "default": 0,
+            "unit": "px"
+        },
+            {
+            "type": "range",
+            "id": "section_padding_top_d",
+            "label": "Section Padding Top (desktop)",
+            "min": 0,
+            "max": 200,
+            "step": 2,
+            "default": 0,
+            "unit": "px"
+        },
+        {
+            "type": "range",
+            "id": "section_padding_bottom_d",
+            "label": "Section Padding Bottom (desktop)",
+            "min": 0,
+            "max": 200,
+            "step": 2,
+            "default": 0,
+            "unit": "px"
+        },
+        {
+            "type": "select",
+            "id": "layout",
+            "label": "Count Columns",
+            "options": [
+                {
+                    "value": "one-columns",
+                    "label": "1 Columns"
+                },
+                {
+                    "value": "",
+                    "label": "2 Columns"
+                }
+            ],
+            "default": ""
+        }
+    ],
+    "blocks": [
+        {
+            "type": "article",
+            "name": "Article",
+            "settings": [
+                {
+                    "type": "article",
+                    "id": "article",
+                    "label": "Article"
+                }
+            ]
+        },
+        {
+            "type": "theme",
+            "name": "Theme",
+            "settings": [
+                {
+                    "type": "product",
+                    "id": "product",
+                    "label": "Select Theme"
+                }
+            ]
+        }
+    ]
+}
+{% endschema %}

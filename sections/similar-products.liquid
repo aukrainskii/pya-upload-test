@@ -1,0 +1,184 @@
+{% liquid
+    assign products = blank
+    assign class = blank
+    assign product_collection = blank
+    assign link_text = 'product.see_all' | t
+    case section.settings.select_products_for_withdrawal
+        when "similar_apps"
+            assign products = product.metafields.custom.similar_apps.value
+        when "primary_collections"
+            assign product_collection_handle = product.metafields.appstore.primary_category_slug.value
+            assign product_collection = collections[product_collection_handle]
+            assign products = product_collection.products | sort: 'price' | reverse
+            assign link_text = "product.explore_best" | t: title: product_collection.title
+    endcase
+%}
+
+{% style %}
+    #shopify-section-{{ section.id }} {
+		padding-top: {{ section.settings.section_padding_top_m }}px;
+		padding-bottom: {{ section.settings.section_padding_bottom_m }}px;
+	}
+
+    @media screen and (min-width: 600px) {
+        #shopify-section-{{ section.id }} {
+            padding-top: {{ section.settings.section_padding_top_t }}px;
+            padding-bottom: {{ section.settings.section_padding_bottom_t }}px;
+        }
+    }
+
+    @media screen and (min-width: 1240px) {
+        #shopify-section-{{ section.id }} {
+            padding-top: {{ section.settings.section_padding_top_d }}px;
+            padding-bottom: {{ section.settings.section_padding_bottom_d }}px;
+        }
+    }
+{% endstyle %}
+
+{% if section.settings.select_color_scheme == "light_scheme" %}
+    {% style %}
+        #shopify-section-{{- section.id -}}.section-recommend-products {
+            background-color: var(--color-primary);
+            color: var(--color-secondary);
+        }
+    {% endstyle %}
+{% elsif section.settings.select_color_scheme == "dark_scheme" %}
+    {% style %}
+        #shopify-section-{{- section.id -}}.section-recommend-products {
+            background-color: var(--color-secondary);
+            color: var(--color-primary);
+        }
+    {% endstyle %}
+{% endif %}
+
+{% if products.size == 0 or products == blank or products[0] == "" %}
+    {% style %}
+        #shopify-section-{{- section.id -}} {
+            display: none;
+        }
+    {% endstyle %}
+{% endif %}
+
+<div class="container">
+    <div class="s-recommend-products">
+        {% render 'sec-heading' , align: "left" %}
+        {% render 'apps-list', class: "s-recommend-products__list", products: products %}
+        {% if product_collection != blank %}
+            {% assign url =  product_collection.url | append: "?sort_by=price-descending" %}
+            {% render 'linkTo', link: url, arrow: "true", text: link_text %}
+        {% endif %}
+    </div>
+</div>
+
+{% schema %}
+{
+    "name": "Similar Products",
+    "class": "section section-recommend-products",
+    "tag": "section",
+    "presets": [
+        {
+            "name": "Similar Products"
+        }
+    ],
+    "settings": [
+        {
+            "type": "range",
+            "id": "section_padding_top_m",
+            "label": "Section Padding Top (mobile)",
+            "min": 0,
+            "max": 200,
+            "step": 2,
+            "default": 0,
+            "unit": "px"
+        },
+        {
+            "type": "range",
+            "id": "section_padding_bottom_m",
+            "label": "Section Padding Bottom (mobile)",
+            "min": 0,
+            "max": 200,
+            "step": 2,
+            "default": 0,
+            "unit": "px"
+        },
+            {
+            "type": "range",
+            "id": "section_padding_top_t",
+            "label": "Section Padding Top (tablet)",
+            "min": 0,
+            "max": 200,
+            "step": 2,
+            "default": 0,
+            "unit": "px"
+        },
+        {
+            "type": "range",
+            "id": "section_padding_bottom_t",
+            "label": "Section Padding Bottom (tablet)",
+            "min": 0,
+            "max": 200,
+            "step": 2,
+            "default": 0,
+            "unit": "px"
+        },
+            {
+            "type": "range",
+            "id": "section_padding_top_d",
+            "label": "Section Padding Top (desktop)",
+            "min": 0,
+            "max": 200,
+            "step": 2,
+            "default": 0,
+            "unit": "px"
+        },
+        {
+            "type": "range",
+            "id": "section_padding_bottom_d",
+            "label": "Section Padding Bottom (desktop)",
+            "min": 0,
+            "max": 200,
+            "step": 2,
+            "default": 0,
+            "unit": "px"
+        },
+        {
+            "type": "text",
+            "id": "heading",
+            "label": "Section Title",
+            "default": "Apps similar to {{ product.title }}"
+        },
+        {
+            "type": "select",
+            "id": "select_products_for_withdrawal",
+            "label": "Select products for withdrawal",
+            "options": [
+              {
+                "value": "similar_apps",
+                "label": "Similar Apps"
+              },
+              {
+                "value": "primary_collections",
+                "label": "Primary Collections"
+              }
+            ],
+            "default": "similar_apps"
+        },
+        {
+            "type": "select",
+            "id": "select_color_scheme",
+            "label": "Select color scheme",
+            "options": [
+              {
+                "value": "light_scheme",
+                "label": "Light scheme"
+              },
+              {
+                "value": "dark_scheme",
+                "label": "Dark scheme"
+              }
+            ],
+            "default": "dark_scheme"
+        }
+    ]
+}
+{% endschema %}

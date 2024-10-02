@@ -1,0 +1,50 @@
+{% liquid
+    assign min = 1
+    assign max = 99999
+    assign diff = max | minus: min
+    assign randomNumber = "now" | date: "%N%S%L" | modulo: diff | plus: min
+
+     if id
+        assign id = id | default: "id-" 
+    else
+        assign id = "id-" | append: randomNumber
+    endif
+    assign form_name = form_name
+    assign name = name
+    assign class = class | default: ''
+
+    assign multiple = multiple | default: false
+    assign size = size | default: 4
+    assign disabled = disabled | default: false
+
+    assign select_options = select_options | default: '<option value="value1" selected>Default option 1</option><option value="value2">Default option 2</option>'
+    assign icon = icon | default: 'default_icon'
+
+    capture default_icon
+        render 'icon-expand-arrow'
+    endcapture
+
+    if icon == 'default_icon'
+        assign render_icon = default_icon
+    else 
+        assign render_icon = icon
+    endif
+%}
+
+<label for="{{ id }}" class="select {{ class }}">
+    <select 
+        {% if name %} name="{{ name }}" {% endif %}
+        {% if form_name %} form="{{ form_name }}" {% endif %}
+        {% if id %} id="{{ id }}" {% endif %}
+        {% if disabled %} disabled {% endif %}
+        {% if multiple %} 
+            multiple
+            size="{{ size }}"
+         {% endif %}    
+    >
+        {{ select_options }}
+    </select>
+    {% if multiple == false %}
+        {{ render_icon }}
+    {% endif %}
+</label>

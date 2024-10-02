@@ -1,0 +1,81 @@
+{% liquid
+    assign class = class | default: ''
+    assign attributes = attributes | default: ''
+    assign form_name = form_name | default: "form_name"
+    assign form_id = form_id | default: "form_id"
+    assign form_errors = form_errors
+    assign input_name = input_name | default: "input_name"
+    assign required = required | default: false
+   
+    assign type = type | default: "text"
+    assign placeholder = placeholder | default: type
+    assign label = label | default: type
+
+    assign value = value | default: ''
+    assign pattern = pattern | default: ''
+    assign readonly = readonly | default: false
+    assign disabled = disabled | default: false
+    assign id = id | default: form_id | append: '-' | append: input_name
+
+    assign allowed_types = "text, email, password, tel, number, url"
+    if allowed_types contains type
+        assign type_valid = true
+    else 
+        assign type_valid = false
+    endif
+%}
+
+{% capture input_label %}
+<label class="form-field-wrap__label" for="{{ id }}">
+    {{ label }}
+    {% if required == true %}*{% endif %}
+</label>
+{% endcapture %}
+
+{% capture input_hint %}
+{%- if form_errors contains input_name -%}
+    <small class="form-field-wrap__field-hint" id="{{ id }}-error">
+        <span class="visually-hidden">Error</span>
+        <span class="form-field-wrap__message">{{ form_errors.translated_fields[ input_name ] | capitalize }} {{ form_errors.messages[ input_name ] }}</span>
+    </small>
+{%- endif -%}
+{% endcapture %}
+
+{% capture input_tag %}
+<input 
+    class="form-field-wrap__input"
+    type="{{ type }}"
+    autocomplete="{{ input_name }}"  
+    id="{{ id }}" 
+    name="{{ form_name }}[{{ input_name }}]" 
+    {% if value != blank %} {{ value }} {% endif %}
+    {% if pattern != blank %} {{ pattern }} {% endif %}
+    {% if readonly %} {{ readonly }} {% endif %}
+    {% if disabled %} {{ disabled }} {% endif %}
+    placeholder="{{ placeholder }}"
+    {% if required == true %}
+        aria-required="true"
+        required
+    {% endif %}
+    {% if form_errors contains input_name %}
+        aria-invalid="true"
+        aria-describedby="{{ id }}-error"
+    {% endif %}
+/>
+{% endcapture %}
+
+{%- if type_valid -%}
+<div class="form-field-wrap 
+    {% if form_errors contains input_name %} form-field-wrap--error{% endif %}
+    {% if class != blank %} {{ class }}{% endif %}"
+    {% if attributes != blank %} {{ attributes }} {% endif %}
+>
+    {{ input_tag }}
+    {{ input_label }}
+    {{ input_hint }}
+</div>
+{%- else -%}
+    <span><strong>Error:</strong> {{ type }} – is invalid type for this snippet, use one of: <em>{{ allowed_types }}</em></span>
+{%- endif-%}
+
+<script src="{{ "snippets-text-input.js" | asset_url }}" defer="defer"></script>

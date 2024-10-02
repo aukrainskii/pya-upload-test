@@ -1,0 +1,147 @@
+{% style %}
+    #shopify-section-{{ section.id }} {
+		padding-top: {{ section.settings.section_padding_top_m }}px;
+		padding-bottom: {{ section.settings.section_padding_bottom_m }}px;
+	}
+
+    @media screen and (min-width: 600px) {
+        #shopify-section-{{ section.id }} {
+            padding-top: {{ section.settings.section_padding_top_t }}px;
+            padding-bottom: {{ section.settings.section_padding_bottom_t }}px;
+        }
+    }
+
+    @media screen and (min-width: 1240px) {
+        #shopify-section-{{ section.id }} {
+            padding-top: {{ section.settings.section_padding_top_d }}px;
+            padding-bottom: {{ section.settings.section_padding_bottom_d }}px;
+        }
+    }
+{% endstyle %}
+
+<div class="container">
+    <div class="s-product-content">
+        {% if  product.description != blank %}
+            {% render 'sec-heading' , align: "left" %}
+            <div class="s-product-content__description">
+                {% render 'content', content: product.description %}
+            </div>
+        {% endif %}
+        {% if product.metafields.appstore.features != blank %}
+            <div  class="s-product-content__features">
+                {% assign features_title = 'product.features' | t %}
+                {% render 'sec-heading-3', sec_heading_3: features_title %}
+                <ul>
+                    {% for value in product.metafields.appstore.features.value %}
+                        <li>{{ value }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+
+        {% if product.metafields.custom.app_cons != blank or product.metafields.custom.app_pros != blank %}
+        <div class="s-product-content__pros-cons">
+            <div class="s-product-content__pros">
+                {% assign pros_title = 'product.pros' | t %}
+                {% render 'sec-heading-3', sec_heading_3: pros_title %}
+                <ul>
+                    {% for value in product.metafields.custom.app_pros.value %}
+                        <li>{{ value }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            <div class="s-product-content__cons">
+                {% assign cons_title = 'product.cons' | t %}
+                {% render 'sec-heading-3', sec_heading_3: cons_title %}
+                <ul>
+                    {% for value in product.metafields.custom.app_cons.value %}
+                        <li>{{ value }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+{% schema %}
+{
+    "name": "Product Content",
+    "class": "section section-product-content",
+    "tag": "section",
+    "presets": [
+        {
+            "name": "Product Content"
+        }
+    ],
+    "settings": [
+        {
+            "type": "range",
+            "id": "section_padding_top_m",
+            "label": "Section Padding Top (mobile)",
+            "min": 0,
+            "max": 200,
+            "step": 2,
+            "default": 0,
+            "unit": "px"
+        },
+        {
+            "type": "range",
+            "id": "section_padding_bottom_m",
+            "label": "Section Padding Bottom (mobile)",
+            "min": 0,
+            "max": 200,
+            "step": 2,
+            "default": 0,
+            "unit": "px"
+        },
+            {
+            "type": "range",
+            "id": "section_padding_top_t",
+            "label": "Section Padding Top (tablet)",
+            "min": 0,
+            "max": 200,
+            "step": 2,
+            "default": 0,
+            "unit": "px"
+        },
+        {
+            "type": "range",
+            "id": "section_padding_bottom_t",
+            "label": "Section Padding Bottom (tablet)",
+            "min": 0,
+            "max": 200,
+            "step": 2,
+            "default": 0,
+            "unit": "px"
+        },
+            {
+            "type": "range",
+            "id": "section_padding_top_d",
+            "label": "Section Padding Top (desktop)",
+            "min": 0,
+            "max": 200,
+            "step": 2,
+            "default": 0,
+            "unit": "px"
+        },
+        {
+            "type": "range",
+            "id": "section_padding_bottom_d",
+            "label": "Section Padding Bottom (desktop)",
+            "min": 0,
+            "max": 200,
+            "step": 2,
+            "default": 0,
+            "unit": "px"
+        },
+        {
+            "type": "text",
+            "id": "heading",
+            "label": "Section Title",
+            "default": "About the {{ product.title }}"
+        }
+    ]
+}
+{% endschema %}

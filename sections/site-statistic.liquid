@@ -1,0 +1,151 @@
+{% liquid
+    assign link_to_analitics = "#"
+    assign website_title = page.title
+
+    assign website_link = "https:\\www.inder.com"
+    assign website_desc = "Track the number of orders, average order value, and conversion rates to gauge the effectiveness of your marketing campaigns and promotional efforts."
+
+    assign global_rank = 374
+    assign onpage_score = 99
+    assign backlinks = 26669
+    assign crawled_pages = 2005
+    assign domen_age = "10 years"
+    assign shop_theme = "Dawn"
+    assign shop_theme_url = "https://themes.shopify.com/themes/dawn/styles/default"
+
+    assign logo_img = "https://cdn.shopify.com/s/files/1/0717/0831/1865/files/Frame_111215.png?v=1689153026"
+    assign store_img = "https://cdn.shopify.com/s/files/1/0717/0831/1865/files/shop_example.png?v=1689153027"
+%}
+<section class="section section-breadcrumbs">
+    <nav class="breadcrumbs" role="navigation" aria-label="breadcrumbs">
+        <ul class="breadcrumbs__list">
+            <li>
+                <a class="breadcrumb breadcrumb--home" href="/" title="Home">{{'accessibility.home' | t }}
+                    <svg width="24" height="21" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M15.7077 12.0429C16.0982 12.4334 16.0982 13.0666 15.7077 13.4571L10.0508 19.114C9.66033 19.5045 9.02717 19.5045 8.63664 19.114C8.24612 18.7234 8.24612 18.0903 8.63664 17.6997L13.5864 12.75L8.63664 7.80025C8.24612 7.40973 8.24612 6.77656 8.63664 6.38604C9.02717 5.99551 9.66033 5.99551 10.0508 6.38604L15.7077 12.0429Z" fill="currentColor"/>
+                    </svg>
+                </a>
+            </li>
+            <li>
+                <a class="breadcrumb breadcrumb--home" href="{{ link_to_analitics }}" title="{{ 'statistic.website_analytics' | t }}">{{ 'statistic.website_analytics' | t }}
+                    <svg width="24" height="21" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M15.7077 12.0429C16.0982 12.4334 16.0982 13.0666 15.7077 13.4571L10.0508 19.114C9.66033 19.5045 9.02717 19.5045 8.63664 19.114C8.24612 18.7234 8.24612 18.0903 8.63664 17.6997L13.5864 12.75L8.63664 7.80025C8.24612 7.40973 8.24612 6.77656 8.63664 6.38604C9.02717 5.99551 9.66033 5.99551 10.0508 6.38604L15.7077 12.0429Z" fill="currentColor"/>
+                    </svg>
+                </a>
+            </li>
+            <li>
+                <a class="breadcrumb" title="{{ website_title }}">
+                    {{ website_title }}
+                </a>
+            </li>
+        </ul>
+    </nav>
+</section>   
+
+<section class="section section-statistic">
+    <div class="statistic">
+        <div class="statistic__info web-info">
+            <h1 class="section__heading--1 text-align-left">
+                {{ website_title }}
+            </h1>
+            <a class="web-info__link" href="{{ website_link }}" target="_blank">
+                {{ website_link }}
+            </a>
+
+            <p class="web-info__desc">
+                {{ website_desc }}
+            </p>
+
+            <ul class="web-info__list">
+                {% if global_rank != blank %}
+                    <li>
+                        {{ 'statistic.g_rang' | t }}
+                        <span>
+                            {{ global_rank }}
+                        </span>
+                    </li>
+                {% endif %}
+
+                {% if onpage_score != blank %}
+                    <li>
+                        {{ 'statistic.onpage_score' | t }}
+                        <span>
+                            {{ onpage_score }}
+                        </span>
+                    </li>
+                {% endif %}
+
+                {% if backlinks != blank %}
+                    <li>
+                        {{ 'statistic.backlinks' | t }}
+                        <span>
+                            {{ backlinks }}
+                        </span>
+                    </li>
+                {% endif %}
+
+                {% if crawled_pages != blank %}
+                    <li>
+                        {{ 'statistic.crawled_pages' | t }}
+                        <span>
+                            {{ crawled_pages }}
+                        </span>
+                    </li>
+                {% endif %}
+
+                {% if domen_age != blank %}
+                    <li>
+                        {{ 'statistic.domen_age' | t }}
+                        <span>
+                            {{ domen_age }}
+                        </span>
+                    </li>
+                {% endif %}
+
+                {% if shop_theme != blank %}
+                    <li>
+                        {{ 'statistic.shop_theme' | t }}
+                        <a href="{{ shop_theme_url }}" target="blank">
+                            {{ shop_theme }}
+                        </a>
+                    </li>
+                {% endif %}
+            </ul>  
+            <div class="web-info__logo">
+                <p>{{ 'statistic.logo' | t }}</p>
+                <img src="{{ logo_img }}&amp;width=350" 
+                    srcset="{{ logo_img }}&amp;width=175 1x, {{ logo_img }}&amp;width=350 2x"
+                    width="175" 
+                    height="60"
+                    alt="Logo from {{ website_title }}"
+                    loading="lazy"> 
+            </div>
+        </div>
+
+        <div class="statistic__media">
+            <img src="{{ store_img }}&amp;width=1440"
+                 srcset="{{ store_img }}&amp;width=360 360w, {{ store_img }}&amp;width=720 720w, {{ store_img }}&amp;width=1440 1440w"
+                 sizes="(min-width: 720px) 720px, 360px"
+                 width="335" 
+                 height="350" 
+                 alt="Website`s screen from {{ website_title }}" 
+                 loading="lazy"> 
+        </div>
+    </div>
+</section>
+{% schema %}
+{
+  "name": "Test statistic page",
+  "class": "aaa",
+  "tag": "div",
+  "presets": [
+    {
+        "name": "Test statistic page"
+    }
+  ],
+  "settings": [
+
+  ],
+  "blocks": []
+}
+{% endschema %}

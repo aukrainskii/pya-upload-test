@@ -1,0 +1,17 @@
+<div class="pagination">
+    {{ paginate | default_pagination: next: '&#10140;', previous: '&#10140;' }}
+</div>
+
+<div class="pagination pagination--mob">
+    {% if paginate.previous.is_link or paginate.next.is_link %}
+        {% if paginate.previous.is_link %}
+            <span class="prev"><a href="{{ paginate.previous.url}}" title="">➜</a></span>
+            <span class="page"><a href="{{ paginate.previous.url}}" title="">{{paginate.current_page | minus: 1}}</a></span>
+        {% endif %}
+        <span class="page current">{{paginate.current_page}}</span>
+        {% if paginate.next.is_link %}
+            <span class="page"><a href="{{ paginate.next.url}}" title="">{{paginate.current_page | plus: 1}}</a></span>
+            <span class="next"><a href="{{ paginate.next.url}}" title="">➜</a></span>
+        {% endif %}
+    {% endif %}
+</div>

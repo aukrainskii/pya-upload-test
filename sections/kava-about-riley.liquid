@@ -1,0 +1,764 @@
+{% assign sec_id = section.id | slice: -6, 6 | replace: '-', '_' %}
+{% assign sec_id = sec_id | prepend: 'pw' %}
+
+{%- style -%}
+
+*, *:after, *:before {
+  box-sizing: border-box;
+}
+
+.pw-section__{{sec_id}} .pw-container,
+.pw-section__{{sec_id}} .pw-container-fluid {
+  width: 100%;
+  padding-right: var(--pw-gutter-x, 15px);
+  padding-left: var(--pw-gutter-x, 15px);
+  margin-right: auto;
+  margin-left: auto;
+}
+
+@media (min-width: 576px) {
+  .pw-section__{{sec_id}} .pw-container {
+    max-width: 540px;
+  }
+}
+
+@media (min-width: 750px) {
+  .pw-section__{{sec_id}} .pw-container {
+    max-width: 720px;
+  }
+}
+
+@media (min-width: 992px) {
+  .pw-section__{{sec_id}} .pw-container {
+    max-width: 960px;
+  }
+  {% if section.settings.container_max_width >= 720 and section.settings.container_max_width <= 960 %}
+    .pw-section__{{sec_id}} .pw-container {
+      max-width: {{section.settings.container_max_width}}px;
+    }
+  {% endif %}
+}
+
+@media (min-width: 1200px) {
+  .pw-section__{{sec_id}} .pw-container {
+    max-width: 1140px;
+  }
+  {% if section.settings.container_max_width >= 720 and section.settings.container_max_width <= 1140 %}
+    .pw-section__{{sec_id}} .pw-container {
+      max-width: {{section.settings.container_max_width}}px;
+    }
+  {% endif %}
+}
+
+@media (min-width: 1400px) {
+  .pw-section__{{sec_id}} .pw-container {
+    max-width: 1320px;
+  }
+  {% if section.settings.container_max_width >= 720 and section.settings.container_max_width != 1320 %}
+    .pw-section__{{sec_id}} .pw-container {
+      max-width: {{section.settings.container_max_width}}px;
+    }
+  {% endif %}
+}
+
+.pw-section__{{sec_id}} .pw-btn, .rte 
+.pw-section__{{sec_id}} a.pw-btn:not(.btn) {
+  display: inline-block;
+  text-decoration: none;
+  text-align: center;
+  background-color: #fff;
+  border: none;
+  border-radius: 0px;
+  outline: none;
+  color: #000;
+  font-weight: 400;
+  white-space: nowrap;
+  padding: 13px 30px;
+  line-height: 1.2;
+  min-width: auto;
+  min-height: 40px;
+  transition: all 0.25s;
+  cursor: pointer;
+  box-sizing: border-box;
+  font-family: inherit;
+}
+
+.pw-section__{{sec_id}} .pw-btn:hover {
+  text-decoration: none;
+  opacity: 0.8;
+}
+
+.pw-section__{{sec_id}} .pw-btn::after {
+  
+}
+
+.pw-section__{{sec_id}} .pw-btn:focus {
+  outline: none;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.5);
+}
+
+.pw-section__{{sec_id}} {
+  --pw-gutter-x: 20px;
+  background-color: {{section.settings.background_color}};
+  padding-top: {{section.settings.section_padding_top}}px;
+  padding-bottom: {{section.settings.section_padding_bottom}}px;
+  line-height: 1.5;
+}
+
+.pw-section__{{sec_id}} .two-columns-row {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.pw-section__{{sec_id}} .two-columns-img {
+  flex: 0 0 auto;
+  width: 50%;
+  {% if section.settings.img_position != "right" %};
+    order: -1;
+  {% endif %}
+}
+
+.pw-section__{{sec_id}} .two-columns-img-inner {
+  height: 100%;
+  position: relative;
+}
+
+.pw-section__{{sec_id}} .two-columns-img-inner img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+  object-fit: cover;
+}
+
+.pw-section__{{sec_id}} .two-columns-text {
+  flex: 0 0 auto;
+  width: 50%;
+  color: {{section.settings.text_color}};
+  text-align: {{section.settings.text_align}};
+  background-color: {{section.settings.text_bg_color}};
+  padding-top: {{section.settings.text_padding_top}}px;
+  padding-bottom: {{section.settings.text_padding_bottom}}px;
+  padding-right: 6%;
+}
+
+.pw-section__{{sec_id}} .two-columns-row.image-left .two-columns-text {
+  padding-right: 0;
+  padding-left: 6%;
+}
+
+.pw-section__{{sec_id}} .two-columns-text-inner {
+  display: inline-block;
+  max-width: 540px;
+  text-align: {{section.settings.text_align}};
+}
+
+.pw-section__{{sec_id}} .pw-logo-img {
+  max-width: 140px;
+  margin-bottom: 32px;
+}
+
+.pw-section__{{sec_id}} .pw-section-title {
+  color: {{section.settings.text_color}};
+  font-weight: 700;
+  line-height: 1.2;
+  margin-top: 0;
+  margin-bottom: 32px;
+  text-align: {{section.settings.text_align}};
+}
+
+.pw-section__{{sec_id}} .pw-divider {
+  display: inline-block;
+  width: 185px;
+  height: 4px;
+  background-color: var(--divider-color);
+  margin: 0px auto 20px;
+}
+
+.pw-section__{{sec_id}} .pw-section-text p {
+  color: {{section.settings.text_color}};
+  margin-top: 0;
+  margin-bottom: 32px;
+}
+
+.pw-section__{{sec_id}} .pw-section-text a {
+  color: inherit;
+  text-decoration: underline;
+}
+
+.pw-section__{{sec_id}} .pw-section-text a:hover {
+  color: inherit;
+  text-decoration: none;
+}
+
+.pw-section__{{sec_id}} .pw-feature {
+  color: {{section.settings.text_color}};
+  margin-top: 0;
+  margin-bottom: 15px;
+  position: relative;
+  padding-left: 34px;
+  display: inline-block;
+}
+
+.pw-section__{{sec_id}} .pw-feature::before {
+  content: '';
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 2px solid var(--check-color);
+  position: absolute;
+  top: 3px;
+  left: 0;
+}
+
+.pw-section__{{sec_id}} .pw-feature::after {
+  content: '';
+  width: 10px;
+  height: 6px;
+  border: 2px solid var(--check-color);
+  border-top: 0;
+  border-right: 0;
+  transform: rotate(-45deg);
+  position: absolute;
+  top: 10px;
+  left: 6px;
+}
+
+{% if section.settings.inherit_fonts == false %}
+  .pw-section__{{sec_id}} .pw-large.pw-section-title {
+    font-size: 48px;
+  }
+  .pw-section__{{sec_id}} .pw-medium.pw-section-title {
+    font-size: 32px;
+  }
+  .pw-section__{{sec_id}} .pw-small.pw-section-title {
+    font-size: 24px;
+  }
+  .pw-section__{{sec_id}} .pw-section-text,
+  .pw-section__{{sec_id}} .pw-section-text p {
+    font-size: 14px;
+  }
+  .pw-section__{{sec_id}} .pw-feature {
+    font-size: 14px;
+  }
+  .pw-section__{{sec_id}} .pw-btn, .rte .pw-section__{{sec_id}} a.pw-btn:not(.btn) {
+    font-size: 14px;
+  }
+{% endif %}
+
+
+@media only screen and (max-width: 1199px) {
+  .pw-section__{{sec_id}} .two-columns-text {
+    padding: 50px 5%;
+  }
+}
+
+
+@media only screen and (max-width: 991px) {
+  .pw-section__{{sec_id}} .two-columns-text {
+    width: 100%;
+    text-align: center;
+    padding-right: 0!important;
+    padding-left: 0!important;
+  }
+  .pw-section__{{sec_id}} .two-columns-img {
+    width: 100%;
+  }
+  .pw-section__{{sec_id}} .two-columns-img img {
+    position: relative;
+  }
+}
+
+
+@media only screen and (max-width: 749px) {
+  .pw-section__{{sec_id}} .two-columns-text {
+    padding: 30px 25px;
+  }
+  .pw-section__{{sec_id}} .pw-divider {
+    width: 120px;
+  }
+  .pw-section__{{sec_id}} {
+    padding-top: {{section.settings.section_padding_top_mobile}}px;
+    padding-bottom: {{section.settings.section_padding_bottom_mobile}}px;
+  }
+  .pw-section__{{sec_id}} .pw-btn, .rte .pw-section__{{sec_id}} a.pw-btn:not(.btn) {
+    padding: 15px 25px;
+    min-width: 180px;
+  }
+  {% if section.settings.inherit_fonts == false %}
+    .pw-section__{{sec_id}} .pw-large.pw-section-title {
+      font-size: 40px;
+    }
+    .pw-section__{{sec_id}} .pw-medium.pw-section-title {
+      font-size: 28px;
+    }
+    .pw-section__{{sec_id}} .pw-small.pw-section-title {
+      font-size: 20px;
+    }
+    .pw-section__{{sec_id}} .pw-section-text,
+    .pw-section__{{sec_id}} .pw-section-text p {
+      font-size: 14px;
+    }
+    .pw-section__{{sec_id}} .pw-feature {
+      font-size: 14px;
+    }
+    .pw-section__{{sec_id}} .pw-btn, .rte .pw-section__{{sec_id}} a.pw-btn:not(.btn) {
+      font-size: 14px;
+    }
+  {% endif %}
+}
+
+{%- endstyle -%}
+
+{% if section.settings.custom_css != blank %}
+  {%- style -%}
+  {{section.settings.custom_css}}
+  {%- endstyle -%}
+{% endif %}
+
+{% if section.settings.is_fullwidth == true %}
+  {% assign container = 'pw-container-fluid' %}
+{% else %}
+  {% assign container = 'pw-container' %}
+{% endif %}
+
+
+{% if section.settings.lazyload == true %} 
+  {% assign loading = 'lazy' %} 
+{% else %}
+  {% assign loading = 'eager' %} 
+{% endif %}
+
+
+<div class="pw-section__{{sec_id}} {{ section.settings.custom_class }}">
+  <div class="{{container}}">
+    <div class="two-columns-row {% if section.settings.img_position != "right" %} image-left {% endif %}">
+      <div class="two-columns-text">
+        <div class="two-columns-text-inner">
+          {% for block in section.blocks %}
+            {% case block.type %}
+              {% when 'logo' %}
+              {% if block.settings.logo_image != blank %}
+                <div class="pw-logo-img">
+                {{ block.settings.logo_image | image_url: width: 280 | image_tag: loading: loading }}
+                </div>
+              {% endif %}
+              {% when 'heading' %}
+              {% if block.settings.heading_text != blank %}
+                <{{ section.settings.heading_tag }} class="{{ block.settings.heading_size }} pw-section-title" {{ block.shopify_attributes }}>
+                {{ block.settings.heading_text | escape }}
+                </{{ section.settings.heading_tag }}>
+              {% endif %}
+
+              {% when 'divider' %}
+              <span class="pw-divider" style="--divider-color: {{block.settings.divider_color}}" {{ block.shopify_attributes }}></span>
+
+              {% when 'text' %}
+              {% if block.settings.section_text != blank %}
+                <div class="pw-section-text" {{ block.shopify_attributes }}>
+                  {{ block.settings.section_text }}
+                </div>
+              {% endif %}
+
+              {% when 'feature' %}
+                <div {{ block.shopify_attributes }}>
+                  <p class="pw-feature" style="--check-color: {{block.settings.check_color}}">
+                    {{ block.settings.about_list_item }}
+                  </p>
+                </div>
+
+              {% when 'buttons' %}
+              {% assign brightness_diff = block.settings.btn_bg_1 | brightness_difference: "#ffffff" %}
+              {% if brightness_diff > 125 %}
+                {% assign readable_text_color = "#ffffff" %}
+              {% else %}
+                {% assign readable_text_color = "#242424" %}
+              {% endif %}
+              <div class="pw-section-btns" {{ block.shopify_attributes }}>
+                {% if block.settings.button_label_1 != blank %}
+                  <a href="{{block.settings.button_link_1}}" 
+                      class="pw-btn" 
+                      style="background-color: {{block.settings.btn_bg_1}}; color: {{readable_text_color }}; border-radius: {{block.settings.btn_border_radius}}px;">
+                    {{block.settings.button_label_1}}
+                  </a>
+                {% endif %}
+              </div>
+
+            {% endcase %}
+          {% endfor %}
+        </div>
+      </div>
+      <div class="two-columns-img">
+        <div class="two-columns-img-inner">
+          {% if section.settings.background_image == blank %}
+            <img src="https://cdn.shopify.com/s/files/1/0560/8249/7605/files/about-riley-01.jpg" 
+              sizes="(min-width: 1100px) 1100px, (min-width: 750px) 750px"
+              {% if section.settings.lazyload == true %} loading="lazy" {% endif %}
+              width="100%"
+              height="100%"
+            />
+          {% else %}
+          {{ section.settings.background_image | image_url: width: 1920 | image_tag: widths: '490, 750, 992, 1200, 1920', sizes: '(min-width: 992px) 50vw, 100vw', loading: loading }}
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+{% schema %}
+
+{
+  "name": "[Kava] About-Riley-01",
+  "tag": "section",
+  "class": "kava-about kava-about-riley-01",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Main settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "inherit_fonts",
+      "default": false,
+      "label": "Inherit font sizes from theme"
+    },
+    {
+      "type": "checkbox",
+      "id": "is_fullwidth",
+      "default": false,
+      "label": "Full width section",
+      "info": "Overrides сontent width limit"
+    },
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "Background image"
+    },
+    {
+      "type": "select",
+      "id": "img_position",
+      "label": "Image position",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "right"
+    },
+    {
+      "type": "select",
+      "id": "text_align",
+      "label": "Text alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Font color",
+      "default": "#262424"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "transparent"
+    },
+    {
+      "type": "color",
+      "id": "text_bg_color",
+      "label": "Content background color",
+      "default": "#fff"
+    },
+    {
+      "type": "header",
+      "content": "Section paddings"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top",
+      "min": 0,
+      "max": 200,
+      "step": 10,
+      "unit": "px",
+      "label": "Section padding-top",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom",
+      "min": 0,
+      "max": 200,
+      "step": 10,
+      "unit": "px",
+      "label": "Section padding-bottom",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top_mobile",
+      "min": 0,
+      "max": 300,
+      "step": 10,
+      "unit": "px",
+      "label": "Section padding-top mobile",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom_mobile",
+      "min": 0,
+      "max": 300,
+      "step": 10,
+      "unit": "px",
+      "label": "Section padding-bottom mobile",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Text paddings"
+    },
+    {
+      "type": "range",
+      "id": "text_padding_top",
+      "min": 0,
+      "max": 200,
+      "step": 10,
+      "unit": "px",
+      "label": "Text padding-top",
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "text_padding_bottom",
+      "min": 0,
+      "max": 200,
+      "step": 10,
+      "unit": "px",
+      "label": "Text padding-bottom",
+      "default": 50
+    },
+    {
+      "type": "header",
+      "content": "Customization"
+    },
+    {
+      "type": "number",
+      "id": "container_max_width",
+      "label": "Content width limit (px)",
+      "default": 1320
+    },
+    {
+      "type": "text",
+      "id": "custom_class",
+      "label": "Custom сlass"
+    },
+    {
+      "type": "textarea",
+      "id": "custom_css",
+      "label": "Custom CSS"
+    },
+    {
+      "type": "select",
+      "id": "heading_tag",
+      "label": "Heading tag",
+      "options": [
+        {
+          "value": "h1",
+          "label": "H1"
+        },
+        {
+          "value": "h2",
+          "label": "H2"
+        }
+      ],
+      "default": "h2"
+    },
+    {
+      "type": "checkbox",
+      "id": "lazyload",
+      "default": true,
+      "label": "Lazyload images"
+    }
+  ],
+  "blocks": [
+    {
+      "name": "Logo",
+      "type": "logo",
+      "limit": 1,
+      "settings": [
+         {
+          "type": "image_picker",
+          "id": "logo_image",
+          "label": "Logo image"
+        },
+      ]
+    },
+    {
+      "name": "Heading",
+      "type": "heading",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "heading_text",
+          "label": "Heading text",
+          "default": "Heading text"
+        },
+        {
+          "type": "select",
+          "id": "heading_size",
+          "label": "Heading size",
+          "options": [
+            {
+              "value": "pw-large",
+              "label": "Large"
+            },
+            {
+              "value": "pw-medium",
+              "label": "Medium"
+            },
+            {
+              "value": "pw-small",
+              "label": "Small"
+            }
+          ],
+          "default": "pw-medium"
+        }
+      ]
+    },
+    {
+      "name": "Divider",
+      "type": "divider",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "color",
+          "id": "divider_color",
+          "label": "Divider color",
+          "default": "#ED6F43"
+        }
+      ]
+    },
+    {
+      "name": "Text",
+      "type": "text",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "section_text",
+          "label": "Section text",
+          "default": "<p>Section text</p>"
+        }
+      ]
+    },
+    {
+      "name": "Feature",
+      "type": "feature",
+      "limit": 6,
+      "settings": [
+        {
+          "type": "text",
+          "id": "about_list_item",
+          "label": "Feature text",
+          "default": "Feature text"
+        },
+        {
+          "type": "color",
+          "id": "check_color",
+          "label": "Icon color",
+          "default": "#047C4A"
+        }
+      ]
+    },
+    {
+      "name": "Button",
+      "type": "buttons",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "button_label_1",
+          "label": "Label"
+        },
+        {
+          "type": "url",
+          "id": "button_link_1",
+          "label": "Link"
+        },
+        {
+          "type": "color",
+          "id": "btn_bg_1",
+          "label": "Background color"
+        },
+        {
+          "type": "range",
+          "id": "btn_border_radius",
+          "min": 0,
+          "max": 60,
+          "step": 1,
+          "unit": "px",
+          "label": "Button border radius",
+          "default": 0
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "[Kava] About-Riley-01",
+        "settings": {
+        "img_position": "right",
+        "section_padding_top": 0,
+        "section_padding_bottom": 0,
+        "text_padding_top": 60,
+        "text_padding_bottom": 60,
+        "background_color": "#120B18",
+        "text_bg_color": "#120B18",
+        "text_color": "#ffffff"
+      },
+      "blocks": [
+        {
+          "type": "heading",
+          "settings": {
+            "heading_size": "pw-medium",
+            "heading_text": "Say No to Buying Themes, Develop Your Own"
+          }
+        },      
+        {
+          "type": "text",
+          "settings": {
+            "section_text": "<p>Say no to generic, overused themes. Invest in your brand’s future by developing a custom theme that truly represents who you are. </p>"
+          }
+        },
+        {
+          "type": "buttons",
+          "settings": {
+            "button_label_1": "Get started with KavaSections"
+          }
+        }
+      ]
+    }
+  ]
+}
+
+{% endschema %}

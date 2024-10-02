@@ -1,0 +1,72 @@
+<div class="search-result" id="predictive-search-results">
+    {%- if predictive_search.resources.products.size > 0 -%}
+        <ul class="search-result__list">    
+            <li class="search-result__title">
+                {{ 'compare.products' | t }}
+            </li>
+        {%- for product in predictive_search.resources.products -%}
+            <li onClick="linkToCompare('{{ product.handle }}', true)">
+                <img src="{{ product.metafields.appstore.icon.value}}?width=80"
+                    alt="{{ product.title }}"
+                    srcset="{{ product.metafields.appstore.icon.value}}?width=40 1x,
+                            {{ product.metafields.appstore.icon.value}}?width=80 2x"
+                    width="40"
+                    height="40"
+                    loading="lazy" 
+                    >
+                <p>{{ product.title }}</p>
+            </li>
+        {%- endfor -%}
+        </ul>
+    {%- endif -%}
+</div>
+
+<div class="search-result" id="predictive-search-products-list">
+    {%- if predictive_search.resources.products.size > 0 -%}
+        <ul class="search-result__list">   
+            {%- for product in predictive_search.resources.products -%}
+                <li>
+                    <a href="{{ product.url }}">{{ product.title }}</a>
+                </li>
+            {%- endfor -%}
+        </ul>
+    {% endif %}
+</div>
+
+<div class="search-result" id="predictive-search-articles-list">
+    {%- if predictive_search.resources.articles.size > 0 -%}
+        <ul class="search-result__list">   
+            {%- for article in predictive_search.resources.articles -%}
+                <li>
+                    <a href="{{ article.url }}">{{ article.title }}</a>
+                </li>
+            {%- endfor -%}
+        </ul>
+    {% endif %}
+</div>
+
+<div class="search-result" id="predictive-search-collection-list">
+    {%- if predictive_search.resources.collections.size > 0 -%}
+        <ul class="search-result__list">   
+            {%- for collection in predictive_search.resources.collections -%}
+                <li>
+                    <a href="{{ collection.url }}">{{ collection.title | highlight: predictive_search.terms }}</a>
+                </li>
+            {%- endfor -%}
+        </ul>
+    {% endif %}
+</div>
+
+{% schema %}
+{
+  "name": "Predictive Search",
+  "class": "predictive",
+  "presets": [
+    {
+        "name": "Predictive Search"
+    }
+  ],
+  "settings": [],
+  "blocks": []
+}
+{% endschema %}

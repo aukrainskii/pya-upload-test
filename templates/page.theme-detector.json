@@ -1,0 +1,182 @@
+/*
+* ------------------------------------------------------------
+* IMPORTANT: The contents of this file are auto-generated.
+*
+* This file may be updated by the Shopify admin theme editor
+* or related systems. Please exercise caution as any changes
+* made to this file may be overwritten.
+* ------------------------------------------------------------
+*/
+{
+  "sections": {
+    "theme_detector_atFwKx": {
+      "type": "theme-detector",
+      "settings": {
+        "inherit_fonts": false,
+        "is_fullwidth": false,
+        "text_align": "center",
+        "text_color": "#262424",
+        "background_color": "rgba(0,0,0,0)",
+        "background": "shopify:\/\/shop_images\/bg_8a5a10ee-69f9-4c8a-b418-cbc414e9b87d.png",
+        "heading_text": "Shopify Theme Detector - What Shopify Theme is This?",
+        "heading_size": "pw-medium",
+        "subheading_text": "Find out what Shopify Theme is used on the store.\n\n<ol style=\"display:flex;justify-content:space-evenly;font-size:12px;font-weight:500;\">\n<li style=\"margin-inline:1.5rem;\">Enter any Shopify store URL.<\/li>\n<li style=\"margin-inline:1.5rem;\">Click \"Detect Theme\".<\/li>\n<li style=\"margin-inline:1.5rem;\">Get instant results about used Shopify theme.<\/li>\n<\/ol>",
+        "please_wait": "<p><strong>Please wait. <\/strong><br\/>It may take a while to check the store and show the results.<\/p>",
+        "not_shopify": "<p><strong>Free Theme + KAVA Sections = Premium-looking store! <\/strong><\/p><p>The<strong> <\/strong><a href=\"https:\/\/apps.shopify.com\/kava-sections-page-builder?utm_medium=referral&utm_source=pickyourapp&utm_campaign=theme-detector&utm_term=kava-sections&utm_content=search-results\" target=\"_blank\" title=\"Kava Sections - Shopify Sections \"><strong>Kava Sections<\/strong><\/a> app can turn any Free theme into Premium looking store<\/p>",
+        "custom_theme": "<p><strong>Make your store look awesome!<\/strong><br\/>Upgrade your Shopify store UI\/UX with <a href=\"https:\/\/apps.shopify.com\/kava-sections-page-builder?utm_medium=referral&utm_source=pickyourapp&utm_campaign=theme-detector&utm_term=kava-sections&utm_content=search-results\" target=\"_blank\" title=\"Kava Sections - Shopify Sections \"><strong>Kava Sections<\/strong><\/a> in minutes.<\/p>",
+        "free_theme": "<p><strong>Free Theme + KAVA Sections = Premium-looking store! <\/strong><\/p><p>The <a href=\"https:\/\/apps.shopify.com\/kava-sections-page-builder?utm_medium=referral&utm_source=pickyourapp&utm_campaign=theme-detector&utm_term=kava-sections&utm_content=search-results\" target=\"_blank\" title=\"Kava Sections - Shopify Sections \"><strong>Kava Sections<\/strong><\/a><strong> <\/strong>app can turn any Free theme into Premium looking store<strong><br\/><br\/><\/strong><\/p>",
+        "paid_theme": "<p><strong>Make store look even better!<\/strong><br\/>The <a href=\"https:\/\/apps.shopify.com\/kava-sections-page-builder?utm_medium=referral&utm_source=pickyourapp&utm_campaign=theme-detector&utm_term=kava-sections&utm_content=search-results\" target=\"_blank\" title=\"Kava Sections - Shopify Sections \"><strong>Kava Sections<\/strong><\/a><strong> <\/strong>app can increase UI\/UX even for Premium themes. <\/p>",
+        "section_padding_top": 30,
+        "section_padding_bottom": 60,
+        "section_padding_top_mobile": 60,
+        "section_padding_bottom_mobile": 50,
+        "container_max_width": 920,
+        "custom_class": "",
+        "custom_css": "",
+        "heading_tag": "h2",
+        "lazyload": true
+      }
+    },
+    "kava_about_riley_hiD848": {
+      "type": "kava-about-riley",
+      "blocks": {
+        "logo_BaFKNz": {
+          "type": "logo",
+          "settings": {
+            "logo_image": "shopify:\/\/shop_images\/kava-logo_031c199b-eecc-49e5-9da8-949e25fc7e75.png"
+          }
+        },
+        "heading_z9BbXa": {
+          "type": "heading",
+          "settings": {
+            "heading_text": "Shopify Theme Sections and Landing Page templates",
+            "heading_size": "pw-small"
+          }
+        },
+        "text_ADgHwP": {
+          "type": "text",
+          "settings": {
+            "section_text": "<p>Craft your perfect Shopify store with sections and ready-to-go pages by KAVA Sections app.<\/p>"
+          }
+        },
+        "buttons_Cqnje7": {
+          "type": "buttons",
+          "settings": {
+            "button_label_1": "Get started with Kava Sections →",
+            "button_link_1": "https:\/\/apps.shopify.com\/kava-sections-page-builder?utm_medium=referral&utm_source=pickyourapp&utm_campaign=theme-detector&utm_term=get-started-with-kv&utm_content=main-page-banner-btn",
+            "btn_bg_1": "#ffffff",
+            "btn_border_radius": 30
+          }
+        }
+      },
+      "block_order": [
+        "logo_BaFKNz",
+        "heading_z9BbXa",
+        "text_ADgHwP",
+        "buttons_Cqnje7"
+      ],
+      "settings": {
+        "inherit_fonts": false,
+        "is_fullwidth": false,
+        "background_image": "shopify:\/\/shop_images\/kava-about-riley.png",
+        "img_position": "right",
+        "text_align": "left",
+        "text_color": "#ffffff",
+        "background_color": "#120b18",
+        "text_bg_color": "#120b18",
+        "section_padding_top": 0,
+        "section_padding_bottom": 0,
+        "section_padding_top_mobile": 0,
+        "section_padding_bottom_mobile": 0,
+        "text_padding_top": 60,
+        "text_padding_bottom": 60,
+        "container_max_width": 840,
+        "custom_class": "",
+        "custom_css": "",
+        "heading_tag": "h2",
+        "lazyload": true
+      }
+    },
+    "custom_liquid_iy7FYm": {
+      "type": "custom-liquid",
+      "custom_css": [
+        ".pw-article-content {max-width: 800px; margin-left: auto; margin-right: auto;}"
+      ],
+      "settings": {
+        "custom_liquid": "<div class=\"pw-article-content\">\n<div class=\"content\">\n{{ page.content }}\n<\/div>\n<\/div>"
+      }
+    },
+    "kava_featured_apps_FxK3zr": {
+      "type": "kava-featured-apps",
+      "blocks": {
+        "heading_bLfEbd": {
+          "type": "heading",
+          "settings": {
+            "heading_text": "Recommended apps",
+            "heading_size": "pw-small"
+          }
+        },
+        "product_mPKr9d": {
+          "type": "product",
+          "settings": {
+            "product": "kava-sections-page-builder"
+          }
+        },
+        "product_wBGtrm": {
+          "type": "product",
+          "settings": {
+            "product": "404-fix-broken-links"
+          }
+        },
+        "product_zEgcUN": {
+          "type": "product",
+          "settings": {
+            "product": "products-list-restaurant-food-menu"
+          }
+        },
+        "product_j8CiGm": {
+          "type": "product",
+          "settings": {
+            "product": "smart-tabs"
+          }
+        }
+      },
+      "block_order": [
+        "heading_bLfEbd",
+        "product_mPKr9d",
+        "product_wBGtrm",
+        "product_zEgcUN",
+        "product_j8CiGm"
+      ],
+      "settings": {
+        "is_fullwidth": false,
+        "inherit_fonts": false,
+        "text_color": "#262424",
+        "background_color": "#f5f7ff",
+        "section_padding_top": 110,
+        "section_padding_bottom": 110,
+        "section_padding_top_mobile": 50,
+        "section_padding_bottom_mobile": 50,
+        "container_max_width": 1320,
+        "custom_class": "",
+        "custom_css": "",
+        "heading_tag": "h2",
+        "lazyload": true
+      }
+    },
+    "navigation_yhme8V": {
+      "type": "navigation",
+      "settings": {
+        "menu": "section-navigation",
+        "layout": "accent"
+      }
+    }
+  },
+  "order": [
+    "theme_detector_atFwKx",
+    "kava_about_riley_hiD848",
+    "custom_liquid_iy7FYm",
+    "kava_featured_apps_FxK3zr",
+    "navigation_yhme8V"
+  ]
+}

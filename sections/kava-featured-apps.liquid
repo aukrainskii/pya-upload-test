@@ -1,0 +1,548 @@
+{% assign sec_id = section.id | slice: -6, 6 | replace: '-', '_' %}
+{% assign sec_id = sec_id | prepend: 'pw' %}
+
+{%- style -%}
+
+*, *:after, *:before {
+  box-sizing: border-box;
+}
+
+.pw-section__{{sec_id}} img {
+  max-width: 100%;
+  height: auto;
+}
+
+.pw-section__{{sec_id}} .pw-container,
+.pw-section__{{sec_id}} .pw-container-fluid {
+  width: 100%;
+  padding-right: var(--pw-gutter-x, 15px);
+  padding-left: var(--pw-gutter-x, 15px);
+  margin-right: auto;
+  margin-left: auto;
+}
+
+@media (min-width: 576px) {
+  .pw-section__{{sec_id}} .pw-container {
+    max-width: 540px;
+  }
+}
+
+@media (min-width: 750px) {
+  .pw-section__{{sec_id}} .pw-container {
+    max-width: 720px;
+  }
+}
+
+@media (min-width: 992px) {
+  .pw-section__{{sec_id}} .pw-container {
+    max-width: 960px;
+  }
+  {% if section.settings.container_max_width >= 720 and section.settings.container_max_width <= 960 %}
+    .pw-section__{{sec_id}} .pw-container {
+      max-width: {{section.settings.container_max_width}}px;
+    }
+  {% endif %}
+}
+
+@media (min-width: 1200px) {
+  .pw-section__{{sec_id}} .pw-container {
+    max-width: 1140px;
+  }
+  {% if section.settings.container_max_width >= 720 and section.settings.container_max_width <= 1140 %}
+    .pw-section__{{sec_id}} .pw-container {
+      max-width: {{section.settings.container_max_width}}px;
+    }
+  {% endif %}
+}
+
+@media (min-width: 1400px) {
+  .pw-section__{{sec_id}} .pw-container {
+    max-width: 1320px;
+  }
+  {% if section.settings.container_max_width >= 720 and section.settings.container_max_width != 1320 %}
+    .pw-section__{{sec_id}} .pw-container {
+      max-width: {{section.settings.container_max_width}}px;
+    }
+  {% endif %}
+}
+
+.pw-section__{{sec_id}} {
+  --pw-gutter-x: 20px;
+  background-color: {{section.settings.background_color}};
+  padding-top: {{section.settings.section_padding_top}}px;
+  padding-bottom: {{section.settings.section_padding_bottom}}px;
+  position: relative;
+  line-height: 1.5;
+}
+
+.pw-section__{{sec_id}} .pw-title-wrapper {
+  margin-bottom: 60px;
+}
+
+.pw-section__{{sec_id}} .pw-section-title {
+  color: {{section.settings.text_color}};
+  text-align: {{section.settings.text_align}};
+  margin-top: 0;
+  margin-bottom: 32px;
+  font-weight: 700;
+}
+
+.pw-section__{{sec_id}} .pw-products-container {
+  position: relative;
+  margin-left: calc(var(--pw-gutter-x) / 2 * -1);
+  margin-right: calc(var(--pw-gutter-x) / 2 * -1);
+  display: flex;
+}
+
+.pw-section__{{sec_id}} .pw-product-wrapper {
+  padding: 0 calc(var(--pw-gutter-x) / 2);
+  width: 25%;
+  margin-bottom: 32px;
+}
+
+.pw-section__{{sec_id}} .pw-featured-product {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  text-decoration: none;
+  color: {{section.settings.text_color}};
+}
+
+.pw-section__{{sec_id}} .pw-featured-product:hover {
+  text-decoration: none;
+}
+
+.pw-section__{{sec_id}} .pw-product-image {
+  position: relative;
+  overflow: hidden;
+  display: block;
+  width: 70px;
+  height: 70px;
+  flex-shrink: 0;
+  margin-bottom: 10px;
+  border-radius: 4px;
+}
+
+.pw-section__{{sec_id}} .pw-product-image img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -o-object-fit: contain;
+  object-fit: contain;
+  {% if section.settings.is_cover == true %}
+    -o-object-fit: cover;
+    object-fit: cover;
+  {% endif %}
+}
+
+.pw-section__{{sec_id}} .pw-product-title { 
+  color: {{section.settings.text_color}};
+  font-weight: 600;
+  margin-top: 0;
+  margin-bottom: 4px;
+  line-height: 1.2;
+}
+
+.pw-section__{{sec_id}} .pw-product-rating {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  font-size: 14px;
+  margin-bottom: 4px;
+}
+
+.pw-section__{{sec_id}} .pw-product-rating-img {
+  width: 16px;
+  height: 16px;
+}
+
+.pw-section__{{sec_id}} .pw-product-description {
+  font-size: 14px;
+  color: {{section.settings.text_color}};
+}
+
+
+{% if section.settings.inherit_fonts == false %}
+  .pw-section__{{sec_id}} .pw-large.pw-section-title {
+    font-size: 64px;
+  }
+  .pw-section__{{sec_id}} .pw-medium.pw-section-title {
+    letter-spacing: 0;
+    font-size: 48px;
+  }
+  .pw-section__{{sec_id}} .pw-small.pw-section-title {
+    font-size: 32px;
+  }
+  .pw-section__{{sec_id}} .pw-product-title {
+    font-size: 14px;
+  }
+{% endif %}
+
+  
+@media only screen and (max-width: 1199px) {
+  .pw-section__{{sec_id}} .pw-product-wrapper {
+    width: 33%;
+  }
+}
+
+
+@media only screen and (max-width: 991px) {
+  .pw-section__{{sec_id}} .pw-products-container {
+    flex-wrap: wrap;
+  }
+  .pw-section__{{sec_id}} .pw-product-wrapper {
+    width: 50%;
+  }
+}
+
+
+@media only screen and (max-width: 749px) {
+  .pw-section__{{sec_id}} {
+    padding-top: {{section.settings.section_padding_top_mobile}}px;
+    padding-bottom: {{section.settings.section_padding_bottom_mobile}}px;
+  }
+  .pw-section__{{sec_id}} .pw-product-wrapper {
+    width: 100%;
+  }
+  {% if section.settings.inherit_fonts == false %}
+    .pw-section__{{sec_id}} .pw-large.pw-section-title {
+      font-size: 56px;
+    }
+    .pw-section__{{sec_id}} .pw-medium.pw-section-title {
+      letter-spacing: 0;
+      font-size: 40px;
+    }
+    .pw-section__{{sec_id}} .pw-small.pw-section-title {
+      font-size: 28px;
+    }
+  {% endif %}
+}
+
+{%- endstyle -%}
+
+
+{% if section.settings.is_fullwidth == true %}
+  {% assign container = 'pw-container-fluid' %}
+{% else %}
+  {% assign container = 'pw-container' %}
+{% endif %}
+
+
+{% if section.settings.custom_css != blank %}
+  {%- style -%}
+  {{section.settings.custom_css}}
+  {%- endstyle -%}
+{% endif %}
+
+{% if section.settings.lazyload == true %} 
+  {% assign loading = 'lazy' %} 
+{% else %}
+  {% assign loading = 'eager' %} 
+{% endif %}
+
+
+<div class="pw-section__{{sec_id}} {{ section.settings.custom_class }}">
+  <div class="{{container}}">
+    <div class="pw-title-wrapper">
+      {% for block in section.blocks %}
+        {% if block.type == 'heading' %}
+          {% if block.settings.heading_text != blank %}
+            <{{ section.settings.heading_tag }} class="{{ block.settings.heading_size }} pw-section-title" {{ block.shopify_attributes }}>
+            {{ block.settings.heading_text | escape }}
+            </{{ section.settings.heading_tag }}>
+          {% endif %}
+        {% endif %}
+      {% endfor %}
+    </div>
+
+    <div class="pw-products-container">
+
+      {% for block in section.blocks %}
+
+        {% if block.type == 'product' %}
+          
+          {% assign product = all_products[block.settings.product] %}
+
+          {% if product != blank %}
+
+            <div class="pw-product-wrapper" {{ block.shopify_attributes }}>
+              <a href="{{ product.url}}" class="pw-featured-product">
+                <div class="pw-product-image">
+                  {% if  product.metafields.appstore.icon.value != blank %}
+                    <img src="{{ product.metafields.appstore.icon.value}}?width=140"
+                        alt="{{ product.title }}"
+                        srcset="{{ product.metafields.appstore.icon.value}}?width=70 1x,
+                                {{ product.metafields.appstore.icon.value}}?width=140 2x"
+                        width="70"
+                        height="70"
+                        loading="lazy">
+                  {% elsif product.featured_media != blank %}
+
+                    {% assign featured_media = product.featured_media %}                          
+                      {{ featured_media | image_url: width: 120 | image_tag: loading: loading }}
+                    {% else %} 
+                    <img  width="70" height="70" src="https://cdn.shopify.com/s/files/1/0511/2465/files/Placeholder-06.svg" alt="product name">
+                  {% endif %}                      
+                </div>
+                   
+                <div class="pw-product-content">
+                  {% if product.title == blank %}                  
+                    <h3 class="pw-product-title">Product title</h3>
+                  {% else %}
+                    <h3 class="pw-product-title">{{ product.title | escape }}</h3>
+                  {% endif %} 
+                  {% if product.metafields.appstore.reviews.value > 0 %}
+                    <div class="pw-product-rating">
+                      {{ product.metafields.appstore.rating.value }}
+                      <div class="pw-product-rating-img">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7.2988 2.39934C7.61124 1.86689 8.38616 1.86689 8.69853 2.39934L10.5095 5.48584L14.0262 6.2418C14.6329 6.37221 14.8723 7.10377 14.4588 7.56327L12.0613 10.2268L12.4237 13.7805C12.4863 14.3935 11.8594 14.8457 11.2913 14.5972L7.9987 13.1568L4.70602 14.5972C4.138 14.8457 3.51111 14.3935 3.57364 13.7805L3.93609 10.2268L1.53866 7.56327C1.12507 7.10377 1.36453 6.37221 1.97119 6.2418L5.48787 5.48584L7.2988 2.39934Z" fill="#00AA63"/></svg>
+                      </div>
+                      ({{ product.metafields.appstore.reviews }})
+                    </div>
+                  {% else %}
+                    <div class="pw-product-rating no-reviews">
+                      <div class="pw-product-rating-img">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7.2988 2.39934C7.61124 1.86689 8.38616 1.86689 8.69853 2.39934L10.5095 5.48584L14.0262 6.2418C14.6329 6.37221 14.8723 7.10377 14.4588 7.56327L12.0613 10.2268L12.4237 13.7805C12.4863 14.3935 11.8594 14.8457 11.2913 14.5972L7.9987 13.1568L4.70602 14.5972C4.138 14.8457 3.51111 14.3935 3.57364 13.7805L3.93609 10.2268L1.53866 7.56327C1.12507 7.10377 1.36453 6.37221 1.97119 6.2418L5.48787 5.48584L7.2988 2.39934Z" fill="#00AA63"/></svg>
+                      </div>
+                     No reviews
+                    </div>
+                  {% endif %}
+                  {% if product.metafields.appstore.card_subtitle.value != blank %}                  
+                    <p class="pw-product-description">{{ product.metafields.appstore.card_subtitle.value }}</p>
+                  {% else %}
+                    <p class="pw-product-description">{{ product.description | escape | truncatewords: 6 }}</p>
+                  {% endif %}
+                </div>
+              </a>
+            </div>
+
+            {% else %}
+
+            <div class="pw-product-wrapper" {{ block.shopify_attributes }}>
+              <span class="pw-featured-product">         
+                <div class="pw-product-image">
+                  <img src="https://cdn.shopify.com/s/files/1/0511/2465/files/Placeholder-06.svg" alt="product name">
+                </div>
+                <div class="pw-product-content">
+                  <h3 class="pw-product-title">Product title</h3>
+                  <p class="pw-product-description">Profuct description</p>
+                </div>
+              </span>
+            </div>
+
+          {% endif %}
+        {% endif %}
+      {% endfor %}
+
+    </div>
+  </div>
+</div>
+
+
+{% schema %}
+
+{
+  "name": "[Kava] Featured apps",
+  "tag": "section",
+  "class": "kava-featured-products",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Main settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "is_fullwidth",
+      "default": false,
+      "label": "Full width section"
+    },
+    {
+      "type": "checkbox",
+      "id": "inherit_fonts",
+      "default": false,
+      "label": "Inherit font sizes from theme"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#262424"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "transparent"
+    },
+    {
+      "type": "header",
+      "content": "Desktop paddings"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top",
+      "min": 0,
+      "max": 300,
+      "step": 10,
+      "unit": "px",
+      "label": "Section padding-top",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom",
+      "min": 0,
+      "max": 300,
+      "step": 10,
+      "unit": "px",
+      "label": "Section padding-bottom",
+      "default": 100
+    },
+    {
+      "type": "header",
+      "content": "Mobile paddings"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top_mobile",
+      "min": 0,
+      "max": 200,
+      "step": 10,
+      "unit": "px",
+      "label": "Section padding-top",
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom_mobile",
+      "min": 0,
+      "max": 200,
+      "step": 10,
+      "unit": "px",
+      "label": "Section padding-bottom",
+      "default": 50
+    },
+    {
+      "type": "header",
+      "content": "Customization"
+    },
+    {
+      "type": "number",
+      "id": "container_max_width",
+      "label": "Container max width",
+      "default": 1320
+    },
+    {
+      "type": "text",
+      "id": "custom_class",
+      "label": "Custom сlass"
+    },
+    {
+      "type": "textarea",
+      "id": "custom_css",
+      "label": "Custom CSS"
+    },
+    {
+      "type": "select",
+      "id": "heading_tag",
+      "label": "Heading tag",
+      "options": [
+        {
+          "value": "h1",
+          "label": "H1"
+        },
+        {
+          "value": "h2",
+          "label": "H2"
+        }
+      ],
+      "default": "h2"
+    },
+    {
+      "type": "checkbox",
+      "id": "lazyload",
+      "default": true,
+      "label": "Lazyload images"
+    }
+  ],
+  "blocks": [
+    {
+      "name": "Heading",
+      "type": "heading",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "heading_text",
+          "label": "Heading text",
+          "default": "Heading text"
+        },
+        {
+          "type": "select",
+          "id": "heading_size",
+          "label": "Heading size",
+          "options": [
+            {
+              "value": "pw-large",
+              "label": "Large"
+            },
+            {
+              "value": "pw-medium",
+              "label": "Medium"
+            },
+            {
+              "value": "pw-small",
+              "label": "Small"
+            }
+          ],
+          "default": "pw-medium"
+        }
+      ]
+    },
+    {
+      "name": "Product",
+      "type": "product",
+      "limit": 12,
+      "settings": [
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Product"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "[Kava] Featured apps",
+        "settings": {
+        "background_color": "#f5f7ff"
+      },
+      "blocks": [
+        {
+          "type": "heading",
+          "settings": {
+            "heading_text": "Offer promotions",
+            "heading_size": "pw-medium"
+          }
+        },
+        {
+          "type": "product"
+        },
+        {
+          "type": "product"
+        },
+        {
+          "type": "product"
+        },
+        {
+          "type": "product"
+        }
+      ]
+    }
+  ]
+}
+
+{% endschema %}

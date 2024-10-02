@@ -1,0 +1,7 @@
+{% capture logo %}
+    <a class="logo" href="/" aria-label="Logo">
+    {% render 'img' | img: section.settings.logo %}
+    </a>
+{% endcapture %}
+
+{{ logo }}

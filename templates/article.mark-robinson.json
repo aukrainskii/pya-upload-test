@@ -1,0 +1,130 @@
+{
+  "sections": {
+    "776549b7-17aa-434f-bc2a-8032267cc335": {
+      "type": "main-header-section",
+      "settings": {
+        "section_padding_top_m": 24,
+        "section_padding_bottom_m": 16,
+        "section_padding_top_t": 48,
+        "section_padding_bottom_t": 24,
+        "section_padding_top_d": 24,
+        "section_padding_bottom_d": 24,
+        "heading": "Blog",
+        "background": "shopify:\/\/shop_images\/hero-bg.png"
+      }
+    },
+    "69f78085-4594-4aba-a717-ed1b621bb730": {
+      "type": "main-article",
+      "blocks": {
+        "article_QetrKP": {
+          "type": "article",
+          "settings": {
+            "article": "news\/cut-through-the-shopify-app-clutter-with-takeyour-app"
+          }
+        },
+        "article_GPUDaA": {
+          "type": "article",
+          "settings": {
+            "article": "news\/black-friday-and-cyber-monday-2023-online-sales-results-and-stats"
+          }
+        },
+        "article_VUnUqV": {
+          "type": "article",
+          "settings": {
+            "article": "news\/the-best-wholesale-app-for-shopify"
+          }
+        }
+      },
+      "block_order": [
+        "article_QetrKP",
+        "article_GPUDaA",
+        "article_VUnUqV"
+      ],
+      "settings": {
+        "section_padding_top_m": 0,
+        "section_padding_bottom_m": 64,
+        "section_padding_top_t": 0,
+        "section_padding_bottom_t": 80,
+        "section_padding_top_d": 0,
+        "section_padding_bottom_d": 120
+      }
+    },
+    "5ebedaa0-2f6e-4490-9729-8da35d21c80c": {
+      "type": "articles-list",
+      "blocks": {
+        "block_mfgndP": {
+          "type": "block",
+          "settings": {
+            "article": "news\/cut-through-the-shopify-app-clutter-with-takeyour-app"
+          }
+        },
+        "block_XQkpTn": {
+          "type": "block",
+          "settings": {
+            "article": "news\/black-friday-and-cyber-monday-2023-online-sales-results-and-stats"
+          }
+        },
+        "block_8gJMMp": {
+          "type": "block",
+          "settings": {
+            "article": "news\/guide-to-shopify-page-builder-apps-in-2024"
+          }
+        }
+      },
+      "block_order": [
+        "block_mfgndP",
+        "block_XQkpTn",
+        "block_8gJMMp"
+      ],
+      "settings": {
+        "section_padding_top_m": 36,
+        "section_padding_bottom_m": 36,
+        "section_padding_top_t": 80,
+        "section_padding_bottom_t": 80,
+        "section_padding_top_d": 110,
+        "section_padding_bottom_d": 120,
+        "heading": "Recommended articles",
+        "blog-text": "See all articles",
+        "link": "shopify:\/\/blogs\/news",
+        "layout": "light",
+        "tags": true,
+        "content": true,
+        "author": false,
+        "date": true
+      }
+    },
+    "0085cab7-3914-4bf2-9a28-e19e5f9ed065": {
+      "type": "newsletter",
+      "blocks": {
+        "template--18365118480697__0085cab7-3914-4bf2-9a28-e19e5f9ed065-1679063590afe326da-0": {
+          "type": "newsletter",
+          "settings": {
+            "text": "Try Shopify for free, no credit card required. By entering your email, you agree to receive marketing emails from Shopify."
+          }
+        }
+      },
+      "block_order": [
+        "template--18365118480697__0085cab7-3914-4bf2-9a28-e19e5f9ed065-1679063590afe326da-0"
+      ],
+      "settings": {
+        "title": "Start your online business today. For free.",
+        "text": "Sign up for Shopify's free trial to access all of the tools and services you need to start, run, and grow your business.",
+        "image": "shopify:\/\/shop_images\/image.png"
+      }
+    },
+    "9763924b-865c-418d-8f6f-97281fa69232": {
+      "type": "navigation",
+      "settings": {
+        "menu": "section-navigation",
+        "layout": "primary"
+      }
+    }
+  },
+  "order": [
+    "776549b7-17aa-434f-bc2a-8032267cc335",
+    "69f78085-4594-4aba-a717-ed1b621bb730",
+    "5ebedaa0-2f6e-4490-9729-8da35d21c80c",
+    "0085cab7-3914-4bf2-9a28-e19e5f9ed065",
+    "9763924b-865c-418d-8f6f-97281fa69232"
+  ]
+}

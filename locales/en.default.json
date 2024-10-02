@@ -1,0 +1,159 @@
+{
+  "general": {
+    "password_page": {
+      "login_form_heading": "Enter store using password:",
+      "login_password_button": "Enter using password",
+      "login_form_password_label": "Password",
+      "login_form_password_placeholder": "Your password",
+      "login_form_error": "Wrong password!",
+      "login_form_submit": "Enter",
+      "admin_link_html": "Are you the store owner? <a href=\"/admin\" class=\"link underlined-link\">Log in here</a>",
+      "powered_by_shopify_html": "This shop will be powered by {{ shopify }}"
+    }
+  },
+  "accessibility": {
+    "skip_to_text": "Skip to content",
+    "skip_to_product_info": "Skip to product information",
+    "close": "Close",
+    "unit_price_separator": "per",
+    "vendor": "Vendor:",
+    "error": "Error",
+    "refresh_page": "Choosing a selection results in a full page refresh.",
+    "link_messages": {
+      "new_window": "Opens in a new window.",
+      "external": "Opens external website."
+    },
+    "loading": "Loading...",
+    "total_reviews": "total reviews",
+    "star_reviews_info": "{{ rating_value }} out of {{ rating_max }} stars",
+    "collapsible_content_title": "Collapsible content",
+    "app_search_placeholder": "Search by app name",
+    "article_search_placeholder": "Search articles",
+    "search": "Search",
+    "explore_all": "Explore all",
+    "apps": "apps",
+    "by": "by",
+    "home": "Home",
+    "developer": "Developer",
+    "reviews": "reviews",
+    "themes": "Shopify Themes",
+    "no-reviews": "No reviews",
+    "developer_title": "Shopify apps by",
+    "see_best": "See Best"
+  },
+  "collection_sort": {
+    "best": "Best",
+    "recommended": "Recommended",
+    "free": "Free",
+    "latest": "Latest",
+    "link_title_best": " Explore Best {{title}} apps",
+    "link_title_recommended": " Explore Recommended {{title}} apps",
+    "link_title_free": " Explore Free {{title}} apps",
+    "link_title_latest": " Explore Latest {{title}} apps"
+  },
+  "newsletter": {
+    "button_label": "Start free trial",
+    "email": "Email",
+    "placeholder": "someemail@gmail.com"
+  },
+  "article": {
+    "prev": "Previous Page",
+    "next": "Next Page",
+    "popular_articles": "Popular articles",
+    "table_of_contents": "Table of contents:",
+    "more_articles_by_author": "More articles by author",
+    "min_read": "min read"
+  },
+  "blog":{
+    "blog_topics": "Blog topics",
+    "not-found": "No posts found"
+  },
+  "page": {
+    "learn_more": "Learn more",
+    "add_to_compare": "Add to compare",
+    "filter_products_html": "Filter ({{ count }}) apps",
+    "categories": "Categories",
+    "reset_all": "Reset all filters",
+    "experience": "experience",
+    "developed": "Developed",
+    "raiting_text_html": "<p>Rating <span>(Based on Shopify AppStore)</span></p>",
+    "contact_us": "Contact us:",
+    "website": "Website",
+    "reviews": "reviews",
+    "facebook": "Facebook",
+    "instagram": "Instagram",
+    "shopify_store": "Open in Shopify AppStore",
+    "read_more_about": "Read more about: "
+  },
+  "collection": {
+    "recent_themes": "Recent themes",
+    "read_more": "Read more",
+    "more_apps": "More apps",
+    "all_apps": "All apps",
+    "free_apps": "Free apps",
+    "best_apps": "Best apps",
+    "show_more": "Show more",
+    "show_less": "Show less",
+    "not-found": "No apps found",
+    "read_about": "Read about "
+  },
+  "compare": {
+    "products": "Products",
+    "overview": "Overview",
+    "screenshots_and_video": "Screenshots and Video",
+    "key_value": "Key values",
+    "pricing": "Pricing",
+    "user_reviews": "User reviews",
+    "app_highlights": "App highlights",
+    "integration_with": "Integration with",
+    "view_app": "View app",
+    "screenshots": "screenshots",
+    "free_plan": "Free plan",
+    "alternatives": "Alternatives",
+    "add_to_compare": "Add to compare",
+    "compare_similar_apps": "Compare similar apps",
+    "add_app_to_compare": "Add app to compare",
+    "search_by_name": "Search by name",
+    "recommended_comparisons": "Recommended Comparisons",
+    "state-1-text": "Add more than one app to compare",
+    "compare": "Compare"
+  },
+  "statistic": {
+    "website_analytics": "Website Analytics",
+    "g_rang": "Global rank",
+    "onpage_score": "Onpage score",
+    "backlinks": "Backlinks",
+    "crawled_pages": "Crawled pages",
+    "domen_age": "Domen age",
+    "shop_theme": "Shop theme",
+    "logo": "Logo/Icon",
+    "latest_searches": "Latest searches:",
+    "placeholder": "Analyze any Shopify store",
+    "input_name": "Search for statistic"
+  },
+  "product": {
+    "raiting_html": "<p>Raiting</p>",
+    "raiting_based_on_html": "<p><span>(Based on Shopify AppStore)</span></p>",
+    "reviews": "Reviews",
+    "developers": "Developers: ",
+    "price": "Price: ",
+    "btn_install_text": "Install from Shopify appstore",
+    "highlights": "App highlights:",
+    "integrations": "Integrations with:",
+    "includes": "Includes:",
+    "features": "Key features",
+    "pros": "Pros:",
+    "cons": "Cons:",
+    "see_all": "See all apps",
+    "explore_best": "Explore Best {{title}} apps",
+    "pricing_plan_btn": "Install from Shopify appstore"
+  },
+  "main-404": {
+    "label_btn": "Go to homepage"
+  },
+  "search": {
+    "title": "Results for \"{{ terms }}\"",
+    "apps": "Apps",
+    "blog": "Blog"
+  }
+}                    

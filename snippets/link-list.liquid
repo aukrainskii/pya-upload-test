@@ -1,0 +1,30 @@
+{% liquid
+    if articles == blank
+        assign articles = section.blocks
+    endif
+
+    if collection
+        assign sec_heading = 'collection.recent_themes' | t
+    else
+        assign sec_heading = 'article.popular_articles' | t
+    endif
+%}
+<div class="blog-recommended">
+    {% render 'sec-heading' | sec_heading:  sec_heading , align: "left" %}
+    {% for block in articles %}
+        {% if collection %}
+            {% assign theme = block.settings.product %}
+            <div class="blog-recommended__item">
+                <a href="{{ theme.url }}">{{ theme.title }}</a>
+            </div>
+        {% else %}
+            {% assign featured_article = block.settings.article %}
+            <div class="blog-recommended__item">
+                <a href="{{ featured_article.url }}">{{ featured_article.title }}</a>
+            </div>
+        {% endif %}
+    {% endfor %}
+    {% if link %}
+        {% render 'linkTo' | text: linkText, link: link %}
+    {% endif %}
+</div>

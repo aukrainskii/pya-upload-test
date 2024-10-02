@@ -1,0 +1,650 @@
+{% liquid
+    assign url_handles = page.handle
+    assign product_handles = url_handles | split: "-vs-"
+    assign columns = product_handles.size
+
+    assign compare_title = ""
+
+    for handle in product_handles 
+        if forloop.last == false
+            assign compare_title = compare_title | append: all_products[handle].title | append: "<span> vs </span>"
+        else
+            assign compare_title = compare_title | append: all_products[handle].title
+        endif
+    endfor
+
+    assign category_handle = all_products[product_handles[0]].metafields.appstore.primary_category_slug
+    assign category_primary = collections[category_handle]
+
+    assign integration_available = 0
+    for handle in product_handles
+        assign arr-integ = all_products[handle].metafields.appstore.integrations.value
+        for integ in arr-integ
+            assign integration_available = integration_available | plus: 1
+        endfor
+    endfor
+%}
+<section class="section section-breadcrumbs">
+    <nav class="breadcrumbs" role="navigation" aria-label="breadcrumbs">
+        <ul class="breadcrumbs__list">
+            <li>
+                <a class="breadcrumb breadcrumb--home" href="/" title="Home">{{'accessibility.home' | t }}
+                    <svg width="24" height="21" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M15.7077 12.0429C16.0982 12.4334 16.0982 13.0666 15.7077 13.4571L10.0508 19.114C9.66033 19.5045 9.02717 19.5045 8.63664 19.114C8.24612 18.7234 8.24612 18.0903 8.63664 17.6997L13.5864 12.75L8.63664 7.80025C8.24612 7.40973 8.24612 6.77656 8.63664 6.38604C9.02717 5.99551 9.66033 5.99551 10.0508 6.38604L15.7077 12.0429Z" fill="currentColor"/>
+                    </svg>
+                </a>
+            </li>
+            <li>
+                <a class="breadcrumb breadcrumb--home" href="{{ category_primary.url }}" title="{{ category_primary.title }}">{{ category_primary.title }}
+                    <svg width="24" height="21" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M15.7077 12.0429C16.0982 12.4334 16.0982 13.0666 15.7077 13.4571L10.0508 19.114C9.66033 19.5045 9.02717 19.5045 8.63664 19.114C8.24612 18.7234 8.24612 18.0903 8.63664 17.6997L13.5864 12.75L8.63664 7.80025C8.24612 7.40973 8.24612 6.77656 8.63664 6.38604C9.02717 5.99551 9.66033 5.99551 10.0508 6.38604L15.7077 12.0429Z" fill="currentColor"/>
+                    </svg>
+                </a>
+            </li>
+            <li>
+                <a class="breadcrumb" title="Compare Page">
+                    {% for handle in product_handles %}
+                        {{ all_products[handle].title }}{% if forloop.last == false %} vs {% endif %}
+                    {% endfor %}
+                </a>
+            </li>
+        </ul>
+    </nav>
+</section>
+
+<section class="section compare-nav">
+    <ul class="compare-nav__list">
+        <li nav-item="overview">
+            {{ 'compare.overview' | t }}
+        </li>
+        <li nav-item="video-photo">
+            {{ 'compare.screenshots_and_video' | t }}
+        </li>
+        <li nav-item="key-value">
+            {{ 'compare.key_value' | t }}
+        </li>
+        <li nav-item="pricing">
+            {{ 'compare.pricing' | t }}
+        </li>
+        <li nav-item="reviews">
+            {{ 'compare.user_reviews' | t }}
+        </li>
+        <li nav-item="highlights">
+            {{ 'compare.app_highlights' | t }}
+        </li>
+        {% if integration_available > 0 %}
+            <li nav-item="integrations">
+                {{ 'compare.integration_with' | t }}
+            </li>
+        {% endif %}
+    </ul>
+
+    <label for="{{ id }}" class="select compare-nav__select">
+        <select>
+            <option value="overview" selected>{{ 'compare.overview' | t }}</option>
+            <option value="video-photo">{{ 'compare.screenshots_and_video' | t }}</option>
+            <option value="key-value">{{ 'compare.key_value' | t }}</option>
+            <option value="pricing">{{ 'compare.pricing' | t }}</option>
+            <option value="reviews">{{ 'compare.user_reviews' | t }}</option>
+            <option value="highlights">{{ 'compare.app_highlights' | t }}</option>
+            {% if integration_available > 0 %}
+                <option value="integrations">{{ 'compare.integration_with' | t }}</option>
+            {% endif %}
+        </select>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" role="presentation" class="icon icon-select">
+            <circle cx="12" cy="12" r="12" fill="#202020"/>
+            <path d="M16.4708 13.8047L12.6995 17.5759C12.4392 17.8363 12.0171 17.8363 11.7567 17.5759L7.98546 13.8047C7.72512 13.5444 7.72512 13.1223 7.98546 12.8619C8.24579 12.6015 8.66792 12.6015 8.92826 12.8619L11.5615 15.4951L11.5615 6.66667C11.5615 6.29848 11.8599 6 12.2281 6C12.5963 6 12.8948 6.29848 12.8948 6.66667L12.8948 15.4951L15.5279 12.8619C15.7883 12.6015 16.2104 12.6015 16.4708 12.8619C16.7311 13.1223 16.7311 13.5444 16.4708 13.8047Z" fill="#FCFCFC"/>
+        </svg>
+    </label>
+
+    <h1 class="section__heading compare-nav__title text-align-left">
+        {{ compare_title }}
+    </h1>
+</section>
+
+<section class="section section-compare section-compare--overview">
+    <div class="section-compare__header">
+        <h2 class="section__heading--3 text-align-left" id="overview">
+            {{ 'compare.overview' | t }}
+        </h2>
+        <button type="button" id="open-modal-compare" class="add-to-compare-btn" onClick="compareModal(true)" {% if columns == 3 %}disabled{% endif %}>
+            {{ 'compare.add_app_to_compare' | t }}
+            <svg width="20" height="20" viewBox="0 0 24 24">
+                <path d="M10.7368 18.7368C10.7368 19.4344 11.3024 20 12 20C12.6976 20 13.2632 19.4344 13.2632 18.7368V13.2632H18.7368C19.4344 13.2632 20 12.6976 20 12C20 11.3024 19.4344 10.7368 18.7368 10.7368H13.2632V5.26316C13.2632 4.56553 12.6976 4 12 4C11.3024 4 10.7368 4.56553 10.7368 5.26316V10.7368H5.26316C4.56553 10.7368 4 11.3024 4 12C4 12.6976 4.56553 13.2632 5.26316 13.2632H10.7368V18.7368Z" fill="currentColor"/>
+            </svg>
+        </button>
+    </div>
+    <div class="compare-container compare-container--{{ columns }}">
+    {% for handle in product_handles %}
+        <div class="compare-product">
+            {% liquid
+                assign product = all_products[handle]
+                assign rating = product.metafields.appstore.rating
+                assign reviews = product.metafields.appstore.reviews
+                assign rating_c = rating | round 
+            %}
+            <div class="app-card">
+                <button type="button" class="compare-product__remove" onClick="linkToCompare('{{ product.handle }}')">
+                    <svg width="20" height="20" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M9.99866 11.7679L14.418 16.1873C14.9062 16.6755 15.6977 16.6755 16.1858 16.1873C16.674 15.6991 16.674 14.9077 16.1858 14.4196L11.7664 10.0001L16.1858 5.58073C16.674 5.09258 16.674 4.30112 16.1858 3.81297C15.6977 3.32482 14.9062 3.32482 14.418 3.81297L9.99866 8.23238L5.5792 3.81296C5.09104 3.3248 4.29958 3.3248 3.81143 3.81296C3.32327 4.30112 3.32327 5.09257 3.81143 5.58072L8.23085 10.0001L3.81143 14.4196C3.32327 14.9077 3.32327 15.6991 3.81143 16.1873C4.29958 16.6755 5.09104 16.6755 5.5792 16.1873L9.99866 11.7679Z" fill="#4C4C4C"/>
+                    </svg>
+                </button>
+                <a href="{{ product.url }}" class="block-img-wrap app-card__img" target="blank">
+                    <img src="{{ product.metafields.appstore.icon.value}}?width=300"
+                        alt="{{ product.title }}"
+                        srcset="{{ product.metafields.appstore.icon.value}}?width=70 360w,
+                                {{ product.metafields.appstore.icon.value}}?width=140 720w,
+                                {{ product.metafields.appstore.icon.value}}?width=150 560w,
+                                {{ product.metafields.appstore.icon.value}}?width=300 1360w"
+
+                        width="70"
+                        height="70"
+                        loading="lazy" 
+                        sizes="(min-width: 560px) 560px, 360px">
+                </a>
+                <div class="app-card__info">
+                    <h3 class="app-card__title">{{ product.title }}</h3>
+                    <div class="app-card__rate">
+                        {{ rating }}
+                        <div class="star-wrapper">
+                            {% for i in (1..5) %}
+                                <span class="review-star-icon {% if i > rating_c %}review-star-icon--empty{% endif %}">
+                                    {{ settings.star-icon }}
+                                </span>
+                            {% endfor %}
+                        </div>
+                        ({{ reviews }} {{ 'accessibility.reviews' | t }})
+                    </div>
+                </div>
+                <div class="app-card__description">
+                        {{ product.metafields.appstore.card_subtitle | newline_to_br }}
+                </div>
+                <a class="link-to link-to--circle" href="{{ product.url }}" target="blank">
+                    {{ 'compare.view_app' | t }}
+                    <svg aria-hidden="true" focusable="false" role="presentation" width="20" height="20" viewBox="0 0 20 20" fill="none" class="icon icon-arrow">
+                        <path d="M12.2559 4.41083L16.9699 9.12486C17.2954 9.45028 17.2954 9.97795 16.9699 10.3034L12.2559 15.0174C11.9305 15.3429 11.4028 15.3429 11.0774 15.0174C10.7519 14.692 10.7519 14.1644 11.0774 13.8389L14.3688 10.5474H3.33333C2.8731 10.5474 2.5 10.1744 2.5 9.71411C2.5 9.25386 2.8731 8.88078 3.33333 8.88078H14.3688L11.0774 5.58934C10.7519 5.2639 10.7519 4.73626 11.0774 4.41083C11.4028 4.08539 11.9305 4.08539 12.2559 4.41083Z" fill="currentColor"/>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+</section>
+
+<section class="section section-compare">
+    <h2 class="section__heading text-align-left" id="video-photo">
+        {{ 'compare.screenshots_and_video' | t }}
+    </h2>
+    <div class="compare-container compare-container--{{ columns }}">
+        {% for handle in product_handles %}
+            {% assign product = all_products[handle] %}
+            <div class="compare-product">
+                <h3 class="section__heading--3 compare-product__title">
+                    {{ product.title }}
+                </h3>
+                <div class="media-content">
+                    {% if product.metafields.appstore.banner_video != blank %}
+                        <div class="media-content__video">
+                            <iframe frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="allowfullscreen" src="{{ product.metafields.appstore.banner_video }}"></iframe>
+                        </div>
+                    {% endif %}
+                    <div class="media-content__img" data-slider="{{ handle }}">
+                        {% if product.metafields.appstore.screenshots.value != blank %}
+                            <img src="{{- product.metafields.appstore.screenshots.value | first -}}?width=2000"
+                                alt="{{ product.title }}"
+                                srcset="{{- product.metafields.appstore.screenshots.value | first -}}?width=360 360w,
+                                    {{- product.metafields.appstore.screenshots.value | first -}}?width=500 500w,
+                                    {{- product.metafields.appstore.screenshots.value | first -}}?width=720 720w, 
+                                    {{- product.metafields.appstore.screenshots.value | first -}}?width=1000 1000w, 
+                                    {{- product.metafields.appstore.screenshots.value | first -}}?width=1440 1440w, 
+                                    {{- product.metafields.appstore.screenshots.value | first -}}?width=2000 2000w" 
+                                width="335" 
+                                height="190" 
+                                loading="lazy" 
+                                sizes="(min-width: 992px) 1000px, (min-width: 580px) 720px, (min-width: 440px) 500px, 360px">
+                        {% endif %}
+                        <div class="media-content-backdrop">
+                            <span>{{ product.images.size }} {{ 'compare.screenshots' | t }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</section>
+
+<section class="section key-value section-compare">
+    <h2 class="section__heading text-align-left" id="key-value">
+        {{ 'compare.key_value' | t }}
+    </h2>
+    <div class="compare-container compare-container--{{ columns }}">
+        {% for handle in product_handles %}
+            {% assign product = all_products[handle] %}
+            {% assign values = product.metafields.appstore.features.value %}
+            <div class="compare-product">
+                <h3 class="section__heading--3 compare-product__title">
+                    {{ product.title }}
+                </h3>
+                <ul class="key-value__list">
+                   {% for value in values %}
+                        <li>{{ value }}</li>
+                   {% endfor %}
+                </ul>
+            </div>
+        {% endfor %}
+    </div>
+</section>
+
+<section class="section section-compare">
+    <h2 class="section__heading text-align-left" id="pricing">
+        {{ 'compare.pricing' | t }}
+    </h2>
+    <div class="compare-container compare-container--{{ columns }}">
+        {% for handle in product_handles %}
+            {% assign product = all_products[handle] %}
+            {% assign pricings =  product.metafields.appstore.pricing.value %}
+            <div class="compare-product">
+                <h3 class="section__heading--3 compare-product__title">
+                    {{ product.title }}
+                </h3>
+                {% for pricing in pricings %}
+                    <details class="compare-pricing">
+                        <summary class="{% if pricing.desc == blank %}compare-pricing__blank{% endif %}">
+                            {{ pricing.value }}
+                           
+                            <div class="compare-pricing__tags">
+                                {% if pricing.value == "Free" %}
+                                <span class="compare-pricing__tag">{{ 'compare.free_plan' | t }}
+                                    <svg width="12" height="9" viewBox="0 0 12 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M9.88895 1.2354L9.88897 1.23539C10.0842 1.04014 10.4008 1.04014 10.596 1.23539L10.9496 0.881848L10.596 1.23539C10.7913 1.43065 10.7913 1.74725 10.596 1.94251C10.596 1.94251 10.596 1.94251 10.596 1.94251L5.00995 7.52863C4.7756 7.76298 4.39569 7.76297 4.16138 7.52864L4.16137 7.52863L1.40365 4.77093L1.40364 4.77093C1.2084 4.57569 1.2084 4.25909 1.40364 4.06386C1.59891 3.8686 1.9155 3.8686 2.11076 4.06384C2.11076 4.06384 2.11076 4.06385 2.11077 4.06385L4.23205 6.18514L4.5856 6.53869L4.93915 6.18514L9.88895 1.2354ZM6 -5.49951C11.5228 -5.49951 16 -1.02236 16 4.50049C16 10.0233 11.5228 14.5005 6 14.5005C0.47715 14.5005 -4 10.0233 -4 4.50049C-4 -1.02236 0.47715 -5.49951 6 -5.49951Z" stroke="white"/>
+                                    </svg>
+                                </span>
+                                {% endif %}
+                            </div>
+                            {% if pricing.desc != blank %}
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false" role="presentation" class="icon icon-select">
+                                    <circle cx="12" cy="12" r="12" fill="#202020"/>
+                                    <path d="M16.4708 13.8047L12.6995 17.5759C12.4392 17.8363 12.0171 17.8363 11.7567 17.5759L7.98546 13.8047C7.72512 13.5444 7.72512 13.1223 7.98546 12.8619C8.24579 12.6015 8.66792 12.6015 8.92826 12.8619L11.5615 15.4951L11.5615 6.66667C11.5615 6.29848 11.8599 6 12.2281 6C12.5963 6 12.8948 6.29848 12.8948 6.66667L12.8948 15.4951L15.5279 12.8619C15.7883 12.6015 16.2104 12.6015 16.4708 12.8619C16.7311 13.1223 16.7311 13.5444 16.4708 13.8047Z" fill="#FCFCFC"/>
+                                </svg>
+                            {% endif %}
+                        </summary>
+                        <div class="compare-pricing__content">
+                            <ul>
+                                {% for desc in pricing.desc %}
+                                    <li>{{ desc }}</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </details>
+                {% endfor %}
+            </div>
+        {% endfor %}
+    </div>
+</section>
+
+<section class="section section-compare">
+    <h2 class="section__heading text-align-left" id="reviews">
+        {{ 'compare.user_reviews' | t }}
+    </h2>
+    <div class="compare-container compare-container--{{ columns }}">
+    {% for handle in product_handles %}
+        {% liquid
+            assign product = all_products[handle]
+            assign rating = product.metafields.appstore.rating
+            assign reviews = product.metafields.appstore.reviews
+            assign rating_c = rating | round 
+        %}
+
+        <div class="compare-product">
+            <h3 class="section__heading--3 compare-product__title">
+                {{ product.title }}
+            </h3>
+            <div class="compare-reviews">
+                {{ reviews }} {{ 'accessibility.reviews' | t }} <br>
+                <div class="compare-reviews__raiting">
+                    {{ rating }}
+                    {% for i in (1..5) %}
+                        <span class="review-star-icon {% if i > rating_c %}review-star-icon--empty{% endif %}">
+                            {{ settings.star-icon }}
+                        </span>
+                    {% endfor %}
+                </div>
+                
+            </div>
+        </div>
+    {% endfor %}
+</div>
+</section>
+
+<section class="section section-compare">
+    <h2 class="section__heading text-align-left" id="highlights">
+        {{ 'compare.app_highlights' | t }}
+    </h2>
+    <div class="compare-container compare-container--{{ columns }}">
+        {% for handle in product_handles %}
+            {% assign product = all_products[handle] %}
+            <div class="compare-product">
+                <h3 class="section__heading--3 compare-product__title">
+                    {{ product.title }}
+                </h3>
+                <ul class="compare-highlight">
+                    {% for highlight in product.metafields.appstore.highlights.value %}
+                        {% liquid
+                            assign highlight_name = highlight[0]
+                            assign highlight_list = highlight[1]
+                        %}
+                        <li>
+                            {{ highlight_name }}
+                            <ul>
+                                {% for item in highlight_list %}
+                                    <li>{{ item }}</li>
+                                {% endfor %}
+                            </ul>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endfor %}
+    </div>
+</section>
+
+<section class="section {% if integration_available == 0 %}d-none{% endif %} section-compare">
+    <h2 class="section__heading text-align-left" id="integrations">
+        {{ 'compare.integration_with' | t }}
+    </h2>
+    <div class="compare-container compare-container--{{ columns }}">
+    {% for handle in product_handles %}
+        {% assign product = all_products[handle] %}
+        <div class="compare-product">
+            <h3 class="section__heading--3 compare-product__title">
+                {{ product.title }}
+            </h3>
+            <ul class="compare-integration">
+                {% assign integrations = product.metafields.appstore.integrations.value %}
+                {% for integration in integrations %}
+                    <li>{{ integration }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endfor %}
+    </div>
+</section>
+
+<section class="section section-compare compare-alternatives">
+    <div class="section-compare__header">
+        <h2 class="section__heading text-align-left">
+            {{ 'compare.alternatives' | t }}
+        </h2>
+    </div>
+    <div class="compare-container compare-container--{{ columns }}">
+        {% for handle in product_handles %}
+            {% assign p_handle = all_products[handle].metafields.appstore.primary_category_slug %}
+            {% assign p_collection = collections[p_handle] %}
+            {% assign i = forloop.index %}
+            {% for product in p_collection.products, limit: 3 %}
+                {% liquid
+                    assign rating = product.metafields.appstore.rating
+                    assign reviews = product.metafields.appstore.reviews
+                    assign rating_c = rating | round 
+                %}
+                <div class="app-card grid-column-{{ i }} grid-row-{{ forloop.index }}">
+                    <a href="{{ product.url }}" class="block-img-wrap app-card__img" target="blank">
+                        <img src="{{ product.metafields.appstore.icon.value}}?width=300"
+                            alt="{{ product.title }}"
+                            srcset="{{ product.metafields.appstore.icon.value}}?width=70 360w,
+                                    {{ product.metafields.appstore.icon.value}}?width=150 560w,
+                                    {{ product.metafields.appstore.icon.value}}?width=140 720w,
+                                    {{ product.metafields.appstore.icon.value}}?width=300 1360w"
+
+                            width="70"
+                            height="70"
+                            loading="lazy" 
+                            sizes="(min-width: 560px) 560px, 360px">
+                    </a>
+                    <div class="app-card__info">
+                        <h3 class="app-card__title">{{ product.title }}</h3>
+                        <div class="app-card__rate">
+                            {{ rating }}
+                            <div class="star-wrapper">
+                                {% for i in (1..5) %}
+                                    <span class="review-star-icon {% if i > rating_c %}review-star-icon--empty{% endif %}">
+                                        {{ settings.star-icon }}
+                                    </span>
+                                {% endfor %}
+                            </div>
+                            ({{ reviews }} {{ 'accessibility.reviews' | t }})
+                        </div>
+                    </div>
+                    <button type="button" class="add-to-compare-btn" onClick="linkToCompare('{{ product.handle }}', true)" {% if columns == 3 %}disabled{% endif %}>
+                        {{ 'compare.add_to_compare' | t }}
+                        <svg width="20" height="20" viewBox="0 0 24 24">
+                            <path d="M10.7368 18.7368C10.7368 19.4344 11.3024 20 12 20C12.6976 20 13.2632 19.4344 13.2632 18.7368V13.2632H18.7368C19.4344 13.2632 20 12.6976 20 12C20 11.3024 19.4344 10.7368 18.7368 10.7368H13.2632V5.26316C13.2632 4.56553 12.6976 4 12 4C11.3024 4 10.7368 4.56553 10.7368 5.26316V10.7368H5.26316C4.56553 10.7368 4 11.3024 4 12C4 12.6976 4.56553 13.2632 5.26316 13.2632H10.7368V18.7368Z" fill="currentColor"/>
+                        </svg>
+                    </button>
+                </div>
+            {% endfor %}
+        {% endfor %}
+    </div>
+</section>
+
+<section class="section section-compare section-compare--similar">
+    <h2 class="section__heading text-align-left">
+        {{ 'compare.compare_similar_apps' | t }}
+    </h2>
+    <div class="categories__list">
+        {% assign products = category_primary.products %}
+        {% for product in products limit: 12 %}
+        <div class="product-card" href="{{ product.url }}">
+            <div class="block-img-wrap product-card__img">
+                <img    src="{{ product.metafields.appstore.icon.value}}?width=140"
+                    alt="{{ product.title }}"
+                    srcset="{{ product.metafields.appstore.icon.value}}?width=70 1x,
+                            {{ product.metafields.appstore.icon.value}}?width=140 2x"
+                    width="70"
+                    height="70"
+                    loading="lazy">
+            </div>
+            <div class="product-card__info">
+                <h5 class="section__heading--5">
+                    {{ product.title }}
+                </h5>
+                {% if product.metafields.appstore.reviews.value > 0 %}
+                    <div class="product-card__rate">
+                        {{ s_product.metafields.appstore.rating.value }}
+                        <div class="block-img-wrap">
+                            {{ settings.star-icon }}
+                        </div>
+                        ({{ product.metafields.appstore.reviews }})
+                    </div>
+                  {% else %}
+                    <div class="product-card__rate product-card__rate--no-reviews">
+                        <div class="block-img-wrap">
+                            {{ settings.star-icon }}
+                        </div>
+                        {{ "accessibility.no-reviews" | t }}
+                    </div>
+                  {% endif %}
+                <p class="section__description">{{ product.metafields.appstore.card_subtitle }}</p>
+                <button type="button" class="add-to-compare-btn" onClick="linkToCompare('{{ product.handle }}', true)" {% if columns == 3 %}disabled{% endif %}>
+                    {{ 'compare.add_to_compare' | t }}
+                    <svg width="20" height="20" viewBox="0 0 24 24">
+                        <path d="M10.7368 18.7368C10.7368 19.4344 11.3024 20 12 20C12.6976 20 13.2632 19.4344 13.2632 18.7368V13.2632H18.7368C19.4344 13.2632 20 12.6976 20 12C20 11.3024 19.4344 10.7368 18.7368 10.7368H13.2632V5.26316C13.2632 4.56553 12.6976 4 12 4C11.3024 4 10.7368 4.56553 10.7368 5.26316V10.7368H5.26316C4.56553 10.7368 4 11.3024 4 12C4 12.6976 4.56553 13.2632 5.26316 13.2632H10.7368V18.7368Z" fill="currentColor"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+
+<section class="section section-collections-list section-compare-list">
+    <div class="container">
+        <div class="collections-list">
+            {% assign menu = linklists.popular-comparisons %}
+            <h2 class="section__heading text-align-left">{{ menu.title }}</h2>
+            
+            <ul class="collections-list__list">
+                {% for collection in menu.links %}
+                    <li>
+                        <a class="collections-list__link" href="{{ collection.url }}">{{ collection.title }}{% if forloop.last != true %},{% endif %}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</section>
+
+<section class="section section-nav">
+    <div class="container-grid">
+        <ul class="nav-list">
+        {% for link in linklists.section-navigation.links %}
+            <li>
+                <a class="" href="{{link.url}}">{{link.title}}</a>
+            </li>
+        {% endfor%}
+        </ul>
+    </div>
+</section>
+
+{% style %}
+  .section-nav {
+        background: {{ settings.accent-color_1 }};
+        color: {{ settings.primary-color }};
+  }
+{% endstyle %}
+
+{% for handle in product_handles %}
+    {% assign product = all_products[handle] %}
+    <div class="screenshots-slider" data-slider="{{ handle }}">
+        <div class="slider__track glide__track" data-glide-el="track">
+            <ul class="slider__slides glide__slides">
+                {% for image in product.metafields.appstore.screenshots.value %}
+                    <li>
+                        <img src="{{- image -}}?width=2600" 
+                            alt="{{ product.title }}" 
+                            srcset="{{- image -}}?width=360 360w, 
+                                    {{- image -}}?width=500 500w, 
+                                    {{- image -}}?width=720 720w, 
+                                    {{- image -}}?width=1300 1300w, 
+                                    {{- image -}}?width=1440 1440w, 
+                                    {{- image -}}?width=2600 2600w" 
+                            width="335" 
+                            height="190" 
+                            sizes="(min-width: 992px) 1300px, (min-width: 580px) 720px, (min-width: 440px) 500px, 360px">
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="screenshots-slider__buttons" data-glide-el="controls">
+            <button class="screenshots-slider__button screenshots-slider__button--prev" data-glide-dir="<">
+                <svg aria-hidden="true" focusable="false" role="presentation" width="20" height="20" viewBox="0 0 20 20" fill="none" class="icon icon-arrow">
+                    <path d="M12.2559 4.41083L16.9699 9.12486C17.2954 9.45028 17.2954 9.97795 16.9699 10.3034L12.2559 15.0174C11.9305 15.3429 11.4028 15.3429 11.0774 15.0174C10.7519 14.692 10.7519 14.1644 11.0774 13.8389L14.3688 10.5474H3.33333C2.8731 10.5474 2.5 10.1744 2.5 9.71411C2.5 9.25386 2.8731 8.88078 3.33333 8.88078H14.3688L11.0774 5.58934C10.7519 5.2639 10.7519 4.73626 11.0774 4.41083C11.4028 4.08539 11.9305 4.08539 12.2559 4.41083Z" fill="currentColor"/>
+                </svg>
+            </button>
+            <button class="screenshots-slider__button screenshots-slider__button--next" data-glide-dir=">">
+                <svg aria-hidden="true" focusable="false" role="presentation" width="20" height="20" viewBox="0 0 20 20" fill="none" class="icon icon-arrow">
+                    <path d="M12.2559 4.41083L16.9699 9.12486C17.2954 9.45028 17.2954 9.97795 16.9699 10.3034L12.2559 15.0174C11.9305 15.3429 11.4028 15.3429 11.0774 15.0174C10.7519 14.692 10.7519 14.1644 11.0774 13.8389L14.3688 10.5474H3.33333C2.8731 10.5474 2.5 10.1744 2.5 9.71411C2.5 9.25386 2.8731 8.88078 3.33333 8.88078H14.3688L11.0774 5.58934C10.7519 5.2639 10.7519 4.73626 11.0774 4.41083C11.4028 4.08539 11.9305 4.08539 12.2559 4.41083Z" fill="currentColor"/>
+                </svg>
+            </button>
+        </div>
+    </div>
+{% endfor %}
+
+<div class="compare-modal">
+    <div class="section__heading--3 compare-modal__header">
+        {{ 'compare.add_app_to_compare' | t }}
+        <button type="button" onClick="compareModal()">
+            <svg width="24" height="24" viewBox="0 0 24 24">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M12.0007 14.1215L17.3039 19.4248C17.8897 20.0106 18.8395 20.0106 19.4253 19.4248C20.0111 18.839 20.0111 17.8893 19.4253 17.3035L14.122 12.0002L19.4253 6.6969C20.0111 6.11112 20.0111 5.16137 19.4253 4.57558C18.8395 3.9898 17.8897 3.9898 17.3039 4.57558L12.0007 9.87888L6.69738 4.57557C6.11159 3.98978 5.16184 3.98978 4.57606 4.57557C3.99027 5.16136 3.99027 6.1111 4.57606 6.69689L9.87936 12.0002L4.57606 17.3035C3.99027 17.8893 3.99027 18.839 4.57606 19.4248C5.16184 20.0106 6.11159 20.0106 6.69738 19.4248L12.0007 14.1215Z" fill="currentColor"/>
+            </svg>
+        </button>
+    </div>
+
+    <predictive-search>
+        <form action="{{ routes.search_url }}" method="get" role="search">
+            <label for="Search">
+                <svg width="24" height="24" viewBox="0 0 24 24">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M5 10C5 7.23858 7.23858 5 10 5C12.7614 5 15 7.23858 15 10C15 12.7614 12.7614 15 10 15C7.23858 15 5 12.7614 5 10ZM10 3C6.13401 3 3 6.13401 3 10C3 13.866 6.13401 17 10 17C11.5723 17 13.0236 16.4816 14.1922 15.6064L19.2929 20.7071C19.6834 21.0976 20.3166 21.0976 20.7071 20.7071C21.0976 20.3166 21.0976 19.6834 20.7071 19.2929L15.6064 14.1922C16.4816 13.0236 17 11.5723 17 10C17 6.13401 13.866 3 10 3Z" fill="currentColor"/>
+                </svg>
+            </label>
+            <input
+            id="Search"
+            type="search"
+            placeholder="{{ 'compare.search_by_name' | t }}"
+            name="q"
+            value="{{ search.terms | escape }}"
+            role="combobox"
+            aria-expanded="false"
+            aria-owns="predictive-search-results"
+            aria-controls="predictive-search-results"
+            aria-haspopup="listbox"
+            aria-autocomplete="list"
+            >
+            <input name="options[prefix]" type="hidden" value="last">
+
+            <div id="predictive-search" tabindex="-1"></div>
+        </form>
+    </predictive-search>
+
+    <h5 class="section__heading--5">
+        {{ 'compare.recommended_comparisons' | t }}
+    </h5>
+    <div class="compare-modal__apps">
+        {% for product in category_primary.products %}
+            {% liquid
+                assign rating = product.metafields.appstore.rating
+                assign reviews = product.metafields.appstore.reviews
+                assign rating_c = rating | round 
+            %}
+
+            <div class="app-card">
+                <a href="{{ product.url }}" class="block-img-wrap app-card__img" target="blank">
+                    <img src="{{ product.metafields.appstore.icon.value}}?width=160"
+                        alt="{{ product.title }}"
+                        srcset="{{ product.metafields.appstore.icon.value}}?width=80 1x,
+                                {{ product.metafields.appstore.icon.value}}?width=160 2x"
+                        width="80"
+                        height="80"
+                        loading="lazy" 
+                        sizes="(min-width: 560px) 560px, 360px">
+                </a>
+                <div class="app-card__info">
+                    <h3 class="app-card__title">{{ product.title }}</h3>
+                    <div class="app-card__rate">
+                        {{ rating }}
+                        <div class="star-wrapper">
+                            {% for i in (1..5) %}
+                                <span class="review-star-icon {% if i > rating_c %}review-star-icon--empty{% endif %}">
+                                    {{ settings.star-icon }}
+                                </span>
+                            {% endfor %}
+                        </div>
+                        ({{ reviews }} {{ 'accessibility.reviews' | t }})
+                    </div>
+                    <button type="button" class="add-to-compare-btn" onClick="linkToCompare('{{ product.handle }}', true)" {% if columns == 3 %}disabled{% endif %}>
+                        {{ 'compare.add_to_compare' | t }}
+                        <svg width="20" height="20" viewBox="0 0 24 24">
+                            <path d="M10.7368 18.7368C10.7368 19.4344 11.3024 20 12 20C12.6976 20 13.2632 19.4344 13.2632 18.7368V13.2632H18.7368C19.4344 13.2632 20 12.6976 20 12C20 11.3024 19.4344 10.7368 18.7368 10.7368H13.2632V5.26316C13.2632 4.56553 12.6976 4 12 4C11.3024 4 10.7368 4.56553 10.7368 5.26316V10.7368H5.26316C4.56553 10.7368 4 11.3024 4 12C4 12.6976 4.56553 13.2632 5.26316 13.2632H10.7368V18.7368Z" fill="currentColor"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+<script src="{{ 'sections-compare.js' | asset_url }}" defer="defer"></script>
+{% schema %}
+{
+  "name": "Compare Page",
+  "class": "aaa",
+  "tag": "div",
+  "presets": [
+    {
+        "name": "Compare Page"
+    }
+  ],
+  "settings": [],
+  "blocks": []
+}
+{% endschema %}

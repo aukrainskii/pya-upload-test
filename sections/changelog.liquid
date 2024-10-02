@@ -1,0 +1,183 @@
+{% style %}
+    #shopify-section-{{ section.id }} {
+		padding-top: {{ section.settings.section_padding_top_m }}px;
+		padding-bottom: {{ section.settings.section_padding_bottom_m }}px;
+	}
+
+    @media screen and (min-width: 600px) {
+        #shopify-section-{{ section.id }} {
+            padding-top: {{ section.settings.section_padding_top_t }}px;
+            padding-bottom: {{ section.settings.section_padding_bottom_t }}px;
+        }
+    }
+
+    @media screen and (min-width: 1240px) {
+        #shopify-section-{{ section.id }} {
+            padding-top: {{ section.settings.section_padding_top_d }}px;
+            padding-bottom: {{ section.settings.section_padding_bottom_d }}px;
+        }
+    }
+{% endstyle %}
+
+<div class="container-grid">
+    {% render 'sec-heading' %}
+    <div class="changelogs">
+        {% for block in section.blocks %}
+        {% assign product = block.settings.product %}
+        {% assign date =  block.settings.date | split: ',' %}
+        {% assign rating = product.metafields.appstore.rating.value %}
+        {% assign parse_rating = rating | split: '.' %}
+        {% assign rate = parse_rating[0] | plus: 0 %}
+        {% assign reviews = product.metafields.appstore.reviews.value %}
+        <div class="changelogs__item changelog">
+            <div class="changelog__date">
+                {{ date[0] }}, <br>
+                <span>{{ date[1] }}</span>
+            </div>
+
+            <div class="changelog__product">
+                <img src="{{ product.metafields.appstore.icon.value}}?width=140"
+                    alt="{{ product.title }}"
+                    srcset="{{ product.metafields.appstore.icon.value}}?width=70 1x,
+                            {{ product.metafields.appstore.icon.value}}?width=140 2x"
+                    width="70"
+                    height="70"
+                    loading="lazy" 
+                    >
+                <div class="changelog__product-info">
+                    <h3>{{ product.title }}</h3>
+                    {{ product.vendor }}
+                    {% if reviews > 0 %}
+                    <div class="rate">
+                        {{ rating }}
+                        <div class="rate__stars">
+                        {% for i in (1..5) %}
+                            <span class="review-star-icon {% if i > rate %}review-star-icon--empty{% endif %}">
+                                {{ settings.star-icon }}
+                            </span>
+                        {% endfor %}
+                        </div>
+                        ({{ reviews }} {{ 'accessibility.reviews' | t }})
+                    </div>
+                    {% else %}
+                    <div class="rate rate--no-reviews">
+                        <div class="block-img-wrap">
+                            {{ settings.star-icon }}
+                        </div>
+                        {{ "accessibility.no-reviews" | t }}
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="changelog__content">
+                {{ block.settings.content }}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% schema %}
+{
+    "name": "App`s Changelog Section",
+    "class": "section section-changelog",
+    "tag": "section",
+    "presets": [
+        {
+            "name": "App`s Changelog Section"
+        }
+    ],
+    "settings": [
+        {
+			"type": "range",
+			"id": "section_padding_top_m",
+			"label": "Section Padding Top (mobile)",
+			"min": 0,
+			"max": 200,
+			"step": 2,
+			"default": 0,
+			"unit": "px"
+		},
+		{
+			"type": "range",
+			"id": "section_padding_bottom_m",
+			"label": "Section Padding Bottom (mobile)",
+			"min": 0,
+			"max": 200,
+			"step": 2,
+			"default": 0,
+			"unit": "px"
+		},
+        {
+			"type": "range",
+			"id": "section_padding_top_t",
+			"label": "Section Padding Top (tablet)",
+			"min": 0,
+			"max": 200,
+			"step": 2,
+			"default": 0,
+			"unit": "px"
+		},
+		{
+			"type": "range",
+			"id": "section_padding_bottom_t",
+			"label": "Section Padding Bottom (tablet)",
+			"min": 0,
+			"max": 200,
+			"step": 2,
+			"default": 0,
+			"unit": "px"
+		},
+        {
+			"type": "range",
+			"id": "section_padding_top_d",
+			"label": "Section Padding Top (desktop)",
+			"min": 0,
+			"max": 200,
+			"step": 2,
+			"default": 0,
+			"unit": "px"
+		},
+		{
+			"type": "range",
+			"id": "section_padding_bottom_d",
+			"label": "Section Padding Bottom (desktop)",
+			"min": 0,
+			"max": 200,
+			"step": 2,
+			"default": 0,
+			"unit": "px"
+		},
+        {
+            "type": "text",
+            "id": "heading",
+            "label": "Section Title",
+            "default": "What’s New?"
+        }
+    ],
+    "blocks": [
+        {
+        "type": "changelog",
+        "name": "Changelog",
+        "settings": [
+                {
+                    "type": "product",
+                    "id": "product",
+                    "label": "Product"
+                },
+                {
+                    "type": "text",
+                    "id": "date",
+                    "label": "date"
+                },
+                {
+                    "type": "richtext",
+                    "id": "content",
+                    "label": "content"
+                }
+            ]
+        }
+    ]
+}
+{% endschema %}

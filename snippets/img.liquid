@@ -1,0 +1,51 @@
+{% liquid
+    assign img = img
+    assign half_width = img.width | divided_by: 2
+    assign pad_width = img.width | prepend: '0000' | slice: -4, 4
+    assign pad_half_width = half_width | prepend: '0000' | slice: -4, 4
+    assign sizes = ''
+    assign srcset = ''
+
+    if img.width >= 165
+        assign sizes = sizes | append: '0165:165w' | append: '@'
+    elsif img.width >= 360
+        assign sizes = sizes | append: '0360:360w' | append: '@'
+    elsif img.width >= 533
+        assign sizes = sizes | append: '0533:533w' | append: '@'
+    elsif img.width >= 720
+        assign sizes = sizes | append: '0720:720w' | append: '@'
+    elsif img.width >= 940
+        assign sizes = sizes | append: '0940:940w' | append: '@'
+    elsif img.width >= 1066
+        assign sizes = sizes | append: '1066:1066w' | append: '@'
+    endif
+
+    assign sizes = sizes | append: pad_half_width | append: ':1x' | append: '@'
+    assign sizes = sizes | append: pad_width | append: ':2x'
+
+    assign sizes_array = sizes | split: '@' | sort_natural
+    for size in sizes_array
+        assign size_split = size | split: ':'  
+        assign img_width_num = size_split[0] | plus: 0
+        assign img_url = img | image_url: width: img_width_num
+        assign srcset = srcset | append: img_url | append: ' ' | append: size_split[1]
+        unless forloop.last
+            assign srcset = srcset | append: ', '
+        endunless
+    endfor
+%}
+
+{%- if img.width -%}
+    <img
+        srcset="{{ srcset }}"
+        src="{{ img_url }}"
+
+        alt="{{ img.alt }}"
+        class="{{ class }}"
+        loading="lazy"
+        width="{{ img.width }}px"
+        height="{{ img.height }}px"
+    >
+{%- else -%}
+    {{ 'image' | placeholder_svg_tag }}
+{%- endif -%}

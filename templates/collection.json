@@ -1,0 +1,30 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-404",
+      "disabled": true,
+      "settings": {
+        "heading": "404 not found",
+        "description": "<p>Sorry, the page was not found, please return to the main page<\/p>",
+        "button_link": "\/"
+      }
+    },
+    "collection_products_mtxgBC": {
+      "type": "collection-products",
+      "disabled": true,
+      "settings": {
+        "not-found-img": "shopify:\/\/shop_images\/Best_Shopify_apps.webp"
+      }
+    },
+    "collection_children_DUF4f8": {
+      "type": "collection-children",
+      "settings": {
+      }
+    }
+  },
+  "order": [
+    "main",
+    "collection_products_mtxgBC",
+    "collection_children_DUF4f8"
+  ]
+}

@@ -1,0 +1,167 @@
+{% style %}
+    #shopify-section-{{ section.id }} {
+		padding-top: {{ section.settings.section_padding_top_m }}px;
+		padding-bottom: {{ section.settings.section_padding_bottom_m }}px;
+	}
+
+    @media screen and (min-width: 600px) {
+        #shopify-section-{{ section.id }} {
+            padding-top: {{ section.settings.section_padding_top_t }}px;
+            padding-bottom: {{ section.settings.section_padding_bottom_t }}px;
+        }
+    }
+
+    @media screen and (min-width: 1240px) {
+        #shopify-section-{{ section.id }} {
+            padding-top: {{ section.settings.section_padding_top_d }}px;
+            padding-bottom: {{ section.settings.section_padding_bottom_d }}px;
+        }
+    }
+{% endstyle %}
+
+<div class="container-grid">
+    {% render 'sec-heading' %}
+    <div class="faq-list">
+        {% for block in section.blocks %}
+            {% if forloop.first  %}
+                {% render 'details', summary_heading: block.settings.question, details_content: block.settings.answer, class: "faq-list__item", icon: " ", attributes: "open" %}
+            {% else %}
+                {% render 'details', summary_heading: block.settings.question, details_content: block.settings.answer, class: "faq-list__item", icon: " " %}
+            {% endif %}
+        {% endfor %}
+    </div>
+</div>
+
+<script src="{{ 'sections-faq.js' | asset_url }}" defer="defer"></script>
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+        {% for block in section.blocks %}
+            {% if forloop.first  %}
+                {
+                    "@type": "Question",
+                    "name": "{{ block.settings.question }}",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "{{ block.settings.answer | strip_html }}"
+                    }
+                }
+            {% else %}
+                ,{
+                    "@type": "Question",
+                    "name": "{{ block.settings.question }}",
+                    "acceptedAnswer": {
+                        "@type": "Answer",
+                        "text": "{{ block.settings.answer | strip_html }}"
+                    }
+                }
+            {% endif %}
+        {% endfor %}
+    ]
+}
+</script>
+
+
+{% schema %}
+{
+    "name": "FAQ Section",
+    "class": "section section-faq",
+    "tag": "section",
+    "presets": [
+        {
+            "name": "FAQ Section"
+        }
+    ],
+    "settings": [
+        {
+			"type": "range",
+			"id": "section_padding_top_m",
+			"label": "Section Padding Top (mobile)",
+			"min": 0,
+			"max": 200,
+			"step": 2,
+			"default": 0,
+			"unit": "px"
+		},
+		{
+			"type": "range",
+			"id": "section_padding_bottom_m",
+			"label": "Section Padding Bottom (mobile)",
+			"min": 0,
+			"max": 200,
+			"step": 2,
+			"default": 0,
+			"unit": "px"
+		},
+        {
+			"type": "range",
+			"id": "section_padding_top_t",
+			"label": "Section Padding Top (tablet)",
+			"min": 0,
+			"max": 200,
+			"step": 2,
+			"default": 0,
+			"unit": "px"
+		},
+		{
+			"type": "range",
+			"id": "section_padding_bottom_t",
+			"label": "Section Padding Bottom (tablet)",
+			"min": 0,
+			"max": 200,
+			"step": 2,
+			"default": 0,
+			"unit": "px"
+		},
+        {
+			"type": "range",
+			"id": "section_padding_top_d",
+			"label": "Section Padding Top (desktop)",
+			"min": 0,
+			"max": 200,
+			"step": 2,
+			"default": 0,
+			"unit": "px"
+		},
+		{
+			"type": "range",
+			"id": "section_padding_bottom_d",
+			"label": "Section Padding Bottom (desktop)",
+			"min": 0,
+			"max": 200,
+			"step": 2,
+			"default": 0,
+			"unit": "px"
+		},
+        {
+            "type": "text",
+            "id": "heading",
+            "label": "Section title",
+            "default": "FAQ"
+        }
+    ],
+    "blocks": [
+        {
+            "type": "faq",
+            "name": "FAQ",
+            "settings": [
+                {
+                    "type": "text",
+                    "id": "question",
+                    "label": "Question"
+                },
+                {
+                    "type": "richtext",
+                    "id": "answer",
+                    "label": "Answer",
+                    "default": "<p></p>"
+                }
+
+            ]
+        }
+    ]
+}
+{% endschema %}

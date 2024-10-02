@@ -1,0 +1,32 @@
+{
+  "sections": {
+    "heading": {
+      "type": "main-header-section",
+      "settings": {
+        "section_padding_top_m": 24,
+        "section_padding_bottom_m": 64,
+        "section_padding_top_t": 24,
+        "section_padding_bottom_t": 80,
+        "section_padding_top_d": 24,
+        "section_padding_bottom_d": 120,
+        "heading": "{{ page.title }}",
+        "background": "shopify:\/\/shop_images\/bg_c316b874-5ccc-4c65-8951-60db27f45b2d.png"
+      }
+    },
+    "main": {
+      "type": "main-page",
+      "settings": {
+        "section_padding_top_m": 36,
+        "section_padding_bottom_m": 64,
+        "section_padding_top_t": 48,
+        "section_padding_bottom_t": 80,
+        "section_padding_top_d": 110,
+        "section_padding_bottom_d": 120
+      }
+    }
+  },
+  "order": [
+    "heading",
+    "main"
+  ]
+}

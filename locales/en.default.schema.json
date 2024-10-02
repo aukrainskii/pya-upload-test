@@ -1,0 +1,218 @@
+{
+  "settings_schema": {
+    "colors": {
+      "name": "Colors",
+      "settings": {
+        "header__1": {
+          "content": "Primary colors"
+        },
+        "primary-color": {
+          "content": "Primary color"
+        },
+        "secondary-color": {
+          "content": "Secondary color"
+        },
+        "accent-color_1": {
+          "content": "Accent color_1"
+        },
+        "header__2": {
+          "content": "Gradients"
+        },
+        "gradient_1": {
+          "content": "Gradient_1"
+        },
+        "gradient_2": {
+          "content": "Gradient_2"
+        },
+        "header__3": {
+          "content": "Text colors"
+        },
+        "text-primary": {
+          "content": "Text Primary"
+        },
+        "text-secondary": {
+          "content": "Text Secondary"
+        },
+        "text-accent_1": {
+          "content": "Text Accent_1"
+        },
+        "header__4": {
+          "content": "Backgounds"
+        },
+        "background-accent": {
+          "content": "Backgound Accent"
+        },
+        "header__5": {
+          "content": "Button Settings"
+        },
+        "btn-background_1": {
+          "content": "Button Background Type-1"
+        },
+        "btn-text_1": {
+          "content": "Button Color Text Type-1"
+        },
+        "header__6": {
+          "content": "Select Settings"
+        },
+        "select-background": {
+          "content": "Select Backgound"
+        },
+        "select-text": {
+          "content": "Select Text Color"
+        }
+      }
+    },
+    "typography": {
+      "name": "Typography",
+      "settings": {
+        "type_header_font": {
+          "label": "Font",
+          "info": "Selecting a different font can affect the speed of your store. [Learn more about system fonts.](https:\/\/help.shopify.com\/manual\/online-store\/os\/store-speed\/improving-speed#fonts)"
+        },
+        "heading_scale": {
+          "label": "Font size scale"
+        },
+        "header__1": {
+          "content": "Headings"
+        },
+        "header__2": {
+          "content": "Body"
+        },
+        "type_body_font": {
+          "label": "Font",
+          "info": "Selecting a different font can affect the speed of your store. [Learn more about system fonts.](https:\/\/help.shopify.com\/manual\/online-store\/os\/store-speed\/improving-speed#fonts)"
+        },
+        "body_scale": {
+          "label": "Font size scale"
+        }
+      }
+    },
+    "favicon": {
+      "name": "Favicon",
+      "settings": {
+        "favicon": {
+          "label": "Favicon image",
+          "info": "Will be scaled down to 32 x 32px"
+        }
+      }
+    },
+    "star": {
+      "name": "Star Settings",
+      "settings": {
+        "header": {
+          "content": "Star"
+        },
+        "star-label": {
+          "content": "SVG Star"
+        },
+        "star-label-empty": {
+          "content": "SVG Star Empty"
+        },
+        "star-color": {
+          "content": "Star Color"
+        },
+        "star-color-empty": {
+          "content": "Star Color Empty"
+        }
+      }
+    },
+    "social-media": {
+      "name": "Social media",
+      "settings": {
+        "header": {
+          "content": "Social accounts"
+        },
+        "social_twitter_link": {
+          "label": "Twitter",
+          "info": "https:\/\/twitter.com\/shopify"
+        },
+        "social_facebook_link": {
+          "label": "Facebook",
+          "info": "https:\/\/facebook.com\/shopify"
+        },
+        "social_pinterest_link": {
+          "label": "Pinterest",
+          "info": "https:\/\/pinterest.com\/shopify"
+        },
+        "social_instagram_link": {
+          "label": "Instagram",
+          "info": "http:\/\/instagram.com\/shopify"
+        },
+        "social_tiktok_link": {
+          "label": "TikTok",
+          "info": "https:\/\/tiktok.com\/@shopify"
+        },
+        "social_telegram_link": {
+          "label": "Telegram",
+          "info": "https:\/\/t.me\/shopify"
+        },
+        "social_tumblr_link": {
+          "label": "Tumblr",
+          "info": "https:\/\/shopify.tumblr.com"
+        },
+        "social_snapchat_link": {
+          "label": "Snapchat",
+          "info": "https:\/\/www.snapchat.com\/add\/shopify"
+        },
+        "social_youtube_link": {
+          "label": "YouTube",
+          "info": "https:\/\/www.youtube.com\/shopify"
+        },
+        "social_vimeo_link": {
+          "label": "Vimeo",
+          "info": "https:\/\/vimeo.com\/shopify"
+        },
+        "social_whatsapp_link": {
+          "label": "WhatsApp",
+          "info": "https:\/\/wa.me\/shopify"
+        },
+        "social_linkedin_link": {
+          "label": "Linkedin",
+          "info": "https:\/\/ca.linkedin.com\/in\/shopify"
+        },
+        "social_medium_link": {
+          "label": "Medium",
+          "info": "https:\/\/medium.com\/@shopify"
+        },
+        "social_amazon_link": {
+          "label": "Amazon",
+          "info": "https:\/\/www.amazon.com\/gp\/profile\/shopify"
+        }
+      }
+    }
+  },
+  "sections": {
+    "apps": {
+      "name": "Apps",
+      "settings": {
+      },
+      "presets": {
+        "name": "Apps"
+      }
+    },
+    "custom-liquid": {
+      "name": "Custom Liquid",
+      "settings": {
+        "custom_liquid": {
+          "label": "Custom Liquid",
+          "info": "Add app snippets or other Liquid code to create advanced customizations."
+        }
+      },
+      "presets": {
+        "name": "Custom Liquid"
+      }
+    },
+    "footer": {
+      "name": "Footer",
+      "blocks": {
+      },
+      "settings": {
+      }
+    },
+    "header": {
+      "name": "Header",
+      "settings": {
+      }
+    }
+  }
+}

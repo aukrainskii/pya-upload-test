@@ -1,0 +1,29 @@
+{% liquid
+    assign randomNumber = "now" | date: "%N"
+
+    assign id = id | default: "id-" | append: randomNumber
+    assign label = label | default: "add label text"
+
+    assign attributes = attributes
+    assign class = class
+    assign value = value | default: ""
+    assign disabled = disabled | default: false
+    assign checked = checked | default: false
+    assign tabindex = tabindex | default: 0
+%}
+
+<label for="{{ id }}" 
+    class="checkbox {{ class }} {% if disabled %} checkbox--disabled {% endif %}" 
+    tabindex="{{ tabindex }}"
+    {% if attributes %} attributes {% endif %}
+>
+    <input type="checkbox" 
+        class="checkbox__input" 
+        id="{{ id }}" 
+        {% if disabled %} disabled {% endif %}
+        {% if checked %} checked {% endif %}
+        {% if value != blank %} value = "{{ value }}"{% endif %}
+    />
+    <span class="checkbox__status"></span>
+    <span class="checkbox__label">{{ label }}</span>
+</label>

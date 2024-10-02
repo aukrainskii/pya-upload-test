@@ -1,0 +1,156 @@
+
+{% style %}
+    :root {
+        --main-custom-bg: url({{ section.settings.background | img_url: '1000x' }});
+    }
+{% endstyle %}
+
+{% style %}
+    #shopify-section-{{ section.id }} {
+		padding-top: {{ section.settings.section_padding_top_m }}px;
+		padding-bottom: {{ section.settings.section_padding_bottom_m }}px;
+	}
+
+    @media screen and (min-width: 600px) {
+        #shopify-section-{{ section.id }} {
+            padding-top: {{ section.settings.section_padding_top_t }}px;
+            padding-bottom: {{ section.settings.section_padding_bottom_t }}px;
+        }
+    }
+
+    @media screen and (min-width: 1240px) {
+        #shopify-section-{{ section.id }} {
+            padding-top: {{ section.settings.section_padding_top_d }}px;
+            padding-bottom: {{ section.settings.section_padding_bottom_d }}px;
+        }
+    }
+{% endstyle %}
+
+{% liquid 
+    assign searchs =  section.blocks | where: "type", "search"
+
+    assign search_type = "product"
+    assign page_type = template | split: '.' | first
+
+    if page_type == "blog"
+        assign search_type = "article"
+    endif
+%}
+
+<div class="container-grid">
+    <div class="main-header-content {% if article %}main-header-content--article{% endif %}">
+        {% render 'breadcrumbs' %}
+        {% if article %}
+            {% render 'sec-heading-1' | sec_heading: article.title , align: 'left' %}
+        {% else %}
+            {% render 'sec-heading-1' | align: 'left' %}
+        {% endif %}
+        {% for search in searchs %}
+            {% render 'search-field' | input_name: "first-section-search" | search_type: search_type %}
+        {% endfor %}
+    </div>
+</div>
+
+<script src="{{ 'sections-main-header-section.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'snippets-search-field.js' | asset_url }}" defer="defer"></script>
+
+{% schema %}
+{
+    "name": "Main Header Section",
+    "class": "section section-main-header",
+    "tag": "section",
+    "presets": [
+        {
+            "name": "Main Header Section"
+        }
+    ],
+    "settings": [
+        {
+            "type": "range",
+            "id": "section_padding_top_m",
+            "label": "Section Padding Top (mobile)",
+            "min": 0,
+            "max": 200,
+            "step": 2,
+            "default": 0,
+            "unit": "px"
+        },
+        {
+            "type": "range",
+            "id": "section_padding_bottom_m",
+            "label": "Section Padding Bottom (mobile)",
+            "min": 0,
+            "max": 200,
+            "step": 2,
+            "default": 0,
+            "unit": "px"
+        },
+            {
+            "type": "range",
+            "id": "section_padding_top_t",
+            "label": "Section Padding Top (tablet)",
+            "min": 0,
+            "max": 200,
+            "step": 2,
+            "default": 0,
+            "unit": "px"
+        },
+        {
+            "type": "range",
+            "id": "section_padding_bottom_t",
+            "label": "Section Padding Bottom (tablet)",
+            "min": 0,
+            "max": 200,
+            "step": 2,
+            "default": 0,
+            "unit": "px"
+        },
+            {
+            "type": "range",
+            "id": "section_padding_top_d",
+            "label": "Section Padding Top (desktop)",
+            "min": 0,
+            "max": 200,
+            "step": 2,
+            "default": 0,
+            "unit": "px"
+        },
+        {
+            "type": "range",
+            "id": "section_padding_bottom_d",
+            "label": "Section Padding Bottom (desktop)",
+            "min": 0,
+            "max": 200,
+            "step": 2,
+            "default": 0,
+            "unit": "px"
+        },
+        {
+            "type": "text",
+            "id": "heading",
+            "label": "Section title",
+            "default": "Blog"
+        },
+        {
+            "type": "image_picker",
+            "id": "background",
+            "label": "Custom background"
+        }
+    ],
+    "blocks": [
+       {
+            "type": "search",
+            "name": "Search Element",
+            "limit": 1,
+            "settings": [
+                {
+                    "type": "text",
+                    "id": "placeholder",
+                    "label": "Enter placeholder for Search",
+                    "default": "Search articles"
+                }
+            ]
+       }
+    ]
+}
+{% endschema %}

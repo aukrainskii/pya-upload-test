@@ -1,0 +1,100 @@
+<div class="container-grid">
+    <div class="newsletter">
+        <h2 class="newsletter__title">{{ section.settings.title }}</h2>
+        <p class="newsletter__text">
+            {{ section.settings.text }}
+        </p>
+        {% for block in section.blocks %}
+            {% form 'customer', class: 'newsletter__form' %}
+                <label>{{ 'newsletter.email' | t }}</label>
+                <input type="hidden" name="contact[tags]" value="newsletter">
+
+                    <input
+                    id="NewsletterForm--{{ section.id }}"
+                    type="email"
+                    name="contact[email]"
+                    class="field__input"
+                    value="{{ form.email }}"
+                    aria-required="true"
+                    autocorrect="off"
+                    autocapitalize="off"
+                    autocomplete="email"
+                    {% if form.errors %}
+                        autofocus
+                        aria-invalid="true"
+                        aria-describedby="Newsletter-error--{{ section.id }}"
+                    {% elsif form.posted_successfully? %}
+                        aria-describedby="Newsletter-success--{{ section.id }}"
+                    {% endif %}
+                    placeholder="{{ 'newsletter.placeholder' | t }}"
+                    required
+                    >
+
+                    <button type="submit" class="newsletter__button" name="commit" id="Subscribe" aria-label="{{ 'newsletter.button_label' | t }}">
+                    {{ 'newsletter.button_label' | t }} {% render 'icon-arrow' %}
+                    </button>
+
+                    <small class="newsletter__message">{{ block.settings.text }}</small>
+            {% endform %}
+        {% endfor %}
+    </div>
+</div>
+{% if section.settings.image != "blank" %}
+    {% style %}
+        .section-newsletter .container-grid::after {
+            background-image: url({{ section.settings.image | img_url: '800x' }});
+        }
+    {% endstyle %}
+{% endif %}
+
+{% schema %}
+{
+    "name": "Newsletter",
+    "class": "section section-newsletter",
+    "tag": "section",
+    "presets": [
+        {
+            "name": "Newsletter",
+            "blocks": [
+                {
+                    "type": "newsletter"
+                }
+            ]
+        }
+    ],
+    "settings": [
+        {
+            "type": "text",
+            "id": "title",
+            "default": "Start your online business today. For free.",
+            "label": "Title for Newsletter"
+        },
+        {
+            "type": "text",
+            "id": "text",
+            "default": "Sign up for Shopify's free trial to access all of the tools and services you need to start, run, and grow your business.",
+            "label": "Text for Newsletter"
+        },
+        {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image for Desctop"
+        }
+    ],
+    "blocks": [
+        {
+            "type": "newsletter",
+            "name": "Newsletter",
+            "limit": 1,
+            "settings": [
+                {
+                    "type": "text",
+                    "id": "text",
+                    "default": "Try Shopify for free, no credit card required. By entering your email, you agree to receive marketing emails from Shopify.",
+                    "label": "Subtext for Newsletter"
+                }
+            ]
+        }
+    ]
+}
+{% endschema %}

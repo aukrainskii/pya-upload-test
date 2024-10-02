@@ -1,0 +1,14 @@
+{% liquid
+    assign class = class | default: ""
+    assign link = link | default: "#" 
+    assign text = text | default: ""
+    assign arrow = arrow | default: "true"
+    assign target_b = target_b | default: "false"
+ %}
+
+ <a class="link-to {% if class != "" %}{{ class }}{% endif %}" href="{{ link }}" {% if id %}id="{{id}}"{% endif %} {% if target_b == "true" %}target="blank"{%endif%}>
+    {{ text }}
+    {% if arrow == "true" %}
+        {% render 'icon-arrow' %}
+    {% endif %}
+ </a>

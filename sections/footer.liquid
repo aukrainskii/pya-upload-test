@@ -1,0 +1,61 @@
+<div class="container-grid">
+  {% render 'sec-heading' | sec_heading: section.settings.menu.title , align: "center" %}
+  <ul class="footer__prime-list">
+  {% for primeLink in section.settings.menu.links %}
+    <li>
+       <h3 class="section__heading--3 text-align-{{ align }} {{ class }}">
+          <a href="{{primeLink.url}}">{{ primeLink.title }}</a>
+      </h3>
+      <ul class="footer__secondary-list">
+        {% for secondLink in primeLink.links %}
+          <li>
+            <h4>
+            <a class="second-link" href="{{secondLink.url}}">{{secondLink.title}}</a>
+            {% if forloop.last == false %}
+              ,
+            {% endif %}
+            </h4>
+          </li>
+        {% endfor %}
+      </ul>
+    </li>
+  {% endfor %}
+  </ul>
+  <div class="footer__bottom">
+    {% render 'logo' %}
+    <ul class="footer__bottom-list">
+      {% for link in section.settings.menu_2.links %}
+        <li>
+          <a class="" href="{{link.url}}">{{link.title}}</a>
+        </li>
+      {% endfor %}
+    </ul>
+    {% render 'social-media' %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Footer",
+  "class": "section section-footer",
+  "tag": "footer",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Footer Logo"
+    },
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Select Primary Menu"
+    },
+    {
+      "type": "link_list",
+      "id": "menu_2",
+      "label": "Select Secondary Menu"
+    }
+  ],
+  "blocks": []
+}
+{% endschema %}

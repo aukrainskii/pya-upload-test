@@ -1,0 +1,49 @@
+{% liquid
+    assign tag = tag | default: 'button'
+    assign type = type | default: 'button'
+    assign text = text | default: 'button text'
+
+    assign attributes = attributes
+    assign class = class
+    assign disabled = disabled | default: false
+
+    assign href = href | default: '#'
+
+    assign icon = icon
+    assign icon_position = icon_position | default: 'before'
+%}
+
+{% capture button_content %}
+    {% if icon and icon_position == 'before' %} {{ icon }}{% endif %}
+    <span class="button__text">{{ text }}</span>
+    {% if icon and icon_position == 'after' %} {{ icon }}{% endif %}
+{% endcapture %}
+
+{% capture tag_button %}
+<button type="{{ type }}" 
+    class="button {{ class }}" 
+    {% if disabled %} disabled {% endif %}
+    {% if attributes %} attributes {% endif %}
+>
+    {{ button_content }}
+</button>
+{% endcapture %}
+
+{% capture tag_link %}
+<a 
+    class="button {% if disabled %} disabled {% endif %} {{ class }}" 
+    {% if disabled != true %} href="{{ href }}"  {% endif %}
+    {% if attributes %} attributes {% endif %}
+>
+    {{ button_content }}
+</a>
+{% endcapture %}
+
+{% liquid 
+    if tag == 'link'
+        echo tag_link
+    else
+        echo tag_button
+    endif
+
+%}

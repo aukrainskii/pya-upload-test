@@ -1,0 +1,233 @@
+{% liquid 
+    assign collections = section.blocks
+
+    for block in collections
+        if forloop.first == true
+            assign apps = 'accessibility.apps' | t
+            assign linkText = 'accessibility.explore_all' | t | append: " " | append: block.settings.collection.title | append: " " | append: apps
+
+            assign linkCollection = block.settings.collection.url
+        endif
+    endfor
+
+    capture select-icon
+        render 'select-icon'
+    endcapture
+%}
+
+{% capture options-most %}
+  {% for collection in collections %}
+    <option
+      value="{{ collection.settings.collection }}"
+      data-value="{{ collection.settings.collection.title }}"
+      {% if forloop.first == true %}selected{% endif %}>{{ collection.settings.collection.title }}</option>
+  {% endfor %}
+{% endcapture %}
+
+{% capture options-sort %}
+  <option value="best">{{ "collection_sort.best" | t }}</option>
+  <option value="recommended" selected="selected">{{ "collection_sort.recommended" | t }}</option>
+  <option value="free">{{ "collection_sort.free" | t }}</option>
+  <option value="latest">{{ "collection_sort.latest" | t }}</option>
+{% endcapture %}
+
+{% capture changer-selects %}
+  {% render 'select' | select_options: options-most, class: "changer__select changer__select--most", id: "most-select", icon: select-icon %}
+  {% render 'select' | select_options: options-sort, class: "changer__select changer__select--sort", id: "sort-select", icon: select-icon %}
+{% endcapture %}
+
+{% capture changer-list %}
+  <ul class="sort__list">
+
+    <li
+      class="sort__item"
+      onclick="changeMostCollection(this)"
+      data-value="best">
+      {{ "collection_sort.best" | t }}
+    </li>
+
+    <li
+      class="sort__item"
+      onclick="changeMostCollection(this)"
+      data-active=""
+      data-value="recommended">
+      {{ "collection_sort.recommended" | t }}
+    </li>
+
+    <li
+      class="sort__item"
+      onclick="changeMostCollection(this)"
+      data-value="free">
+      {{ "collection_sort.free" | t }}
+    </li>
+
+    <li
+      class="sort__item"
+      onclick="changeMostCollection(this)"
+      data-value="latest">
+      {{ "collection_sort.latest" | t }}
+    </li>
+  </ul>
+{% endcapture %}
+
+{% style %}
+    #shopify-section-{{ section.id }} {
+		padding-top: {{ section.settings.section_padding_top_m }}px;
+		padding-bottom: {{ section.settings.section_padding_bottom_m }}px;
+	}
+
+    @media screen and (min-width: 600px) {
+        #shopify-section-{{ section.id }} {
+            padding-top: {{ section.settings.section_padding_top_t }}px;
+            padding-bottom: {{ section.settings.section_padding_bottom_t }}px;
+        }
+    }
+
+    @media screen and (min-width: 1240px) {
+        #shopify-section-{{ section.id }} {
+            padding-top: {{ section.settings.section_padding_top_d }}px;
+            padding-bottom: {{ section.settings.section_padding_bottom_d }}px;
+        }
+    }
+{% endstyle %}
+
+<div id="popularCategories" class="container-grid">
+  {% render 'sec-heading' %}
+  <div class="categories" id="mostCollection">
+
+    {% render 'categories-changer' | selects: changer-selects | lists: changer-list %}
+
+    {% for collection in collections %}
+      {% liquid 
+          assign recomended = collection.settings.collection.products 
+          assign latest = collection.settings.collection.products | sort: 'created_at' | reverse
+          assign free = collection.settings.collection.products
+          assign best = collection.settings.collection.products | sort: 'price' | reverse
+
+          assign recomended_link_title = "collection_sort.link_title_recommended" | t: title: collection.settings.collection.title
+
+          assign best_link_title = "collection_sort.link_title_best" | t: title: collection.settings.collection.title
+
+          assign free_link_title = "collection_sort.link_title_free" | t: title: collection.settings.collection.title
+
+          assign latest_link_title = "collection_sort.link_title_latest" | t: title: collection.settings.collection.title
+
+        %}
+      {% if forloop.first == true %}
+        {% render 'apps-list' | products: recomended, id: "most-list", handle: collection.settings.collection.handle, data-sort: "recommended", link-title: recomended_link_title, active: true %}
+        {% render 'apps-list--free' | products: free, id: "most-list", handle: collection.settings.collection.handle, data-sort: "free", link-title: free_link_title %}
+        {% render 'apps-list' | products: latest, id: "most-list", handle: collection.settings.collection.handle, data-sort: "latest", link-title: latest_link_title %}
+        {% render 'apps-list' | products: best, id: "most-list", handle: collection.settings.collection.handle, data-sort: "best", link-title: best_link_title %}
+      {% else %}
+        {% render 'apps-list' | products: recomended, id: "most-list", handle: collection.settings.collection.handle, data-sort: "recommended", link-title: recomended_link_title %}
+        {% render 'apps-list--free' | products: free, id: "most-list", handle: collection.settings.collection.handle, data-sort: "free", link-title: free_link_title %}
+        {% render 'apps-list' | products: latest, id: "most-list", handle: collection.settings.collection.handle, data-sort: "latest", link-title: latest_link_title %}
+        {% render 'apps-list' | products: best, id: "most-list", handle: collection.settings.collection.handle, data-sort: "best", link-title: best_link_title %}
+      {% endif %}
+    {% endfor %}
+  </div>
+  {% render 'linkTo' | text: linkText, link: linkCollection, class: "most-category__link" %}
+</div> 
+
+
+
+<script type="text/javascript">
+  let nameMost1 = "{{ 'accessibility.explore_all' | t }}";
+  let nameMost2 = "{{ 'accessibility.apps' | t }}";
+</script>
+
+<script src="{{ 'sections-most-apps.js' | asset_url }}" defer="defer"></script>
+
+{% schema %}
+  {
+    "name": "Most popular apps",
+    "class": "section section-most-apps",
+    "tag": "section",
+    "presets": [
+      {
+        "name": "Most popular apps"
+      }
+    ],
+    "settings": [
+      {
+        "type": "range",
+        "id": "section_padding_top_m",
+        "label": "Section Padding Top (mobile)",
+        "min": 0,
+        "max": 200,
+        "step": 2,
+        "default": 0,
+        "unit": "px"
+    },
+    {
+        "type": "range",
+        "id": "section_padding_bottom_m",
+        "label": "Section Padding Bottom (mobile)",
+        "min": 0,
+        "max": 200,
+        "step": 2,
+        "default": 0,
+        "unit": "px"
+    },
+        {
+        "type": "range",
+        "id": "section_padding_top_t",
+        "label": "Section Padding Top (tablet)",
+        "min": 0,
+        "max": 200,
+        "step": 2,
+        "default": 0,
+        "unit": "px"
+    },
+    {
+        "type": "range",
+        "id": "section_padding_bottom_t",
+        "label": "Section Padding Bottom (tablet)",
+        "min": 0,
+        "max": 200,
+        "step": 2,
+        "default": 0,
+        "unit": "px"
+    },
+        {
+        "type": "range",
+        "id": "section_padding_top_d",
+        "label": "Section Padding Top (desktop)",
+        "min": 0,
+        "max": 200,
+        "step": 2,
+        "default": 0,
+        "unit": "px"
+    },
+    {
+        "type": "range",
+        "id": "section_padding_bottom_d",
+        "label": "Section Padding Bottom (desktop)",
+        "min": 0,
+        "max": 200,
+        "step": 2,
+        "default": 0,
+        "unit": "px"
+    },
+      {
+        "type": "text",
+        "id": "heading",
+        "label": "Section title",
+        "default": "Most popular apps"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "category",
+        "name": "Category",
+        "settings": [
+          {
+            "type": "collection",
+            "id": "collection",
+            "label": "Select Category"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

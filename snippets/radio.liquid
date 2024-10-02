@@ -1,0 +1,31 @@
+{% liquid
+    assign randomNumber = "now" | date: "%N"
+
+    assign id = id | default: "id-" | append: randomNumber
+    assign name = name | default: "radio-name"
+    assign label = label | default: "add label text"
+
+    assign attributes = attributes
+    assign class = class
+    assign value = value | default: ""
+    assign disabled = disabled | default: false
+    assign checked = checked | default: false
+    assign tabindex = tabindex | default: 0
+%}
+
+<label for="{{ id }}"
+    class="radio {{ class }} {% if disabled %} radio--disabled {% endif %}"  
+    tabindex="{{ tabindex }}"
+    {% if attributes %} attributes {% endif %}
+>
+    <input type="radio" 
+        class="radio__input" 
+        id="{{ id }}" 
+        name="{{ name }}"
+        {% if disabled %} disabled {% endif %}
+        {% if checked %} checked {% endif %}
+        {% if value != blank %} value = "{{ value }}"{% endif %}
+    />
+    <span class="radio__status"></span>
+    <span class="radio__label">{{ label }}</span>
+</label>

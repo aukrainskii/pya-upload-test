@@ -1,0 +1,122 @@
+/*
+* ------------------------------------------------------------
+* IMPORTANT: The contents of this file are auto-generated.
+*
+* This file may be updated by the Shopify admin theme editor
+* or related systems. Please exercise caution as any changes
+* made to this file may be overwritten.
+* ------------------------------------------------------------
+*/
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "settings": {
+        "section_padding_top_m": 36,
+        "section_padding_bottom_m": 64,
+        "section_padding_top_t": 56,
+        "section_padding_bottom_t": 64,
+        "section_padding_top_d": 24,
+        "section_padding_bottom_d": 56
+      }
+    },
+    "content": {
+      "type": "product-content",
+      "settings": {
+        "section_padding_top_m": 64,
+        "section_padding_bottom_m": 64,
+        "section_padding_top_t": 64,
+        "section_padding_bottom_t": 64,
+        "section_padding_top_d": 56,
+        "section_padding_bottom_d": 120,
+        "heading": "About the {{ product.title }}"
+      }
+    },
+    "price": {
+      "type": "app-pricing",
+      "settings": {
+        "section_padding_top_m": 36,
+        "section_padding_bottom_m": 64,
+        "section_padding_top_t": 48,
+        "section_padding_bottom_t": 80,
+        "section_padding_top_d": 64,
+        "section_padding_bottom_d": 120,
+        "heading": "Pricing of {{ product.title }}"
+      }
+    },
+    "kava_about_riley_PqNcyA": {
+      "type": "kava-about-riley",
+      "blocks": {
+        "heading_YfKqhh": {
+          "type": "heading",
+          "settings": {
+            "heading_text": "Shopify Page Builder and Theme Sections collection",
+            "heading_size": "pw-medium"
+          }
+        },
+        "text_k7E7tR": {
+          "type": "text",
+          "settings": {
+            "section_text": "<p>Craft your perfect Shopify store with sections and ready-to-go pages by KAVA Sections app.<\/p>"
+          }
+        },
+        "buttons_ifTVzP": {
+          "type": "buttons",
+          "settings": {
+            "button_label_1": "Get started with KavaSections",
+            "button_link_1": "https:\/\/apps.shopify.com\/kava-sections-page-builder?utm_medium=referral&utm_source=pickyourapp&utm_campaign=app-page-banner&utm_term=get-started-with-kv&utm_content=app-page-banner",
+            "btn_bg_1": "",
+            "btn_border_radius": 30
+          }
+        }
+      },
+      "block_order": [
+        "heading_YfKqhh",
+        "text_k7E7tR",
+        "buttons_ifTVzP"
+      ],
+      "settings": {
+        "inherit_fonts": false,
+        "is_fullwidth": false,
+        "background_image": "shopify:\/\/shop_images\/kava-about-riley.png",
+        "img_position": "right",
+        "text_align": "left",
+        "text_color": "#ffffff",
+        "background_color": "#120b18",
+        "text_bg_color": "#120b18",
+        "section_padding_top": 0,
+        "section_padding_bottom": 0,
+        "section_padding_top_mobile": 0,
+        "section_padding_bottom_mobile": 0,
+        "text_padding_top": 60,
+        "text_padding_bottom": 60,
+        "container_max_width": 840,
+        "custom_class": "",
+        "custom_css": "",
+        "heading_tag": "h2",
+        "lazyload": true
+      }
+    },
+    "primary_collection": {
+      "type": "similar-products",
+      "settings": {
+        "section_padding_top_m": 64,
+        "section_padding_bottom_m": 0,
+        "section_padding_top_t": 80,
+        "section_padding_bottom_t": 80,
+        "section_padding_top_d": 110,
+        "section_padding_bottom_d": 120,
+        "heading": "The Best {{ product.metafields.appstore.primary_category.value }} apps",
+        "select_products_for_withdrawal": "primary_collections",
+        "select_color_scheme": "light_scheme"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "content",
+    "price",
+    "kava_about_riley_PqNcyA",
+    "primary_collection"
+  ]
+}

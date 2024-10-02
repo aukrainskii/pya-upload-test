@@ -1,0 +1,308 @@
+{% liquid
+    assign raiting = product.metafields.appstore.rating.value | abs
+    assign raiting_c = raiting | round
+    assign reviews_count = product.metafields.appstore.reviews
+
+    assign developer_title = product.metafields.appstore.developer_title.value
+    assign developer_page = routes.root_url | append: "pages/" | append: product.metafields.appstore.developer.value
+
+    assign json_price = product.metafields.appstore.pricing.value
+
+    assign product_title_handle = product.title | handleize
+    assign app_install_text = 'product.btn_install_text' | t
+    assign app_install_text_handle = app_install_text | handleize
+    assign app_install = "https://apps.shopify.com/" | append: product.handle | append: "?utm_medium=referral&utm_source=takeyourapp" | append: "&utm_campaign=" | append: product_title_handle | append: "&utm_content=" | append: app_install_text_handle
+    
+
+    assign highlight_title = 'product.highlights' | t 
+    assign highlights = product.metafields.appstore.highlights.value
+
+    assign integration_title = 'product.integrations' | t 
+    assign integrations = product.metafields.appstore.integrations.value
+
+    assign youtube_src = product.metafields.appstore.banner_video
+    assign youtube_src = youtube_src | replace: "www.youtube-nocookie.com", "www.youtube.com"
+    assign youtube_src = youtube_src | split: "&origin=" | first
+    
+    unless youtube_src contains "enablejsapi=1"
+    if youtube_src contains "?"
+        assign youtube_src = youtube_src | append: "&enablejsapi=1"
+    else
+        assign youtube_src = youtube_src | append: "?enablejsapi=1"
+    endif
+    endunless
+%}
+
+{% style %}
+    #shopify-section-{{ section.id }} {
+		padding-top: {{ section.settings.section_padding_top_m }}px;
+		padding-bottom: {{ section.settings.section_padding_bottom_m }}px;
+	}
+
+    @media screen and (min-width: 600px) {
+        #shopify-section-{{ section.id }} {
+            padding-top: {{ section.settings.section_padding_top_t }}px;
+            padding-bottom: {{ section.settings.section_padding_bottom_t }}px;
+        }
+    }
+
+    @media screen and (min-width: 1240px) {
+        #shopify-section-{{ section.id }} {
+            padding-top: {{ section.settings.section_padding_top_d }}px;
+            padding-bottom: {{ section.settings.section_padding_bottom_d }}px;
+        }
+    }
+{% endstyle %}
+
+{% render 'breadcrumbs' %}
+<div class="container">
+    <div class="main-product">
+        {% render 'sec-heading-1', align: "left", sec_heading: product.title %}
+        {% render 'sec-description', sec_description: product.metafields.appstore.intro %}
+
+        <ul class="main-product__info">
+            <li class="">
+                <div>
+                    {{ "product.raiting_html" | t }} {{ raiting }} 
+                    {% for i in (1..5) %}
+                        <span class="review-star-icon {% if i > raiting_c %}review-star-icon--empty{% endif %}">
+                            {{ settings.star-icon }}
+                        </span>
+                    {% endfor %}
+                </div>
+                {{ "product.raiting_based_on_html" | t }}
+            </li>
+
+            <li>
+                <a class="main-product__link" href="https://apps.shopify.com/{{ product.handle }}/reviews?utm_medium=referral&utm_source=takeyourapp&utm_campaign={{ product.title | handleize }}&utm_content={{ reviews_count }}-{{ 'product.reviews' | t | handleize}}" target="_blank">
+                    {{ reviews_count }} {{ 'product.reviews' | t }}
+                </a>
+            </li>
+
+            <li>
+                {{ 'product.developers' | t }}
+                <a class="main-product__link" href="{{ developer_page }}">
+                    {{ developer_title }}
+                </a>
+            </li>
+
+            {% if product.metafields.appstore.trial_period.value != blank %}
+                <li>
+                    {{ "product.price" | t }} {{ product.metafields.appstore.trial_period.value | replace: "Price:" }}
+                </li>
+            {% endif %}
+        </ul>
+
+        <div class="main-product__links">
+            {% render 'linkTo' | text: app_install_text , link: app_install, target_b: "true", class: "link-to--circle" %}
+        </div>
+    </div>
+    <div class="main-product__image">
+        <img src="{{ product.metafields.appstore.icon.value}}?width=760"
+            alt="{{ product.title }}"
+            srcset="{{ product.metafields.appstore.icon.value}}?width=240 240w,
+                    {{ product.metafields.appstore.icon.value}}?width=380 360w,
+                    {{ product.metafields.appstore.icon.value}}?width=760 760w
+            "
+            width="380"
+            height="380"
+            loading="lazy" 
+            sizes="(min-width: 768px) 380px, 240px">
+    </div>
+
+    {% if product.metafields.appstore.screenshots.value != blank %}
+    <c-product-slider class="product-slider">
+        <div class="product-slider__track glide__track" data-glide-el="track">
+            <ul class="product-slider__slides glide__slides js-product-slider__slides">
+                {% if product.metafields.appstore.banner_video != blank %}
+                    <li data-id="{{ product.metafields.appstore.banner_video }}">
+                        <iframe frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="allowfullscreen" src="{{ product.metafields.appstore.banner_video }}"></iframe>
+                    </li>
+                {% endif %}
+                {% for image in product.metafields.appstore.screenshots.value %}
+                    <li data-id="{{ image }}">
+                        <img src="{{- image -}}?width=760" 
+                            alt="{{ product.title }} Screenshot" 
+                            srcset="{{- image -}}?width=280 280w, 
+                                    {{- image -}}?width=380 380w, 
+                                    {{- image -}}?width=560 560w, 
+                                    {{- image -}}?width=760 760w" 
+                            width="280" 
+                            height="165" 
+                            sizes="(min-width: 440px) 380px, 280px">
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="product-slider__buttons" data-glide-el="controls">
+            <button class="product-slider__button product-slider__button--prev" data-glide-dir="<">
+                <svg aria-hidden="true" focusable="false" role="presentation" width="20" height="20" viewBox="0 0 20 20" fill="none" class="icon icon-arrow">
+                    <path d="M12.2559 4.41083L16.9699 9.12486C17.2954 9.45028 17.2954 9.97795 16.9699 10.3034L12.2559 15.0174C11.9305 15.3429 11.4028 15.3429 11.0774 15.0174C10.7519 14.692 10.7519 14.1644 11.0774 13.8389L14.3688 10.5474H3.33333C2.8731 10.5474 2.5 10.1744 2.5 9.71411C2.5 9.25386 2.8731 8.88078 3.33333 8.88078H14.3688L11.0774 5.58934C10.7519 5.2639 10.7519 4.73626 11.0774 4.41083C11.4028 4.08539 11.9305 4.08539 12.2559 4.41083Z" fill="currentColor"/>
+                </svg>
+            </button>
+            <button class="product-slider__button product-slider__button--next" data-glide-dir=">">
+                <svg aria-hidden="true" focusable="false" role="presentation" width="20" height="20" viewBox="0 0 20 20" fill="none" class="icon icon-arrow">
+                    <path d="M12.2559 4.41083L16.9699 9.12486C17.2954 9.45028 17.2954 9.97795 16.9699 10.3034L12.2559 15.0174C11.9305 15.3429 11.4028 15.3429 11.0774 15.0174C10.7519 14.692 10.7519 14.1644 11.0774 13.8389L14.3688 10.5474H3.33333C2.8731 10.5474 2.5 10.1744 2.5 9.71411C2.5 9.25386 2.8731 8.88078 3.33333 8.88078H14.3688L11.0774 5.58934C10.7519 5.2639 10.7519 4.73626 11.0774 4.41083C11.4028 4.08539 11.9305 4.08539 12.2559 4.41083Z" fill="currentColor"/>
+                </svg>
+            </button>
+        </div>
+    </c-product-slider>
+
+    <c-product-slider-popup class="product-slider-popup">
+        <div class="product-slider-popup__slider js-product-slider-popup__slider">
+            <div class="product-slider-popup__track glide__track" data-glide-el="track">
+                <ul class="product-slider-popup__slides glide__slides">
+                    {% if product.metafields.appstore.banner_video != blank %}
+                        <li data-id="{{ product.metafields.appstore.banner_video }}">
+                            <iframe class="youtube-video" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="allowfullscreen" src="{{ youtube_src }}"></iframe>
+                        </li>
+                    {% endif %}
+                    {% for image in product.metafields.appstore.screenshots.value %}
+                        <li data-id="{{ image }}">
+                            <img src="{{- image -}}?width=2200"
+                                alt="{{ product.title }} Screenshot" 
+                                srcset="{{- image -}}?width=280 280w,
+                                        {{- image -}}?width=380 380w,
+                                        {{- image -}}?width=550 550w,
+                                        {{- image -}}?width=560 560w,
+                                        {{- image -}}?width=760 760w,
+                                        {{- image -}}?width=1100 1100w,
+                                        {{- image -}}?width=2200 2200w"
+                                width="280"
+                                height="165"
+                                sizes="(min-width: 992px) 1100px,(min-width: 760px) 550px, (min-width: 440px) 380px, 280px">
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="product-slider-popup__buttons" data-glide-el="controls">
+                <button class="product-slider-popup__button product-slider-popup__button--prev" data-glide-dir="<">
+                    <svg aria-hidden="true" focusable="false" role="presentation" width="20" height="20" viewBox="0 0 20 20" fill="none" class="icon icon-arrow">
+                        <path d="M12.2559 4.41083L16.9699 9.12486C17.2954 9.45028 17.2954 9.97795 16.9699 10.3034L12.2559 15.0174C11.9305 15.3429 11.4028 15.3429 11.0774 15.0174C10.7519 14.692 10.7519 14.1644 11.0774 13.8389L14.3688 10.5474H3.33333C2.8731 10.5474 2.5 10.1744 2.5 9.71411C2.5 9.25386 2.8731 8.88078 3.33333 8.88078H14.3688L11.0774 5.58934C10.7519 5.2639 10.7519 4.73626 11.0774 4.41083C11.4028 4.08539 11.9305 4.08539 12.2559 4.41083Z" fill="currentColor"/>
+                    </svg>
+                </button>
+                <button class="product-slider-popup__button product-slider-popup__button--next" data-glide-dir=">">
+                    <svg aria-hidden="true" focusable="false" role="presentation" width="20" height="20" viewBox="0 0 20 20" fill="none" class="icon icon-arrow">
+                        <path d="M12.2559 4.41083L16.9699 9.12486C17.2954 9.45028 17.2954 9.97795 16.9699 10.3034L12.2559 15.0174C11.9305 15.3429 11.4028 15.3429 11.0774 15.0174C10.7519 14.692 10.7519 14.1644 11.0774 13.8389L14.3688 10.5474H3.33333C2.8731 10.5474 2.5 10.1744 2.5 9.71411C2.5 9.25386 2.8731 8.88078 3.33333 8.88078H14.3688L11.0774 5.58934C10.7519 5.2639 10.7519 4.73626 11.0774 4.41083C11.4028 4.08539 11.9305 4.08539 12.2559 4.41083Z" fill="currentColor"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </c-product-slider-popup>
+    {% endif %}
+    {% if highlights != null or integrations != null %}
+        <div class="product-information">
+            {% if highlights != null %}
+                <div class="product-information__item">
+                    {% render 'sec-heading-3', sec_heading_3: highlight_title, class: "product-information__title" %}
+                    <ul class="product-information__list">
+                        {% for highlight in highlights %}
+                            {% liquid
+                                assign highlight_name = highlight[0]
+                                assign highlight_list = highlight[1]
+                            %}
+                            <li>
+                                {{ highlight_name }}
+                                <ul>
+                                    {% for item in highlight_list %}
+                                        <li>{{ item }}</li>
+                                    {% endfor %}
+                                </ul>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+
+            {% if integrations != null %}
+                <div class="product-information__item">
+                    {% render 'sec-heading-3', sec_heading_3: integration_title, class: "product-information__title" %}
+                    <ul class="product-information__list product-information__list--integrations">
+                        {% for integration in integrations %}
+                            <li>
+                                {{ integration }}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+        </div>
+    {% endif %}
+</div>
+
+<script src="{{ 'sections-main-product.js' | asset_url }}" defer="defer"></script>
+
+{% schema %}
+{
+    "name": "Main Product",
+    "class": "section section-main-product",
+    "tag": "section",
+    "presets": [
+        {
+            "name": "Main Product"
+        }
+    ],
+    "settings": [
+        {
+            "type": "range",
+            "id": "section_padding_top_m",
+            "label": "Section Padding Top (mobile)",
+            "min": 0,
+            "max": 200,
+            "step": 2,
+            "default": 0,
+            "unit": "px"
+        },
+        {
+            "type": "range",
+            "id": "section_padding_bottom_m",
+            "label": "Section Padding Bottom (mobile)",
+            "min": 0,
+            "max": 200,
+            "step": 2,
+            "default": 0,
+            "unit": "px"
+        },
+            {
+            "type": "range",
+            "id": "section_padding_top_t",
+            "label": "Section Padding Top (tablet)",
+            "min": 0,
+            "max": 200,
+            "step": 2,
+            "default": 0,
+            "unit": "px"
+        },
+        {
+            "type": "range",
+            "id": "section_padding_bottom_t",
+            "label": "Section Padding Bottom (tablet)",
+            "min": 0,
+            "max": 200,
+            "step": 2,
+            "default": 0,
+            "unit": "px"
+        },
+            {
+            "type": "range",
+            "id": "section_padding_top_d",
+            "label": "Section Padding Top (desktop)",
+            "min": 0,
+            "max": 200,
+            "step": 2,
+            "default": 0,
+            "unit": "px"
+        },
+        {
+            "type": "range",
+            "id": "section_padding_bottom_d",
+            "label": "Section Padding Bottom (desktop)",
+            "min": 0,
+            "max": 200,
+            "step": 2,
+            "default": 0,
+            "unit": "px"
+        }
+    ]
+}
+{% endschema %}

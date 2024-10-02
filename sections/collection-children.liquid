@@ -1,0 +1,182 @@
+{% assign sec_id = section.id | slice: -6, 6 | replace: '-', '_' %}
+{% assign sec_id = sec_id | prepend: 'pw' %}
+
+{% style %}
+#shopify-section-{{ section.id }} {
+  padding-top: {{ section.settings.section_padding_top_m }}px;
+  padding-bottom: {{ section.settings.section_padding_bottom_m }}px;
+}
+@media screen and (min-width: 750px) {
+  #shopify-section-{{ section.id }} {
+  padding-top: {{ section.settings.section_padding_top_d }}px;
+  padding-bottom: {{ section.settings.section_padding_bottom_d }}px;
+  }
+}
+{% endstyle %}
+
+
+<div class="pw-collection pw-section__{{sec_id}}">
+  <div class="pw-layout">
+    <div class="pw-sidebar-wrapper">
+      <div class="pw-sidebar">
+        <div class="pw-sidebar-inner">
+          <ul class="pw-sidebar-menu">
+            <li>
+              <a href="/">All categories</a>
+            </li>
+            {% for collection in collections %}
+              {% if collection.metafields.appstore.parent == blank and collection.metafields.appstore.in_sidebar == true %}
+                <li class="{% if collection.url == request.path %} current {% endif %} {% if collection.metafields.appstore.popular == true %} popular {%endif %}">
+                  <a href="{{ collection.url }}">{{ collection.title }}</a>
+                </li>
+              {% endif %}
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="pw-main-wrapper">
+      <div class="pw-main">
+
+        {% render 'breadcrumbs' %}
+
+        <div class="pw-children-search-wrapper">
+
+          <div class="search-content">
+
+            {% assign placeholder = 'accessibility.app_search_placeholder' | t %}
+
+            <div class="">
+              {% render 'sec-heading-1' | align: 'left', class: "search-content__title" %}
+
+              {% render 'sec-description' %}
+            </div>
+            
+            {% render 'search-field' | input_name: "homepage-search" , placeholder: placeholder , search_type: "product" %}
+          </div>
+
+        </div>
+
+        <div class="main-collection">
+            {% render 'sec-heading-1', align: "left", sec_heading: collection.title %}
+
+            {% if collection.metafields.appstore.children.value != blank %}
+
+              <div class="main-collection-links">
+
+                {% for child in collection.metafields.appstore.children.value %}
+                  <a class="main-collection-link" href="{{ child.url }}">{{ child.title }}</a>{% if forloop.last != true %}, {% endif %}
+                {% endfor %}
+
+              </div>
+
+            {% endif %}
+            
+            <div class="main-collection__description">
+               {{ collection.metafields.appstore.description.value }}
+            </div>
+            {% assign text_link = 'collection.read_about' | t %}
+            {% assign text_link = text_link | append: collection.title %}
+            {% if collection.description != blank %}
+                {% render 'linkTo' | text: text_link , id: "link_to_about" , link: "#about" , class: "main-collection__link" %}
+            {% endif %}
+        </div>
+
+        <div class="container collection-childs all-products-wrapper">
+          <ul class="collection-childs__list">
+            {% for child in collection.metafields.appstore.children.value %}
+              <li class="collection-child">
+                <div class="collection-child-header">
+                  {% render 'sec-heading-3', sec_heading_3: child.title %}
+                  {% assign more_apps_text = "collection.more_apps" | t %}
+                  {% render 'linkTo', link: child.url, arrow: "true", text: more_apps_text, class: "collection-child__link" %}
+                </div>
+
+                <div class="pw-row collection-child__app">
+                  {% assign sorted_products = child.products | sort: 'price' | reverse %}
+                  {% for product in sorted_products limit: 3 %}
+                  <div class="pw-col-xl-4 pw-col-lg-6 pw-col-md-12 pw-col-sm-6">
+                    {% render 'product-card', product: product %}
+                  </div>
+                  {% endfor %}
+                </div>
+
+                <div class="collection-child-footer">
+                  {% assign more_apps_text = "collection.more_apps" | t %}
+                  {% render 'linkTo', link: child.url, arrow: "true", text: more_apps_text, class: "collection-child__link" %}
+                </div>
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+{% if collection.metafields.appstore.children.value == blank %}
+  {% style %}
+    .section-collection-childs {
+      display: none;
+    }
+  {% endstyle %}
+{% endif %}
+
+{% schema %}
+{
+  "name": "Collection`s childs",
+  "class": "section section-collection-childs",
+  "tag": "section",
+  "presets": [
+    {
+        "name": "Collection`s childs"
+    }
+  ],
+  "settings": [
+    {
+      "type": "range",
+      "id": "section_padding_top_m",
+      "label": "Section Padding Top (mobile)",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "default": 0,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom_m",
+      "label": "Section Padding Bottom (mobile)",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "default": 0,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top_d",
+      "label": "Section Padding Top (desktop)",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "default": 0,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom_d",
+      "label": "Section Padding Bottom (desktop)",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "default": 0,
+      "unit": "px"
+    }
+  ],
+  "blocks": []
+}
+{% endschema %}

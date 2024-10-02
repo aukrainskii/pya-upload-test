@@ -1,0 +1,77 @@
+{
+  "sections": {
+    "0303f4b4-b0aa-4f88-892d-43e8c55b8939": {
+      "type": "main-header-section",
+      "blocks": {
+        "89097605-3f8d-4ea1-b9a7-18db1f005637": {
+          "type": "search",
+          "settings": {
+            "placeholder": "Search articles"
+          }
+        }
+      },
+      "block_order": [
+        "89097605-3f8d-4ea1-b9a7-18db1f005637"
+      ],
+      "settings": {
+        "section_padding_top_m": 36,
+        "section_padding_bottom_m": 0,
+        "section_padding_top_t": 56,
+        "section_padding_bottom_t": 0,
+        "section_padding_top_d": 24,
+        "section_padding_bottom_d": 0,
+        "heading": "Blog",
+        "background": "shopify:\/\/shop_images\/hero-bg.png"
+      }
+    },
+    "553c42b1-843d-4ba7-a7ad-09ce3d42098a": {
+      "type": "main-blog",
+      "blocks": {
+        "article_8ybqXg": {
+          "type": "article",
+          "settings": {
+            "article": "news\/black-friday-and-cyber-monday-2023-online-sales-results-and-stats"
+          }
+        },
+        "article_3JNNiH": {
+          "type": "article",
+          "settings": {
+            "article": "news\/guide-to-shopify-page-builder-apps-in-2024"
+          }
+        },
+        "article_KpUxFR": {
+          "type": "article",
+          "settings": {
+            "article": "news\/the-best-wholesale-app-for-shopify"
+          }
+        }
+      },
+      "block_order": [
+        "article_8ybqXg",
+        "article_3JNNiH",
+        "article_KpUxFR"
+      ],
+      "settings": {
+        "section_padding_top_m": 36,
+        "section_padding_bottom_m": 0,
+        "section_padding_top_t": 24,
+        "section_padding_bottom_t": 24,
+        "section_padding_top_d": 60,
+        "section_padding_bottom_d": 120,
+        "layout": ""
+      }
+    },
+    "d60237c0-8317-4b86-8d43-7dbfcdb74575": {
+      "type": "navigation",
+      "settings": {
+        "menu": "section-navigation",
+        "layout": "accent"
+      }
+    }
+  },
+  "order": [
+    "0303f4b4-b0aa-4f88-892d-43e8c55b8939",
+    "553c42b1-843d-4ba7-a7ad-09ce3d42098a",
+    "d60237c0-8317-4b86-8d43-7dbfcdb74575"
+  ]
+}

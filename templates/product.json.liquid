@@ -1,0 +1,17 @@
+{% layout none %}
+{% assign mt = product.metafields.appstore %}
+{
+"app": {
+    {% for m in product.metafields.appstore %}
+        {{m[0] | json }}:
+        {% if mt[m[0]].type == "json" or mt[m[0]].type == "number_integer" or mt[m[0]].type == "number_decimal" or mt[m[0]].type == "boolean" or mt[m[0]].type == "rating" %}
+          {{ m[1] | newline_to_br | strip_newlines | replace: '""', '"' | replace: '"', '"' }}
+        {% elsif mt[m[0]].list? %}
+          {{ m[1] | newline_to_br | strip_newlines | replace: '""', '"' | replace: '"', '"' }}
+        {% else %}
+          "{{ m[1] | newline_to_br | strip_newlines | replace: '""', '"' }}"
+        {% endif %}
+        {% unless forloop.last %},{% endunless %}
+    {% endfor %}
+  }  
+} 

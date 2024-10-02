@@ -1,0 +1,221 @@
+{% liquid
+    assign title = "search.title" | t : terms: search.terms
+%}
+
+
+{% style %}
+    :root {
+        --main-custom-bg: url({{ section.settings.background | img_url: '1000x' }});
+    }
+{% endstyle %}
+
+{% style %}
+    #shopify-section-{{ section.id }} {
+		padding-top: {{ section.settings.section_padding_top_m }}px;
+		padding-bottom: {{ section.settings.section_padding_bottom_m }}px;
+	}
+
+    @media screen and (min-width: 600px) {
+        #shopify-section-{{ section.id }} {
+            padding-top: {{ section.settings.section_padding_top_t }}px;
+            padding-bottom: {{ section.settings.section_padding_bottom_t }}px;
+        }
+    }
+
+    @media screen and (min-width: 1240px) {
+        #shopify-section-{{ section.id }} {
+            padding-top: {{ section.settings.section_padding_top_d }}px;
+            padding-bottom: {{ section.settings.section_padding_bottom_d }}px;
+        }
+    }
+{% endstyle %}
+
+{% render 'breadcrumbs' %}
+
+<div class="main-search">
+    {% render 'sec-heading-1' | align: 'left', sec_heading: title  %}
+    {% if search.types.size == 1 and search.types contains "product" %} 
+
+        {% render 'search-field' | input_name: "page-search" | placeholder: placeholder , search_type: "product", search: search %}
+        {% paginate search.results by 16 %}
+        {% if search.results.size > 0 %}
+        <div class="main-search__products">
+                {% for product in search.results %}
+                    <a class="product-card" href="{{ product.url }}">
+                        <div class="block-img-wrap product-card__img">
+                            <img    src="{{ product.metafields.appstore.icon.value}}?width=140"
+                                    alt="{{ product.title }}"
+                                    srcset="{{ product.metafields.appstore.icon.value}}?width=70 1x,
+                                            {{ product.metafields.appstore.icon.value}}?width=140 2x"
+                                    width="70"
+                                    height="70"
+                                    loading="lazy">
+                        </div>
+                        <div class="product-card__info">
+                        {% render 'sec-heading-5' | sec_heading-5: product.title %}
+                        {% if product.metafields.appstore.reviews.value > 0 %}
+                            <div class="product-card__rate">
+                                {{ s_product.metafields.appstore.rating.value }}
+                                <div class="block-img-wrap">
+                                    {{ settings.star-icon }}
+                                </div>
+                                ({{ product.metafields.appstore.reviews }})
+                            </div>
+                          {% else %}
+                            <div class="product-card__rate product-card__rate--no-reviews">
+                                <div class="block-img-wrap">
+                                    {{ settings.star-icon }}
+                                </div>
+                                {{ "accessibility.no-reviews" | t }}
+                            </div>
+                          {% endif %}
+                        {% render 'sec-description' | sec_description: product.metafields.appstore.card_subtitle %}
+                        </div>
+                    </a>
+                {% endfor %}
+        </div>
+        {% else %}
+                <div class="main-search__not-found">
+                    <div class="main-search__not-found-img">
+                        {% render 'products-not-found' %}
+                    </div>
+                    <p class="main-search__not-found-text">
+                        {{ 'collection.not-found' | t }}
+                    </p>
+                </div>
+        {% endif %}
+        {% render 'pagination', paginate: paginate %}
+        {% endpaginate %}
+    {% elsif search.types.size == 1 and search.types contains "article" %} 
+        {% render 'search-field' | input_name: "page-search" | placeholder: placeholder , search_type: "article", value: search.terms %}
+        {% paginate search.results by 9 %}
+        {% if search.results.size > 0 %}
+        <div class="main-search__articles">
+            {% for article in search.results %}
+                {% liquid
+                    assign title = article.title
+                    if section.settings.layout == "one-columns"
+                        assign description = article.content | strip_html | truncatewords: 35
+                    else
+                        assign description = article.content | strip_html | truncatewords: 18
+                    endif
+                    assign date = article.created_at | date: "%d/%m/%Y"
+                %}
+                <a class="blog-article" href="{{ article.url }}">
+                    <div class="block-img-wrap">
+                        {%- capture sizes -%}(min-width: 992px) 800px, (min-width: 720px) 720px, 360px{%- endcapture -%}
+                        {{  article.image | image_url: width: 1600 | image_tag:
+                            width: 340,
+                            height: 340,
+                            loading: 'lazy',
+                            sizes: sizes,
+                            widths: '360, 720, 800, 1440, 1600',
+                            alt: article.title
+                        }}
+                    </div>
+                    <div class="blog-article__tags">
+                        {% for tag in article.tags %}
+                            <span>{{ tag }}</span>
+                        {% endfor %}
+                    </div>
+                    {% render 'sec-heading-3' | sec_heading_3: title %}
+                    {% render 'sec-description' | sec_description: description %}
+                    <div class="blog-article__info">{% render 'date' | text: date %}</div>
+                </a>
+            {% endfor %}
+        </div>
+        {% else %}
+            <div class="main-search__not-found">
+                <div class="main-search__not-found-img">
+                {% render 'articles-not-found' %}
+                </div>
+                <p class="main-search__not-found-text">
+                    {{ 'blog.not-found' | t }}
+                </p>
+            </div>
+        {% endif %}
+        {% render 'pagination', paginate: paginate %}
+        {% endpaginate %}
+    {% endif %}
+</div>
+
+{% schema %}
+{
+  "name": "Main Search",
+  "tag": "section",
+  "class": "section section-main-search",
+  "presets": [
+    {
+        "name": "Main Search"
+    }
+  ],
+  "settings": [
+    {
+        "type": "range",
+        "id": "section_padding_top_m",
+        "label": "Section Padding Top (mobile)",
+        "min": 0,
+        "max": 200,
+        "step": 2,
+        "default": 0,
+        "unit": "px"
+    },
+    {
+        "type": "range",
+        "id": "section_padding_bottom_m",
+        "label": "Section Padding Bottom (mobile)",
+        "min": 0,
+        "max": 200,
+        "step": 2,
+        "default": 0,
+        "unit": "px"
+    },
+        {
+        "type": "range",
+        "id": "section_padding_top_t",
+        "label": "Section Padding Top (tablet)",
+        "min": 0,
+        "max": 200,
+        "step": 2,
+        "default": 0,
+        "unit": "px"
+    },
+    {
+        "type": "range",
+        "id": "section_padding_bottom_t",
+        "label": "Section Padding Bottom (tablet)",
+        "min": 0,
+        "max": 200,
+        "step": 2,
+        "default": 0,
+        "unit": "px"
+    },
+        {
+        "type": "range",
+        "id": "section_padding_top_d",
+        "label": "Section Padding Top (desktop)",
+        "min": 0,
+        "max": 200,
+        "step": 2,
+        "default": 0,
+        "unit": "px"
+    },
+    {
+        "type": "range",
+        "id": "section_padding_bottom_d",
+        "label": "Section Padding Bottom (desktop)",
+        "min": 0,
+        "max": 200,
+        "step": 2,
+        "default": 0,
+        "unit": "px"
+    },
+    {
+        "type": "image_picker",
+        "id": "background",
+        "label": "Custom background"
+    }
+],
+  "blocks": []
+}
+{% endschema %}

@@ -1,0 +1,296 @@
+{% liquid
+	assign articles = section.blocks | where: "type", "block"
+	assign themes = section.blocks | where: "type", "theme"
+%}
+
+{% style %}
+	#shopify-section-{{ section.id }} {
+		padding-top: {{ section.settings.section_padding_top_m }}px;
+		padding-bottom: {{ section.settings.section_padding_bottom_m }}px;
+	}
+
+	@media screen and (min-width: 600px) {
+		#shopify-section-{{ section.id }} {
+			padding-top: {{ section.settings.section_padding_top_t }}px;
+			padding-bottom: {{ section.settings.section_padding_bottom_t }}px;
+		}
+	}
+
+	@media screen and (min-width: 1240px) {
+		#shopify-section-{{ section.id }} {
+			padding-top: {{ section.settings.section_padding_top_d }}px;
+			padding-bottom: {{ section.settings.section_padding_bottom_d }}px;
+		}
+	}
+{% endstyle %}
+
+<div class="container-grid">
+	{% render 'sec-heading' %}
+	<ul class="article-list">
+	{% for block in articles %}
+		{% liquid 
+			assign article = block.settings.article
+			assign description = article.content | strip_html | truncatewords: 18
+			assign date = article.created_at | date: '%m-%d-%y' 
+		%}
+		{% if article != blank %}
+		<li class="article">
+			<a class="article__link" href="{{ article.url }}">
+				{% if article.image != blank %}
+					<div class="block-img-wrap article__image">
+						{%- capture sizes -%}(min-width: 992px) 380px, 360px{%- endcapture -%}
+						{{  article.image | image_url: width: 760 | image_tag:
+							width: 340,
+							height: 340,
+							loading: 'lazy',
+							sizes: sizes,
+							widths: '360, 380, 720, 760',
+							alt: article.title
+						}}
+					</div>
+				{% endif %}
+				{% if section.settings.tags == true %}
+					<div class="article-tags">
+						{% for tag in article.tags %}
+							<span>{{ tag }}</span>
+						{% endfor %}
+					</div>
+				{% endif %}
+
+				{% render 'sec-heading-3' | sec_heading_3: article.title %}
+
+				{% if section.settings.content == true %}
+					{% render 'sec-description' | sec_description: description %}
+				{% endif %}
+
+				<div class="article__info">
+					{% if section.settings.date == true %}
+						{% render 'date' | text: date %}
+					{% endif %}
+				</div>
+			</a>
+		</li>
+		{% endif %}
+	{% endfor %}
+
+	{% for block in themes %}
+		{% liquid 
+			assign product = block.settings.product
+			assign description = product.content | strip_html | truncatewords: 18
+			assign date = product.created_at | date: '%m-%d-%y' 
+		%}
+		<li class="article">
+			<a class="article__link" href="{{ product.url }}">
+				<div class="block-img-wrap article__image">
+					{% if product.featured_image != blank %}
+						{%- capture sizes -%}(min-width: 992px) 380px, 360px{%- endcapture -%}
+						{{  product.featured_image | image_url: width: 760 | image_tag:
+							loading: 'lazy',
+							sizes: sizes,
+							widths: '360, 380, 720, 760',
+							width: 340,
+							height: 340,
+							alt: product.title
+						}}
+					{% endif %}
+				</div>
+
+				{% if section.settings.tags == true %}
+					<div class="article-tags">
+						{% for tag in product.tags %}
+							<span>{{ tag }}</span>
+						{% endfor %}
+					</div>
+				{% endif %}
+
+				{% render 'sec-heading-3' | sec_heading_3: product.title %}
+
+				{% if section.settings.content == true %}
+					{% render 'sec-description' | sec_description: description %}
+				{% endif %}
+
+				<div class="article__info">
+					{% if section.settings.date == true %}
+						{% render 'date' | text: date %}
+					{% endif %}
+				</div>
+			</a>
+		</li>
+	{% endfor %}
+	</ul>
+
+	{% render 'linkTo' | text: section.settings.blog-text , link: section.settings.link  %}
+</div>
+
+{% style %}
+	.section-articles-list {
+		{% if section.settings.layout == "dark" %}
+			background: {{ settings.secondary-color }};
+			color: {{ settings.primary-color }};
+		{% else %}
+			background: {{ settings.gradient_2 }};
+			background: #f6f6f6;
+			color: {{ settings.secondary-color }};
+		{% endif %}
+	}
+{% endstyle %}
+
+<script src="{{ 'sections-articles-list.js' | asset_url }}" defer="defer"></script>
+
+{% schema %}
+{
+	"name": "Articles List",
+	"class": "section section-articles-list",
+	"tag": "section",
+	"presets": [
+		{
+			"name": "Articles List"
+		}
+	],
+	"settings": [
+		{
+			"type": "range",
+			"id": "section_padding_top_m",
+			"label": "Section Padding Top (mobile)",
+			"min": 0,
+			"max": 200,
+			"step": 2,
+			"default": 0,
+			"unit": "px"
+		},
+		{
+			"type": "range",
+			"id": "section_padding_bottom_m",
+			"label": "Section Padding Bottom (mobile)",
+			"min": 0,
+			"max": 200,
+			"step": 2,
+			"default": 0,
+			"unit": "px"
+		},
+		{
+			"type": "range",
+			"id": "section_padding_top_t",
+			"label": "Section Padding Top (tablet)",
+			"min": 0,
+			"max": 200,
+			"step": 2,
+			"default": 0,
+			"unit": "px"
+		},
+		{
+			"type": "range",
+			"id": "section_padding_bottom_t",
+			"label": "Section Padding Bottom (tablet)",
+			"min": 0,
+			"max": 200,
+			"step": 2,
+			"default": 0,
+			"unit": "px"
+		},
+		{
+			"type": "range",
+			"id": "section_padding_top_d",
+			"label": "Section Padding Top (desktop)",
+			"min": 0,
+			"max": 200,
+			"step": 2,
+			"default": 0,
+			"unit": "px"
+		},
+		{
+			"type": "range",
+			"id": "section_padding_bottom_d",
+			"label": "Section Padding Bottom (desktop)",
+			"min": 0,
+			"max": 200,
+			"step": 2,
+			"default": 0,
+			"unit": "px"
+		},
+		{
+			"type": "text",
+			"id": "heading",
+			"label": "Section title",
+			"default": "Recommended articles"
+		},
+		{
+			"type": "text",
+			"id": "blog-text",
+			"label": "Link Text",
+			"default": "See all articles"
+		},
+		{
+			"type": "url",
+			"id": "link",
+			"label": "Link to Blog"
+		},
+		{
+			"type": "select",
+			"options": [
+				{
+				"label": "Light Theme",
+				"value": "light"
+				},
+				{
+				"label": "Dark Theme",
+				"value": "dark"
+				}
+			],
+			"id": "layout",
+			"label": "Collor Settings",
+			"default": "dark"
+		},
+		{
+			"type": "checkbox",
+			"id": "tags",
+			"default": false,
+			"label": "Enable Tags"
+		},
+		{
+			"type": "checkbox",
+			"id": "content",
+			"default": false,
+			"label": "Enable Content"
+		},
+		{
+			"type": "checkbox",
+			"id": "author",
+			"default": true,
+			"label": "Enable Author"
+		},
+		{
+			"type": "checkbox",
+			"id": "date",
+			"default": true,
+			"label": "Enable Date"
+		}
+	],
+	"blocks": [
+		{
+			"type": "block",
+			"name": "Article",
+			"limit": 3,
+			"settings": [
+				{
+					"type": "article",
+					"id": "article",
+					"label": "Article"
+				}
+			]
+		},
+		{
+			"type": "theme",
+			"name": "Theme",
+			"limit": 3,
+			"settings": [
+				{
+					"type": "product",
+					"id": "product",
+					"label": "Select Theme"
+				}
+			]
+		}
+	]
+}
+{% endschema %}

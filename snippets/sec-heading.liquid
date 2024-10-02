@@ -1,0 +1,13 @@
+{% liquid
+    if sec_heading == blank
+        assign sec_set = section.settings
+        assign sec_heading = sec_set.heading | remove: "<p>" | remove: "</p>"
+    endif
+%}
+
+{%- if sec_heading != blank -%}
+    <h2 class="section__heading text-align-{{ align }}" {% if id %}id="{{id}}"{% endif %}>
+        {{ sec_heading }}
+    </h2>
+{%- endif -%}
+ 

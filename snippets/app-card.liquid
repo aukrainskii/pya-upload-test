@@ -1,0 +1,57 @@
+{% liquid
+    assign rating = product.metafields.appstore.rating
+    assign reviews = product.metafields.appstore.reviews
+    assign rating_c = rating | round 
+ %}
+
+<div class="app-card" data-collection="
+{% for collection in product.collections %}
+    {{ collection.handle }} 
+{% endfor %}">
+    <a href="{{ product.url }}" class="block-img-wrap app-card__img">
+        <img src="{{ product.metafields.appstore.icon.value}}?width=300"
+            alt="{{ product.title }}"
+            srcset="{{ product.metafields.appstore.icon.value}}?width=70 360w,
+                    {{ product.metafields.appstore.icon.value}}?width=140 720w,
+                    {{ product.metafields.appstore.icon.value}}?width=150 680w,
+                    {{ product.metafields.appstore.icon.value}}?width=300 1360w,"
+
+            width="70"
+            height="70"
+            loading="lazy" 
+            sizes="(min-width: 680px) 680px, 360px">
+    </a>
+    <div class="app-card__info">
+        <a class="app-card__title" href="{{ product.url }}">{{ product.title }}</a>
+        {% if reviews > 0 %}
+            <div class="app-card__rate">
+                {{ rating }}
+                <div class="star-wrapper">
+                    {% for i in (1..5) %}
+                        <span class="review-star-icon {% if i > rating_c %}review-star-icon--empty{% endif %}">
+                            {{ settings.star-icon }}
+                        </span>
+                    {% endfor %}
+                </div>
+                ({{ reviews }} {{ "page.reviews" | t  }})
+            </div>
+        {% else %}
+            <div class="app-card__rate app-card__rate--no-reviews">
+                <div class="block-img-wrap">
+                    {{ settings.star-icon }}
+                </div>
+                {{ "accessibility.no-reviews" | t }}
+            </div>
+        {% endif %}
+    </div>
+    <div class="app-card__description">
+        <p data-full-text="{{ product.metafields.appstore.card_subtitle | newline_to_br }}">
+            {{ product.metafields.appstore.card_subtitle | newline_to_br | truncatewords: 30, "... <a class='show-full-review' href='#!' onclick='showFullReview(this)'>Show more</a>" }}
+        </p>
+    </div>
+    <div class="app-card__buttons">
+        {% assign learn_more = "page.learn_more" | t  %}
+        {% render 'linkTo' | text: learn_more, link: product.url , class: "link-to--circle" %}
+        <button type="button" class="link-to app-card__compare" data-btn-handle="{{ product.handle }}" onclick="addToCompare('{{ product.handle }}')">{{ "page.add_to_compare" | t }} {% render 'icon-arrow' %}</button>
+    </div>
+</div>

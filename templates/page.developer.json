@@ -1,0 +1,138 @@
+{
+  "sections": {
+    "e9bbaca9-aedc-4736-8c8a-a71d4bd03df0": {
+      "type": "main-dev",
+      "blocks": {
+        "d0ad4406-ca39-455e-bf4d-c8925118aaa8": {
+          "type": "social",
+          "settings": {
+            "label": "Facebook",
+            "link": ""
+          }
+        },
+        "6d66b5f5-64a1-4861-9c1c-44ac979d6ae9": {
+          "type": "social",
+          "settings": {
+            "label": "Telegram",
+            "link": ""
+          }
+        },
+        "4d8e48fc-ea43-4890-825d-0904eb77aadb": {
+          "type": "social",
+          "settings": {
+            "label": "Instagram",
+            "link": ""
+          }
+        },
+        "e88cd72c-21eb-4f09-97c8-80ad221552c4": {
+          "type": "social_bottom",
+          "settings": {
+            "label": "94659217",
+            "link": ""
+          }
+        },
+        "e06359ba-78bc-44df-8cf2-ae2a599a61ee": {
+          "type": "social_bottom",
+          "settings": {
+            "label": "support@nexusmedia-ua.com",
+            "link": "mailto:support@nexusmedia-ua.com"
+          }
+        },
+        "44fb0ef7-b396-4c6d-80a6-543301acdaf1": {
+          "type": "shopify",
+          "settings": {
+            "label": "Open in Shopify AppStore",
+            "link": ""
+          }
+        },
+        "8743a265-497a-4442-ace2-9bd82688b88d": {
+          "type": "image",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/image12312313.png"
+          }
+        }
+      },
+      "block_order": [
+        "d0ad4406-ca39-455e-bf4d-c8925118aaa8",
+        "6d66b5f5-64a1-4861-9c1c-44ac979d6ae9",
+        "4d8e48fc-ea43-4890-825d-0904eb77aadb",
+        "e88cd72c-21eb-4f09-97c8-80ad221552c4",
+        "e06359ba-78bc-44df-8cf2-ae2a599a61ee",
+        "44fb0ef7-b396-4c6d-80a6-543301acdaf1",
+        "8743a265-497a-4442-ace2-9bd82688b88d"
+      ],
+      "settings": {
+        "section_padding_top_m": 24,
+        "section_padding_bottom_m": 64,
+        "section_padding_top_t": 24,
+        "section_padding_bottom_t": 56,
+        "section_padding_top_d": 24,
+        "section_padding_bottom_d": 64,
+        "heading": "About"
+      }
+    },
+    "9fc8f0d8-f1a3-46fb-841c-3ebdea491ba5": {
+      "type": "dev-products",
+      "blocks": {
+        "e87d1dcf-bda7-43a6-95b3-a7c4db7dbc8f": {
+          "type": "product",
+          "settings": {
+            "products": [
+              "easyfulfill-tracking-codes-manager",
+              "easyimport",
+              "easyresponsive-responsive-videos-and-maps",
+              "easy-sale",
+              "easy-stock",
+              "easypopup",
+              "easyorder",
+              "easysearch",
+              "easyvideo",
+              "easylocation",
+              "easymessenger-livechat-messenger-as-a-live-chat",
+              "order-list-pro",
+              "easy-terms-conditions-pop-up",
+              "easy-price-list"
+            ]
+          }
+        }
+      },
+      "block_order": [
+        "e87d1dcf-bda7-43a6-95b3-a7c4db7dbc8f"
+      ],
+      "settings": {
+        "section_padding_top_m": 36,
+        "section_padding_bottom_m": 64,
+        "section_padding_top_t": 56,
+        "section_padding_bottom_t": 80,
+        "section_padding_top_d": 64,
+        "section_padding_bottom_d": 48,
+        "heading": "Explore apps"
+      }
+    },
+    "33a14b6e-1b9c-4cf2-b396-fd42fa46fdd0": {
+      "type": "dev-about",
+      "settings": {
+        "section_padding_top_m": 36,
+        "section_padding_bottom_m": 64,
+        "section_padding_top_t": 48,
+        "section_padding_bottom_t": 80,
+        "section_padding_top_d": 110,
+        "section_padding_bottom_d": 120,
+        "heading": "About"
+      }
+    },
+    "4fa0e4d2-c199-44ab-8db5-3ad126ae071f": {
+      "type": "navigation",
+      "settings": {
+        "menu": "section-navigation",
+        "layout": "accent"
+      }
+    }
+  },
+  "order": [
+    "e9bbaca9-aedc-4736-8c8a-a71d4bd03df0",
+    "9fc8f0d8-f1a3-46fb-841c-3ebdea491ba5",
+    "33a14b6e-1b9c-4cf2-b396-fd42fa46fdd0",
+    "4fa0e4d2-c199-44ab-8db5-3ad126ae071f"
+  ]
+}

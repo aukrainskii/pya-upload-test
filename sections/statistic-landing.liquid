@@ -1,0 +1,99 @@
+<section class="section section-breadcrumbs">
+    <nav class="breadcrumbs" role="navigation" aria-label="breadcrumbs">
+        <ul class="breadcrumbs__list">
+            <li>
+                <a class="breadcrumb breadcrumb--home" href="/" title="Home">{{'accessibility.home' | t }}
+                    <svg width="24" height="21" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M15.7077 12.0429C16.0982 12.4334 16.0982 13.0666 15.7077 13.4571L10.0508 19.114C9.66033 19.5045 9.02717 19.5045 8.63664 19.114C8.24612 18.7234 8.24612 18.0903 8.63664 17.6997L13.5864 12.75L8.63664 7.80025C8.24612 7.40973 8.24612 6.77656 8.63664 6.38604C9.02717 5.99551 9.66033 5.99551 10.0508 6.38604L15.7077 12.0429Z" fill="currentColor"/>
+                    </svg>
+                </a>
+            </li>
+            <li>
+                <a class="breadcrumb" href="{{ link_to_analitics }}" title="{{ 'statistic.website_analytics' | t }}">
+                    {{ 'statistic.website_analytics' | t }}
+                </a>
+            </li>
+        </ul>
+    </nav>
+</section>   
+
+<section class="section section-landing-statistic">
+    <div class="landing-statistic">
+        <h2 class="section__heading--1">{{ 'statistic.website_analytics' | t }}</h2>
+        <form>
+            {% assign search = 'accessibility.search' | t %}
+            {% assign placeholder = 'statistic.placeholder' | t %}
+            {% assign input_name = 'statistic.input_name' | t %}
+            <div class="search-elem">
+                {% render 'text-input' | class: "search-elem__input", placeholder: placeholder, input_name: input_name, label: " " %}
+                {% render 'button' | class: "search-elem__btn", text: search %}
+            </div>
+        </form>
+        <div class="landing-statistic__query last-query">
+            <p class="last-query__title">
+                {{ 'statistic.latest_searches' | t }}
+            </p>
+            <div class="last-query__list">
+                <a href="">
+                    inder.com
+                </a>
+                <a href="">
+                    jewelry.com
+                </a>
+                <a href="">
+                    bagshopio.com
+                </a>
+                <a href="">
+                    nxs.com
+                </a>
+                <a href="">
+                    newway.com
+                </a>
+                <a href="">
+                    shopsale.com
+                </a>
+                <a href="">
+                    shopic.com
+                </a>
+                <a href="">
+                    dropshipping.com
+                </a>
+                <a href="">
+                    salecross.com
+                </a>
+                <a href="">
+                    magic.com
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<img    class="statistic-background"
+        src="{{ 'statistic-background.png' | asset_img_url: '2880x' }}" 
+        alt="Background" 
+        srcset="{{ 'statistic-background.png' | asset_img_url: '360x' }} 360x,
+                {{ 'statistic-background.png' | asset_img_url: '720x' }} 720x, 
+                {{ 'statistic-background.png' | asset_img_url: '1440x' }} 1440x,
+                {{ 'statistic-background.png' | asset_img_url: '2880x' }} 2880x" 
+        width="375" 
+        height="720" 
+        loading="lazy" 
+        sizes="(min-width: 992px) 1440px, (min-width: 720px) 720px, 360px">
+
+{% schema %}
+{
+    "name": "Test landing statistic",
+    "class": "aaa",
+    "tag": "div",
+    "presets": [
+        {
+            "name": "Test landing statistic"
+        }
+    ],
+    "settings": [
+
+    ],
+    "blocks": []
+}
+{% endschema %}

@@ -1,0 +1,19 @@
+{%- liquid
+    assign min = min | default: 0
+    assign max = max | default: 99999
+    assign diff = max | minus: min
+    assign random = "now" | date: "%N" | modulo: diff | plus: min
+
+    echo random
+-%}
+
+{% comment %} 
+how use:
+
+{% capture random %}
+    {%- render "randomizer", min: 20, max: 80 -%}
+{% endcapture %}
+
+{% assign random = random | plus: 0 %} 
+
+{% endcomment %}

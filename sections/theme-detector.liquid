@@ -1,0 +1,745 @@
+{% assign sec_id = section.id | slice: -6, 6 | replace: '-', '_' %}
+{% assign sec_id = sec_id | prepend: 'pw' %}
+
+{%- style -%}
+
+:root {
+  --main-custom-bg: url({{ section.settings.background | img_url: '1000x' }});
+}
+
+*, *:after, *:before {
+  box-sizing: border-box;
+}
+
+.pw-section__{{sec_id}} .pw-container,
+.pw-section__{{sec_id}} .pw-container-fluid {
+  width: 100%;
+  padding-right: var(--pw-gutter-x, 15px);
+  padding-left: var(--pw-gutter-x, 15px);
+  margin-right: auto;
+  margin-left: auto;
+}
+
+@media (min-width: 576px) {
+  .pw-section__{{sec_id}} .pw-container {
+    max-width: 540px;
+  }
+}
+
+@media (min-width: 750px) {
+  .pw-section__{{sec_id}} .pw-container {
+    max-width: 720px;
+  }
+}
+
+@media (min-width: 992px) {
+  .pw-section__{{sec_id}} .pw-container {
+    max-width: 960px;
+  }
+  {% if section.settings.container_max_width >= 720 and section.settings.container_max_width <= 960 %}
+    .pw-section__{{sec_id}} .pw-container {
+      max-width: {{section.settings.container_max_width}}px;
+    }
+  {% endif %}
+}
+
+@media (min-width: 1200px) {
+  .pw-section__{{sec_id}} .pw-container {
+    max-width: 1140px;
+  }
+  {% if section.settings.container_max_width >= 720 and section.settings.container_max_width <= 1140 %}
+    .pw-section__{{sec_id}} .pw-container {
+      max-width: {{section.settings.container_max_width}}px;
+    }
+  {% endif %}
+}
+
+@media (min-width: 1400px) {
+  .pw-section__{{sec_id}} .pw-container {
+    max-width: 1320px;
+  }
+  {% if section.settings.container_max_width >= 720 and section.settings.container_max_width != 1320 %}
+    .pw-section__{{sec_id}} .pw-container {
+      max-width: {{section.settings.container_max_width}}px;
+    }
+  {% endif %}
+}
+
+.section.kava-theme-detector {
+  padding-top: 24px;
+  padding-bottom: 0;
+}
+
+.pw-section__{{sec_id}} .pw-btn, 
+.rte .pw-section__{{sec_id}} a.pw-btn:not(.btn) {
+  display: inline-block;
+  text-decoration: none;
+  text-align: center;
+  background-color: #202020;
+  border: 1px solid #202020;
+  border-radius: 30px;
+  outline: none;
+  color: #fafafa;
+  font-weight: 600;
+  white-space: nowrap;
+  padding: 5px 36px;
+  line-height: 1.2;
+  min-width: auto;
+  min-height: 40px;
+  transition: all 0.25s;
+  cursor: pointer;
+  box-sizing: border-box;
+  font-family: inherit;
+
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  bottom: 4px;
+}
+
+.pw-section__{{sec_id}} .pw-btn:hover {
+  text-decoration: none;
+  background-color: #fff;
+  color: #202020;
+}
+
+.pw-section__{{sec_id}} .pw-btn:focus {
+  outline: none;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.5);
+}
+
+.pw-section__{{sec_id}} {
+  --pw-gutter-x: 20px;
+  background-color: {{section.settings.background_color}};
+  padding-top: {{section.settings.section_padding_top}}px;
+  padding-bottom: {{section.settings.section_padding_bottom}}px;
+  line-height: 1.5;
+}
+
+.pw-section__{{sec_id}}::after {
+  position: absolute;
+  content: "";
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  top: 0;
+  left: 0;
+  background-image: var(--main-custom-bg);
+  background-repeat: no-repeat;
+  background-size: contain;
+  z-index: -1;
+}
+
+@media (min-width: 1240px) {
+  .pw-section__{{sec_id}}::after {
+    background-size: cover;
+  }
+}
+
+.pw-section__{{sec_id}} button, .pw-section__{{sec_id}} a {
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.pw-section__{{sec_id}} .breadcrumbs {
+  margin-bottom: 60px;
+}
+
+.pw-section__{{sec_id}} .pw-title-wrapper {
+
+}
+
+.pw-section__{{sec_id}} .pw-section-title {
+  color: {{section.settings.text_color}};
+  font-weight: 700;
+  line-height: 1.2;
+  margin-top: 0;
+  margin-bottom: 32px;
+  text-align: {{section.settings.text_align}};
+}
+
+.pw-section__{{sec_id}} .pw-section-subtitle {
+  color: #4c4c4c;
+  color: {{section.settings.text_color}}; 
+  text-align: {{section.settings.text_align}};
+  margin-top: 0;
+  margin-bottom: 32px;
+  opacity: 0.8;
+}
+
+.pw-section__{{sec_id}} .pw-theme-detector {
+
+}
+
+.pw-section__{{sec_id}} .pw-url-form {
+  margin-bottom: 10px;
+}
+
+.pw-section__{{sec_id}}  .pw-form-group {
+  position: relative;
+}
+  
+.pw-section__{{sec_id}} .pw-form-group::before {
+  content: '';
+  width: 24px;
+  height: 24px;
+  background-image: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M5 10C5 7.23858 7.23858 5 10 5C12.7614 5 15 7.23858 15 10C15 12.7614 12.7614 15 10 15C7.23858 15 5 12.7614 5 10ZM10 3C6.13401 3 3 6.13401 3 10C3 13.866 6.13401 17 10 17C11.5723 17 13.0236 16.4816 14.1922 15.6064L19.2929 20.7071C19.6834 21.0976 20.3166 21.0976 20.7071 20.7071C21.0976 20.3166 21.0976 19.6834 20.7071 19.2929L15.6064 14.1922C16.4816 13.0236 17 11.5723 17 10C17 6.13401 13.866 3 10 3Z' fill='black'/%3E%3C/svg%3E%0A");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  position: absolute;
+  top: 50%;
+  margin-top: -12px;
+  left: 24px;
+}
+  
+.pw-section__{{sec_id}} .pw-input-text {
+  width: 100%;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 50px;
+  padding: 15px 120px 15px 56px;
+  background-color: #fff;
+}
+
+.pw-section__{{sec_id}} .pw-banner {
+  padding: 12px 20px;
+  border-radius: 20px;
+  background-color: #fafafa;
+  font-size: 14px;
+  position: relative;
+}
+
+.pw-section__{{sec_id}} .pw-banner p {
+  font-size: 14px;
+  margin-bottom: 8px;
+  margin-top: 8px;
+}
+
+.pw-section__{{sec_id}} .pw-banner a {
+  color: #101010;
+  text-decoration: underline;
+}
+
+.pw-section__{{sec_id}} .pw-banner-success {
+  background-color: #DBF3EA;
+}
+
+.pw-section__{{sec_id}} .pw-banner-error {
+  background-color: #fee9e8;
+}
+
+.pw-section__{{sec_id}} .pw-banner.has-spinner {
+  padding-left: 40px;
+}
+
+@keyframes pw-spin { 
+  to { 
+    transform: rotate(1turn); 
+  }
+}
+
+.pw-spinner {
+  width: 20px;
+  height: 20px;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M7.229 1.173a9.25 9.25 0 1011.655 11.412 1.25 1.25 0 10-2.4-.698 6.75 6.75 0 11-8.506-8.329 1.25 1.25 0 10-.75-2.385z' fill='%238C9196'%3E%3C/path%3E%3C/svg%3E");
+  background-size: 20px;
+  background-repeat: no-repeat;
+  background-position: center;
+  position: absolute;
+  top: 50%;
+  left: 10px;
+  margin-top: -10px;
+  z-index: 1;
+  -webkit-animation: pw-spin 500ms linear infinite;
+  animation: pw-spin 500ms linear infinite;
+  border: none;
+  -webkit-transform: none;
+  transform: none;
+}
+
+.pw-section__{{sec_id}} .pw-last-detected-themes {
+  text-align: center;
+  padding-top: 20px;
+}
+  
+.pw-section__{{sec_id}} .pw-themes-list {
+  margin: 0;
+  padding: 20px 0;
+  list-style-type: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.pw-section__{{sec_id}} .pw-themes-list li a {
+  display: block;
+  text-decoration: none;
+  margin: 3px 5px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 30px;
+  padding: 5px 16px;
+  font-size: 14px;
+  color: #4c4c4c;
+  background-color: #fff;
+}
+
+.pw-section__{{sec_id}} .pw-themes-list li a:hover {
+  background-color: #eee;
+}
+
+{% if section.settings.inherit_fonts == false %}
+  .pw-section__{{sec_id}} .pw-large.pw-section-title {
+    font-size: 64px;
+  }
+  .pw-section__{{sec_id}} .pw-medium.pw-section-title {
+    font-size: 48px;
+  }
+  .pw-section__{{sec_id}} .pw-small.pw-section-title {
+    font-size: 32px;
+  }
+  .pw-section__{{sec_id}} .pw-section-subtitle {
+    font-size: 20px;
+  }
+  .pw-section__{{sec_id}} .pw-btn, .rte .pw-section__{{sec_id}} a.pw-btn:not(.btn) {
+    font-size: 14px;
+  }
+{% endif %}
+
+
+@media only screen and (max-width: 749px) {
+
+  .pw-section__{{sec_id}} {
+    padding-top: {{section.settings.section_padding_top_mobile}}px;
+    padding-bottom: {{section.settings.section_padding_bottom_mobile}}px;
+  }
+  .pw-section__{{sec_id}} .pw-btn, .rte .pw-section__{{sec_id}} a.pw-btn:not(.btn) {
+    
+  }
+  {% if section.settings.inherit_fonts == false %}
+    .pw-section__{{sec_id}} .pw-large.pw-section-title {
+      font-size: 56px;
+    }
+    .pw-section__{{sec_id}} .pw-medium.pw-section-title {
+      font-size: 40px;
+    }
+    .pw-section__{{sec_id}} .pw-small.pw-section-title {
+      font-size: 28px;
+    }
+    .pw-section__{{sec_id}} .pw-section-subtitle {
+      font-size: 20px;
+    }
+    .pw-section__{{sec_id}} .pw-container {
+      padding-left: 0;
+      padding-right: 0;
+    }
+    .pw-section__{{sec_id}} .pw-form-group::before {
+      left: 12px;
+    }
+    .pw-section__{{sec_id}} .pw-input-text {
+       padding-left: 40px;
+      padding-right: 80px;
+    }
+    .pw-section__{{sec_id}} .pw-btn {
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+
+  {% endif %}
+  .pw-article-content .content h2 {
+      line-height: 1.25;
+    }
+}
+
+{%- endstyle -%}
+
+{% if section.settings.custom_css != blank %}
+  {%- style -%}
+  {{section.settings.custom_css}}
+  {%- endstyle -%}
+{% endif %}
+
+{% if section.settings.is_fullwidth == true %}
+  {% assign container = 'pw-container-fluid' %}
+{% else %}
+  {% assign container = 'pw-container' %}
+{% endif %}
+
+
+{% if section.settings.lazyload == true %} 
+  {% assign loading = 'lazy' %} 
+{% else %}
+  {% assign loading = 'eager' %} 
+{% endif %}
+
+{% render 'breadcrumbs' %}
+
+<div class="pw-section__{{sec_id}} {{ section.settings.custom_class }}">
+
+  <div class="{{container}}">
+    <div class="pw-title-wrapper">
+      {% if section.settings.heading_text != blank %}
+        <{{ section.settings.heading_tag }} class="{{ section.settings.heading_size }} pw-section-title">
+        {{ section.settings.heading_text | escape }}
+        </{{ section.settings.heading_tag }}>
+      {% endif %}
+
+      {% if section.settings.subheading_text != blank %}
+        <p class="pw-section-subtitle">{{ section.settings.subheading_text }}</p>
+      {% endif %}
+    </div>
+
+    <div class="pw-theme-detector">
+      <form id="url-form" class="pw-url-form">
+        <div class="pw-form-group">
+          <input type="text" class="pw-input-text" id="url-input" placeholder="Enter website URL">
+          <button type="button" id="find-button" class="pw-btn">Detect theme</button>
+        </div>
+      </form>
+      <div id="result" class="result-holder">
+        <!-- results -->
+      </div>
+      <div id="last-detected-themes" class="pw-last-detected-themes" style="display: none;">
+        <p>Last detected themes:</p>
+        <ul id="themes-list" class="pw-themes-list">
+          <!-- list of themes -->
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    fetch('https://themedetector.appstorebot.workers.dev/')
+      .then(response => response.json())
+      .then(data => {
+        showLastDetectedThemes(data);
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+  });
+
+  
+
+ document.getElementById('find-button').addEventListener( 'click', handleFindButtonClick );
+
+  document.getElementById('url-input').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      handleFindButtonClick();
+    }
+  });
+
+  function handleFindButtonClick() {
+    let url = document.getElementById('url-input').value;
+    if (!isValidURL(url)) {
+      alert('Please enter a valid URL.');
+      return;
+    }
+    document.getElementById('result').innerHTML = '<div class="pw-banner pw-banner-success has-spinner"><div class="pw-spinner"></div>{{ section.settings.please_wait }}</div>';
+    fetch(`https://themedetector.appstorebot.workers.dev/?url=${url}`)
+      .then(response => {
+        if (response.status === 404) {
+          document.getElementById('result').innerHTML = `<div class="pw-banner pw-banner-success"><p><b>${url}</b> is not built on Shopify.</p>{{ section.settings.not_shopify }}</div>`;
+        } else if (response.status === 200) {
+          return response.json();
+        } else {
+          throw new Error('Unexpected response');
+        }
+      })
+      .then(data => {
+        if (data) {
+          handleShopifyResponse(data, url);
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+  }
+
+  function isValidURL(url) {
+    const pattern = new RegExp('^(https?:\\/\\/)?'+ // protocol
+      '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.?)+[a-z]{2,}|'+ // domain name
+      '((\\d{1,3}\\.){3}\\d{1,3}))'+ // OR ip (v4) address
+      '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ // port and path
+      '(\\?[;&a-z\\d%_.~+=-]*)?'+ // query string
+      '(\\#[-a-z\\d_]*)?$','i'); // fragment locator
+    return !!pattern.test(url);
+  }
+
+  function handleShopifyResponse(data, url) {
+    let themeName = data.name;
+    let themeStoreId = data.theme_store_id;
+    let themeStoreName = data.app_store_name;
+
+    if (!themeStoreId) {
+      document.getElementById('result').innerHTML = `<div class="pw-banner pw-banner-success"><p><b>${url}</b> is built using <b>custom</b> theme <b>'${themeName}'</b>.</p>{{ section.settings.custom_theme }}</div>`;
+    } else {
+      let themeLink = `https://themes.shopify.com/themes/${themeStoreId}`;
+      let freeThemes = ['Ride', 'Refresh', 'Sense', 'Dawn', 'Origin', 'Spotlight', 'Craft', 'Taste', 'Studio', 'Crave', 'Publisher', 'Colorblock', 'Trade'];
+      let message;
+
+      if (freeThemes.includes(themeStoreName)) {
+        message = `<div class="pw-banner pw-banner-success"><p><b>${url}</b> is built using <b>free</b> theme <b>'${themeStoreName}'</b>. <a href="${themeLink}">View in theme store</a></p>{{ section.settings.free_theme }}</div>`;
+      } else {
+        message = `<div class="pw-banner pw-banner-success"><p><b>${url}</b> is built using <b>premium</b> theme <b>'${themeStoreName}'</b>. <a href="${themeLink}"><b>View in theme store</b></a></p>{{ section.settings.paid_theme }}</div>`;
+      }
+      document.getElementById('result').innerHTML = message;
+    }
+  }
+
+  function showLastDetectedThemes(themes) {
+    const lastDetectedThemesContainer = document.getElementById('last-detected-themes');
+    const themesList = document.getElementById('themes-list');
+    themesList.innerHTML = '';
+
+    let themeNames = themes.map(theme => theme.name);
+
+    if (!themeNames.includes('Murmel')) {
+        let randomIndex = Math.floor(Math.random() * (themes.length + 1));
+        themes.splice(randomIndex, 0, {
+            name: 'Murmel',
+            theme_store_id: 2512
+        });
+    }
+
+    let seenThemes = new Set();
+    let themesAdded = false;
+
+    themes.forEach(theme => {
+        if (theme.theme_store_id && !seenThemes.has(theme.theme_store_id)) {
+            seenThemes.add(theme.theme_store_id);
+            let themeLink = `https://themes.shopify.com/themes/${theme.theme_store_id}`;
+            const themeItem = document.createElement('li');
+            themeItem.innerHTML = `<a href="${themeLink}" target="_blank">${theme.app_store_name}</a>`;
+            themesList.appendChild(themeItem);
+            themesAdded = true;
+        }
+    });
+
+    if (themesAdded) {
+        lastDetectedThemesContainer.style.display = 'block';
+    }
+  }
+
+</script>
+
+
+{% schema %}
+
+{
+  "name": "[Kava] Theme detector",
+  "tag": "section",
+  "class": "section kava-theme-detector",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Main settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "inherit_fonts",
+      "default": false,
+      "label": "Inherit font sizes from theme"
+    },
+    {
+      "type": "checkbox",
+      "id": "is_fullwidth",
+      "default": false,
+      "label": "Full width section",
+      "info": "Overrides сontent width limit"
+    },
+    {
+      "type": "select",
+      "id": "text_align",
+      "label": "Text alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Font color",
+      "default": "#262424"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "transparent"
+    },
+    {
+      "type": "image_picker",
+      "id": "background",
+      "label": "Top background image"
+    },
+    {
+      "type": "textarea",
+      "id": "heading_text",
+      "label": "Heading text",
+      "default": "Heading text"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "label": "Heading size",
+      "options": [
+        {
+          "value": "pw-large",
+          "label": "Large"
+        },
+        {
+          "value": "pw-medium",
+          "label": "Medium"
+        },
+        {
+          "value": "pw-small",
+          "label": "Small"
+        }
+      ],
+      "default": "pw-medium"
+    },
+    {
+      "type": "textarea",
+      "id": "subheading_text",
+      "label": "Subheading text",
+      "default": "Subheadung text"
+    },
+    {
+      "type": "header",
+      "content": "Results texts"
+    },
+    {
+      "type": "richtext",
+      "id": "please_wait",
+      "label": "Please wait",
+      "default": "<p><b>Please wait. It’ll take a few seconds to check the store and show you the result.</b></p>"
+    },
+    {
+      "type": "richtext",
+      "id": "not_shopify",
+      "label": "Not built on Shopify",
+      "default": "<p><a href='#'>Start your 3-day free trial</a> and enjoy your first month of Shopify for $1 on select plans.</p>"
+    },
+    {
+      "type": "richtext",
+      "id": "custom_theme",
+      "label": "Custom theme",
+      "default": "<p><b>Not sure about your custom setup?</b><br> <a href='#1' target='_blank'>Kava Sections</a> is a great alternative which offers... </p>"
+    },
+    {
+      "type": "richtext",
+      "id": "free_theme",
+      "label": "Free theme",
+      "default": "<p><b>Considering the Limitations of Free Theme?</b></p> <p>Free themes can be a great way to start, but they often limit your store's potential. They can be slow, and you don't have many options to customize how your store looks and feels. </p>"
+    },
+    {
+      "type": "richtext",
+      "id": "paid_theme",
+      "label": "Paid theme",
+      "default": "<p><b>Considering the Limitations of Free Theme?</b></p> <p>Free themes can be a great way to start, but they often limit your store's potential. They can be slow, and you don't have many options to customize how your store looks and feels. </p>"
+    },
+    {
+      "type": "header",
+      "content": "Section paddings"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top",
+      "min": 0,
+      "max": 200,
+      "step": 10,
+      "unit": "px",
+      "label": "Section padding-top",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom",
+      "min": 0,
+      "max": 200,
+      "step": 10,
+      "unit": "px",
+      "label": "Section padding-bottom",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top_mobile",
+      "min": 0,
+      "max": 300,
+      "step": 10,
+      "unit": "px",
+      "label": "Section padding-top mobile",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom_mobile",
+      "min": 0,
+      "max": 300,
+      "step": 10,
+      "unit": "px",
+      "label": "Section padding-bottom mobile",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Customization"
+    },
+    {
+      "type": "number",
+      "id": "container_max_width",
+      "label": "Content width limit (px)",
+      "default": 1320
+    },
+    {
+      "type": "text",
+      "id": "custom_class",
+      "label": "Custom сlass"
+    },
+    {
+      "type": "textarea",
+      "id": "custom_css",
+      "label": "Custom CSS"
+    },
+    {
+      "type": "select",
+      "id": "heading_tag",
+      "label": "Heading tag",
+      "options": [
+        {
+          "value": "h1",
+          "label": "H1"
+        },
+        {
+          "value": "h2",
+          "label": "H2"
+        }
+      ],
+      "default": "h2"
+    },
+    {
+      "type": "checkbox",
+      "id": "lazyload",
+      "default": true,
+      "label": "Lazyload images"
+    }
+  ], 
+  "presets": [
+    {
+      "name": "[Kava] Theme detector"
+    }
+  ]
+}
+
+{% endschema %}

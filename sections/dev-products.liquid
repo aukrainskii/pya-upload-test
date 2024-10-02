@@ -1,0 +1,176 @@
+{% liquid 
+        assign products = page.metafields.appstore.apps.value
+        
+        assign handles = ""
+        for p in products 
+            if forloop.last == true 
+                assign count =  forloop.index 
+            endif
+        endfor 
+        
+        assign count = "<span id='product-count'>" | append: count | append: "</span>"
+%}
+
+{% style %}
+    #shopify-section-{{ section.id }} {
+		padding-top: {{ section.settings.section_padding_top_m }}px;
+		padding-bottom: {{ section.settings.section_padding_bottom_m }}px;
+	}
+
+    @media screen and (min-width: 600px) {
+        #shopify-section-{{ section.id }} {
+            padding-top: {{ section.settings.section_padding_top_t }}px;
+            padding-bottom: {{ section.settings.section_padding_bottom_t }}px;
+        }
+    }
+
+    @media screen and (min-width: 1240px) {
+        #shopify-section-{{ section.id }} {
+            padding-top: {{ section.settings.section_padding_top_d }}px;
+            padding-bottom: {{ section.settings.section_padding_bottom_d }}px;
+        }
+    }
+{% endstyle %}
+
+{% if products.size == 0 or products == blank %}
+    {% style %}
+        #shopify-section-{{- section.id -}} {
+            display: none;
+        }
+    {% endstyle %}
+{% endif %}
+
+<div class="container dev-products">
+    {% render 'sec-heading', class: "dev-products__title", align: "left" %}
+    <div class="dev-products__grid">
+        <button class="filter-button" toggle-filter type="button">
+        <span>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M3 4.5C3 3.67157 3.67157 3 4.5 3H19.5C20.3284 3 21 3.67157 21 4.5V6.58579C21 7.11622 20.7893 7.62493 20.4142 8L15 13.4142V20.8382C15 21.6559 14.1395 22.1878 13.4081 21.8221L9.69098 19.9635C9.2675 19.7518 9 19.319 9 18.8455V13.4142L3.58579 8C3.21071 7.62493 3 7.11622 3 6.58579V4.5ZM5 5V6.58579L10.5607 12.1464C10.842 12.4278 11 12.8093 11 13.2071V18.382L13 19.382V13.2071C13 12.8093 13.158 12.4278 13.4393 12.1464L19 6.58579V5H5Z" fill="currentColor"/>
+            </svg>
+        </span>
+        {{ "page.filter_products_html" | t : count: count }}</button>
+        <dev-filter class="dev-products__filter filter">
+            <button class="filter__close" toggle-filter type="button"></button>
+            <h4>{{ "page.filter_products_html" | t : count: count }}</h4>
+            <div class="filter__buttons">
+                <div class="filter__tags">
+
+                </div>
+                <button remove-filter class="filter__remove-all">{{ "page.reset_all" | t }}</button>
+            </div>
+            <p>{{ "page.categories" | t }}</p>
+            <form>
+                {% for product in products %}
+                    {% for collection in product.collections %}
+                        {% unless handles contains collection.handle %}
+                            {% assign handles = handles | append: collection.handle | append: "|" %}
+                            {% render 'checkbox', label: collection.title, value: collection.handle, checked: false %} <br>
+                        {% endunless %}
+                    {% endfor %}
+                {% endfor %}
+            </form>
+        </dev-filter>
+        <product-list class="dev-products__list" data-filtered="false">
+            {% for product in products %}
+                {% render 'app-card', product: product %}
+            {% endfor %}
+        </product-list>
+    </div>
+</div>
+
+<script src="{{ 'sections-dev-products.js' | asset_url }}" defer="defer"></script>
+{% schema %}
+{
+    "name": "DevPage Products",
+    "class": "section section-dev-products",
+    "tag": "section",
+    "presets": [
+        {
+            "name": "DevPage Products"
+        }
+    ],
+    "settings": [
+        {
+			"type": "range",
+			"id": "section_padding_top_m",
+			"label": "Section Padding Top (mobile)",
+			"min": 0,
+			"max": 200,
+			"step": 2,
+			"default": 0,
+			"unit": "px"
+		},
+		{
+			"type": "range",
+			"id": "section_padding_bottom_m",
+			"label": "Section Padding Bottom (mobile)",
+			"min": 0,
+			"max": 200,
+			"step": 2,
+			"default": 0,
+			"unit": "px"
+		},
+        {
+			"type": "range",
+			"id": "section_padding_top_t",
+			"label": "Section Padding Top (tablet)",
+			"min": 0,
+			"max": 200,
+			"step": 2,
+			"default": 0,
+			"unit": "px"
+		},
+		{
+			"type": "range",
+			"id": "section_padding_bottom_t",
+			"label": "Section Padding Bottom (tablet)",
+			"min": 0,
+			"max": 200,
+			"step": 2,
+			"default": 0,
+			"unit": "px"
+		},
+        {
+			"type": "range",
+			"id": "section_padding_top_d",
+			"label": "Section Padding Top (desktop)",
+			"min": 0,
+			"max": 200,
+			"step": 2,
+			"default": 0,
+			"unit": "px"
+		},
+		{
+			"type": "range",
+			"id": "section_padding_bottom_d",
+			"label": "Section Padding Bottom (desktop)",
+			"min": 0,
+			"max": 200,
+			"step": 2,
+			"default": 0,
+			"unit": "px"
+		},
+        {
+            "type": "text",
+            "id": "heading",
+            "label": "Title",
+            "default": "Explore apps"
+        }
+    ],
+    "blocks": [
+        {
+            "type": "product",
+            "name": "Product",
+            "limit": 1,
+            "settings": [
+                {
+                "type": "product_list",
+                "id": "products",
+                "label": "Select Products"
+                }
+            ]
+        }
+    ]
+}
+{% endschema %}

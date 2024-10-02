@@ -1,0 +1,30 @@
+{% style %}
+    :root {
+        --font-body-family: {{ settings.type_body_font.family }}, {{ settings.type_body_font.fallback_families }};
+        --font-heading-family: {{ settings.type_header_font.family }}, {{ settings.type_header_font.fallback_families }};
+
+        --color-primary: {{ settings.primary-color }};
+        --color-secondary: {{ settings.secondary-color }};
+        --color-accent: {{ settings.accent-color_1 }};
+
+        --background-accent: {{ settings.background-accent }};
+        
+        --star-color: {{ settings.star-color }};
+        --star-color-empty: {{ settings.star-color-empty }};
+        
+
+        --gradient_1: {{ settings.gradient_1 }};
+        --gradient_2: {{ settings.gradient_2 }};
+
+        --text-primary: {{ settings.text-primary }};
+        --text-secondary: {{ settings.text-secondary }};
+        --text-accent_1: {{ settings.text-accent_1 }};
+
+        --btn-background_1: {{ settings.btn-background_1 }};
+        --btn-text_1: {{ settings.btn-text_1 }};
+
+        --select-background: {{ settings.select-background }};
+        --select-text: {{ settings.select-text }};
+    }
+
+{% endstyle %}

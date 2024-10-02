@@ -1,0 +1,45 @@
+{% assign product_counter = 0 %}
+<div class="categories__list {{ class }}" 
+    id="{{ id }}" {% if active %}active=""{% endif %} 
+    {% if handle %}data-value="{{handle}}"{% endif %} 
+    {% if data-sort %}data-sort="{{data-sort}}"{% endif %}
+    {% if link-title %}data-link-title="{{ link-title }}"{% endif %}
+>
+    {% for s_product in products %}
+        {% if s_product.metafields.appstore.only_free_plan.value == "true" and product_counter < 12 %}
+            <a class="product-card" href="{{ s_product.url }}">
+                <div class="block-img-wrap product-card__img">
+                    <img    src="{{ s_product.metafields.appstore.icon.value}}?width=140"
+                            alt="{{ s_product.title }}"
+                            srcset="{{ s_product.metafields.appstore.icon.value}}?width=70 1x,
+                                    {{ s_product.metafields.appstore.icon.value}}?width=140 2x"
+                            width="70"
+                            height="70"
+                            loading="lazy">
+                </div>
+                <div class="product-card__info">
+                {% render 'sec-heading-5' | sec_heading-5: s_product.title %}
+                {% if s_product.metafields.appstore.reviews.value > 0 %}
+                    <div class="product-card__rate">
+                        {{ s_product.metafields.appstore.rating.value }}
+                        <div class="block-img-wrap">
+                            {{ settings.star-icon }}
+                        </div>
+                        ({{ s_product.metafields.appstore.reviews }})
+                    </div>
+                {% else %}
+                    <div class="product-card__rate product-card__rate--no-reviews">
+                        <div class="block-img-wrap">
+                            {{ settings.star-icon }}
+                        </div>
+                        {{ "accessibility.no-reviews" | t }}
+                    </div>
+                {% endif %}
+                {% render 'sec-description' | sec_description: s_product.metafields.appstore.card_subtitle %}
+                </div>
+            </a>
+
+            {% assign product_counter = product_counter | plus: 1 %}
+        {% endif %}
+    {% endfor %}
+</div>

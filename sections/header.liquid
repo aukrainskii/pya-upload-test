@@ -1,0 +1,48 @@
+<s-header class="container header">
+  <div class="header__wrap">
+    {% render 'logo' %}
+    <button type="button" class="header__burger" aria-label="Burger Menu"></button>
+  </div>
+  <ul class="header__list">
+    {% for link in section.settings.menu.links %}
+      <li>
+        <a class="link" href="{{link.url}}">{{link.title}}</a>
+      </li>
+    {% endfor%}
+    <li class="header__item-search">
+      {% assign placeholder = 'accessibility.app_search_placeholder' | t %}
+      <button type="button" class="header__search-btn">
+        {% render 'icon-search' %}
+      </button>
+      {% render 'search-field', input_name: "header-search" , placeholder: placeholder , search_type: "product" %}
+      <button type="button" class="header__search-closer">
+        {% render 'icon-search-reset' %}
+      </button>
+    </li>
+  </ul>
+</s-header>
+<script src="{{ 'sections-header.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'snippets-search-field.js' | asset_url }}" defer="defer"></script>
+
+{% schema %}
+{
+  "name": "Header",
+  "class": "section section-header",
+  "tag": "header",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Header Logo"
+    },
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Select menu"
+    }
+  ],
+  "blocks": [
+
+  ]
+}
+{% endschema %}

@@ -1,0 +1,100 @@
+/*
+* ------------------------------------------------------------
+* IMPORTANT: The contents of this file are auto-generated.
+*
+* This file may be updated by the Shopify admin theme editor
+* or related systems. Please exercise caution as any changes
+* made to this file may be overwritten.
+* ------------------------------------------------------------
+*/
+{
+  "sections": {
+    "4c6f8964-2d87-4ab4-8116-d13a1b5db92c": {
+      "type": "main-header-section",
+      "blocks": {
+        "15cde9ac-7a12-4333-9108-1392b8fcafd3": {
+          "type": "search",
+          "settings": {
+            "placeholder": "Search themes"
+          }
+        }
+      },
+      "block_order": [
+        "15cde9ac-7a12-4333-9108-1392b8fcafd3"
+      ],
+      "settings": {
+        "section_padding_top_m": 24,
+        "section_padding_bottom_m": 0,
+        "section_padding_top_t": 24,
+        "section_padding_bottom_t": 0,
+        "section_padding_top_d": 24,
+        "section_padding_bottom_d": 0,
+        "heading": "{{ collection.title }}",
+        "background": "shopify:\/\/shop_images\/hero-bg.png"
+      }
+    },
+    "768d8bfa-2f58-4d0e-9be6-56cd492b0bea": {
+      "type": "main-blog",
+      "blocks": {
+        "84362846-b8c8-4253-b28a-84cc358cbba5": {
+          "type": "theme",
+          "settings": {
+            "product": "zorka-wonderful-fashion-shopify-theme"
+          }
+        },
+        "dec2a222-3f72-406d-aa02-c3579a6c6fee": {
+          "type": "theme",
+          "settings": {
+            "product": "zyra-the-clean-minimal-shopify-theme"
+          }
+        },
+        "e8c16c8f-f14d-420f-961f-35953e7547b9": {
+          "type": "theme",
+          "settings": {
+            "product": "zoa-minimalist-shopify-theme"
+          }
+        },
+        "cfd5c4a6-c1f7-4c9d-bb7b-f938a3bafa68": {
+          "type": "theme",
+          "settings": {
+            "product": "minimal-shopify-theme-zuka"
+          }
+        },
+        "45106c09-5a56-4be6-bf2f-950a9de59928": {
+          "type": "theme",
+          "settings": {
+            "product": "zoe-shopify-sport-store-theme"
+          }
+        }
+      },
+      "block_order": [
+        "84362846-b8c8-4253-b28a-84cc358cbba5",
+        "dec2a222-3f72-406d-aa02-c3579a6c6fee",
+        "e8c16c8f-f14d-420f-961f-35953e7547b9",
+        "cfd5c4a6-c1f7-4c9d-bb7b-f938a3bafa68",
+        "45106c09-5a56-4be6-bf2f-950a9de59928"
+      ],
+      "settings": {
+        "section_padding_top_m": 0,
+        "section_padding_bottom_m": 50,
+        "section_padding_top_t": 0,
+        "section_padding_bottom_t": 50,
+        "section_padding_top_d": 0,
+        "section_padding_bottom_d": 50,
+        "layout": "one-columns"
+      }
+    },
+    "241aa15b-a165-4446-b2a0-ae7266b39c90": {
+      "type": "navigation",
+      "settings": {
+        "menu": "section-navigation",
+        "layout": "accent"
+      }
+    }
+  },
+  "order": [
+    "4c6f8964-2d87-4ab4-8116-d13a1b5db92c",
+    "768d8bfa-2f58-4d0e-9be6-56cd492b0bea",
+    "241aa15b-a165-4446-b2a0-ae7266b39c90"
+  ]
+}

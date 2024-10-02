@@ -1,0 +1,27 @@
+{% liquid
+    assign min = 1
+    assign max = 99999
+    assign diff = max | minus: min
+    assign randomNumber = "now" | date: "%N%S%L" | modulo: diff | plus: min
+
+    assign id = id | default: "id-" | append: randomNumber
+    assign form_name = form_name | default: ''
+    assign name = name | default: ''
+    assign class = class | default: ''
+    assign attributes = attributes | default: ''
+
+    assign content = content | default: 'default contnent'
+    assign placeholder = placeholder | default: 'default placeholder'
+
+    assign disabled = disabled | default: false
+    assign readonly = readonly | default: false
+%}
+
+<textarea class="textarea {{ class }}"
+    id="{{ id }}" 
+    {% if name != blank %} name="{{ name }}" {% endif %}
+    {% if placeholder != blank %} placeholder = "{{ placeholder }}" {% endif %}
+    {% if attributes != blank %} attributes {% endif %}
+    {% if disabled == true %} disabled {% endif %}
+    {% if readonly == true %} readonly {% endif %}
+>{{ content }}</textarea>

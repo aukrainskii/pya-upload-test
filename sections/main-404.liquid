@@ -1,0 +1,119 @@
+{% liquid
+  assign label_btn = 'main-404.label_btn' | t
+%}
+
+{% style %}
+    #shopify-section-{{ section.id }} {
+		padding-top: {{ section.settings.section_padding_top_m }}px;
+		padding-bottom: {{ section.settings.section_padding_bottom_m }}px;
+	}
+
+    @media screen and (min-width: 600px) {
+        #shopify-section-{{ section.id }} {
+            padding-top: {{ section.settings.section_padding_top_t }}px;
+            padding-bottom: {{ section.settings.section_padding_bottom_t }}px;
+        }
+    }
+
+    @media screen and (min-width: 1240px) {
+        #shopify-section-{{ section.id }} {
+            padding-top: {{ section.settings.section_padding_top_d }}px;
+            padding-bottom: {{ section.settings.section_padding_bottom_d }}px;
+        }
+    }
+{% endstyle %}
+
+<div class="container main-404">
+  {% render '404-icon' %}
+  {% render 'sec-heading-1' %}
+  {% render 'sec-description' %}
+  {% render 'linkTo', link: section.settings.button_link, text: label_btn, class: 'link-to--circle' %}
+</div>
+
+  {% schema %}
+  {
+    "name": "Main 404",
+    "class": "section section-main-404",
+    "tag": "section",
+    "settings": [
+      {
+        "type": "range",
+        "id": "section_padding_top_m",
+        "label": "Section Padding Top (mobile)",
+        "min": 0,
+        "max": 200,
+        "step": 2,
+        "default": 0,
+        "unit": "px"
+      },
+      {
+        "type": "range",
+        "id": "section_padding_bottom_m",
+        "label": "Section Padding Bottom (mobile)",
+        "min": 0,
+        "max": 200,
+        "step": 2,
+        "default": 0,
+        "unit": "px"
+      },
+          {
+        "type": "range",
+        "id": "section_padding_top_t",
+        "label": "Section Padding Top (tablet)",
+        "min": 0,
+        "max": 200,
+        "step": 2,
+        "default": 0,
+        "unit": "px"
+      },
+      {
+        "type": "range",
+        "id": "section_padding_bottom_t",
+        "label": "Section Padding Bottom (tablet)",
+        "min": 0,
+        "max": 200,
+        "step": 2,
+        "default": 0,
+        "unit": "px"
+      },
+          {
+        "type": "range",
+        "id": "section_padding_top_d",
+        "label": "Section Padding Top (desktop)",
+        "min": 0,
+        "max": 200,
+        "step": 2,
+        "default": 0,
+        "unit": "px"
+      },
+      {
+        "type": "range",
+        "id": "section_padding_bottom_d",
+        "label": "Section Padding Bottom (desktop)",
+        "min": 0,
+        "max": 200,
+        "step": 2,
+        "default": 0,
+        "unit": "px"
+      },
+      {
+        "type": "text",
+        "id": "heading",
+        "default": "Something is wrong...",
+        "label": "Add heading text"
+      },
+      {
+        "type": "richtext",
+        "id": "description",
+        "label": "Description",
+        "default": "<p>The page you are looking for was moved, removed, renamed or might never existed...</p>"
+      },
+      {
+        "type": "url",
+        "id": "button_link",
+        "label": "Add button link",
+        "default": "/"
+      }
+    ]
+  }
+  {% endschema %}

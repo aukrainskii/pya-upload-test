@@ -1,0 +1,347 @@
+{% liquid
+    assign authors = section.blocks | where: "type", "author"
+    assign apps = section.blocks | where: "type", "@app"
+    assign articles = section.blocks | where: "type", "article"
+
+    assign table_of_contents = 'article.table_of_contents' | t
+    assign more_articles_by_author = 'article.more_articles_by_author' | t
+
+    assign content = ""
+
+    if product
+        assign content = product.content
+    elsif article 
+        assign content = article.content
+    endif
+%}
+
+{% style %}
+    #shopify-section-{{ section.id }} {
+		padding-top: {{ section.settings.section_padding_top_m }}px;
+		padding-bottom: {{ section.settings.section_padding_bottom_m }}px;
+	}
+
+    @media screen and (min-width: 600px) {
+        #shopify-section-{{ section.id }} {
+            padding-top: {{ section.settings.section_padding_top_t }}px;
+            padding-bottom: {{ section.settings.section_padding_bottom_t }}px;
+        }
+    }
+
+    @media screen and (min-width: 1240px) {
+        #shopify-section-{{ section.id }} {
+            padding-top: {{ section.settings.section_padding_top_d }}px;
+            padding-bottom: {{ section.settings.section_padding_bottom_d }}px;
+        }
+    }
+{% endstyle %}
+
+{% assign content_array = content | split: "<h2" %}
+{% capture wrapped_h2_content %}
+    {% for i in (0..content_array.size) %}
+        {% if i == 0 or i == content_array.size %}
+        {{ content_array[i] }}
+        {% else %}
+        {% assign h2_class = content_array[i] | replace: '"', "'" | split: ">" | first | split: "class='" | last | split: "'" | first %}
+        {% assign h2_content_array = content_array[i] | split: '</h2>' %}
+        <h2 class="nm-nav-heading {{ h2_class }}" id={{ h2_content_array | first | strip_html | split: ">" | last | handleize }}>{{ h2_content_array | first | strip_html | split: ">" | last }}</h2>
+        {{ h2_content_array | slice: 1, h2_content_array.size }}
+        {% endif %}
+    {% endfor %}
+{% endcapture %}
+
+{% assign content_array = wrapped_h2_content | split: "<h3" %}
+{% capture description %}
+    {% for i in (0..content_array.size) %}
+    {% if i == 0 or i == content_array.size %}
+        {{ content_array[i] }}
+    {% else %}
+        {% assign h3_class = content_array[i] | replace: '"', "'" | split: ">" | first | split: "class='" | last | split: "'" | first %}
+        {% assign h3_content_array = content_array[i] | split: '</h3>' %}
+        <h3 class="nm-nav-heading {{ h3_class }}" id={{ h3_content_array | first | strip_html | split: ">" | last | handleize }}>{{ h3_content_array | first | strip_html | split: ">" | last }}</h3>
+        {{ h3_content_array | slice: 1, h3_content_array.size }}
+    {% endif %}
+    {% endfor %}
+{% endcapture %}
+
+{% assign headings = "" %}
+{% assign snippet_parts = content | split: "<h" %}
+{% for part in snippet_parts %}
+    {% if part contains "</h" %}
+    {% assign heading_level = part | split: ">" | first | split: " " | first | plus: 0 %}
+    {% if heading_level == 2 or heading_level == 3 %}
+        {% assign heading_text = part | split: "</h" | first | strip_html | split: ">" | last %}
+        {% assign check_text = heading_text | plus: 0 %}
+
+        {% unless heading_level == check_text or heading_text == "" %}
+        {% assign headings = headings | append: heading_level | append: "|" | append: heading_text | append: "|" %}
+        {% endunless %}
+    {% endif %}
+    {% endif %}
+{% endfor %}
+
+{% assign headings_array = headings | remove_last: "|" | split: "|" %}
+
+{% if product %}
+    {% comment %}
+        <div class="article-info">
+            <ul class="article-info__list">
+                <li>{{ 'accessibility.by' | t }} <a>{{ shop.name }}</a></li>
+                <li>{{ product.created_at | date: '%b %d, %Y' }}</li>
+                <li class="vendor-tag">{{ product.vendor }}</li>
+            </ul>
+            <div class="article-share">
+                {% render 'sharing' %}
+            </div>
+        </div>
+    {% endcomment %}
+{% else %}
+    <div class="article-info">
+        <ul class="article-info__list">    
+            <li>{{ article.created_at | date: '%b %d, %Y' }}</li>
+            <li>{{ article.content.size | abs | divided_by: 1500 }} {{ 'article.min_read' | t }}</li>
+        </ul>
+        <div class="article-share">
+            {% render 'sharing' %}
+        </div>
+    </div>
+{% endif %}
+{% if product %}
+    <div class="article-img theme-image">
+        {% if product.featured_image != blank %}
+            {%- capture sizes -%}(min-width: 480px) 590px, 360px{%- endcapture -%}        
+            {{  product.featured_image | image_url: width: 1180 | image_tag:
+                width: 340,
+                height: 175,
+                loading: 'lazy',
+                sizes: sizes,
+                widths: '360, 590, 720, 1180',
+                alt: product.title
+            }}
+        {% endif %}
+    </div>
+{% else %}
+    <div class="article-img">
+        {% if article.image != blank %}
+            {%- capture sizes -%}(min-width: 992px) 800px, (min-width: 580px) 720px, (min-width: 440px) 500px, 360px{%- endcapture -%}
+            {{  article.image | image_url: width: 1500 | image_tag:
+                width: 330,
+                height: 190,
+                loading: 'lazy',
+                sizes: sizes,
+                widths: '360, 500, 720, 800, 1000, 1440, 1600',
+                alt: article.title
+            }}
+        {% endif %}
+    </div>
+{% endif %}
+
+{% unless headings_array.size == 0 %}
+    <div class="article-navigation">
+        {% render 'sec-heading' | sec_heading: table_of_contents, align: 'left' %}
+        {% for i in (0..headings_array.size) %}
+            {% assign i_plus_1 = i | plus: 1 %}
+            {% if headings_array[i] == "2" %}
+                <a class="article-navigation__item article-navigation__item--h2" href="#{{  headings_array[i_plus_1] | strip_html | handleize | replace: "-span", "" | replace: "span-", "" }}">{{ headings_array[i_plus_1] }}</a>
+            {% elsif headings_array[i] == "3" %}
+                <a class="article-navigation__item article-navigation__item--h3" href="#{{  headings_array[i_plus_1] | strip_html | handleize | replace: "-span", "" | replace: "span-", "" }}">{{ headings_array[i_plus_1] }}</a>
+            {% endif %}
+        {% endfor %}
+    </div>
+{% endunless %}
+
+<div class="article-content">
+
+    {% render 'content', content: description %}
+
+    <div class="article-tags">
+        {% for tag in article.tags %}
+            <h5>{{ tag | link_to_tag: tag }}</h5>
+        {% endfor %}
+    </div>
+    {% if product %}
+    
+    {% else %}
+        <div class="article-share">
+            {% render 'sharing' %}
+        </div>
+    {% endif %}
+    {% for author in authors %}
+        <div class="article-author author">
+            <div class="author__img">
+                {{  author.settings.image | image_url: width: 200 | image_tag:
+                    width: 100,
+                    height: 100,
+                    loading: 'lazy',
+                    widths: '100, 200',
+                    alt: author.settings.image.alt
+                }}
+            </div>  
+            <div class="author__info">
+                <p class="author__name">{{ author.settings.name }}</p>
+                <p>{{ author.settings.job }}</p>
+            </div>
+
+            <div class="author__description">
+                {{ author.settings.description }}
+            </div>
+        </div>
+    {% endfor %}
+
+    <div class="article-pages">
+        {% if product %}
+            {% if collection.previous_product %}
+                <a class="article-pages__link article-pages__link--prev" href="{{ collection.previous_product.url }}">{% render 'icon-arrow' %} {{ 'article.prev' | t }}</a>
+            {% endif %}
+
+            {% if collection.next_product %}
+                <a class="article-pages__link article-pages__link--next" href="{{ collection.next_product.url }}">{{ 'article.next' | t }} {% render 'icon-arrow' %}</a>
+            {% endif %}
+        {% else %}
+            {% if blog.previous_article %}
+                <a class="article-pages__link article-pages__link--prev" href="{{ blog.previous_article.url }}">{% render 'icon-arrow' %} {{ 'article.prev' | t }}</a>
+            {% endif %}
+            {% if blog.next_article %}
+                <a class="article-pages__link article-pages__link--next" href="{{ blog.next_article.url }}">{{ 'article.next' | t }} {% render 'icon-arrow' %}</a>
+            {% endif %}
+        {% endif %}
+    </div>
+
+    {% for app in apps %}
+        <div class="page-width"> 
+            {% render block %}
+        </div>
+    {% endfor %}
+</div>
+
+{% if articles != blank %}
+    {% render "link-list", articles: articles %}
+{% endif %}
+
+
+<script src="{{ 'snippets-sharing.js' | asset_url }}" defer></script>
+<script src="{{ 'sections-main-article.js' | asset_url }}" defer="defer"></script>
+
+{% schema %}
+{
+    "name": "Main Article & Theme",
+    "class": "section section-article",
+    "tag": "section",
+    "presets": [
+        {
+            "name": "Main Article & Theme"
+        }
+    ],
+    "settings": [
+        {
+            "type": "range",
+            "id": "section_padding_top_m",
+            "label": "Section Padding Top (mobile)",
+            "min": 0,
+            "max": 200,
+            "step": 2,
+            "default": 0,
+            "unit": "px"
+        },
+        {
+            "type": "range",
+            "id": "section_padding_bottom_m",
+            "label": "Section Padding Bottom (mobile)",
+            "min": 0,
+            "max": 200,
+            "step": 2,
+            "default": 0,
+            "unit": "px"
+        },
+            {
+            "type": "range",
+            "id": "section_padding_top_t",
+            "label": "Section Padding Top (tablet)",
+            "min": 0,
+            "max": 200,
+            "step": 2,
+            "default": 0,
+            "unit": "px"
+        },
+        {
+            "type": "range",
+            "id": "section_padding_bottom_t",
+            "label": "Section Padding Bottom (tablet)",
+            "min": 0,
+            "max": 200,
+            "step": 2,
+            "default": 0,
+            "unit": "px"
+        },
+            {
+            "type": "range",
+            "id": "section_padding_top_d",
+            "label": "Section Padding Top (desktop)",
+            "min": 0,
+            "max": 200,
+            "step": 2,
+            "default": 0,
+            "unit": "px"
+        },
+        {
+            "type": "range",
+            "id": "section_padding_bottom_d",
+            "label": "Section Padding Bottom (desktop)",
+            "min": 0,
+            "max": 200,
+            "step": 2,
+            "default": 0,
+            "unit": "px"
+        }
+    ],
+    "blocks": [
+        {
+            "type": "author",
+            "name": "Author",
+            "limit": 1,
+            "settings": [
+                {
+                    "type": "image_picker",
+                    "id": "image",
+                    "label": "Author`s photo"
+                },
+                {
+                    "type": "text",
+                    "id": "name",
+                    "label": "Author Name",
+                    "default": "Name"
+                },
+                {
+                    "type": "text",
+                    "id": "job",
+                    "label": "What is the author's job?"
+                },
+                {
+                    "type": "text",
+                    "id": "description",
+                    "label": "About Author"
+                },
+                {
+                    "type": "url",
+                    "id": "link",
+                    "label": "Link to author`s articles"
+                }
+            ]
+        },
+        {
+            "type": "@app"
+        },
+        {
+            "type": "article",
+            "name": "Article",
+            "settings": [
+                {
+                    "type": "article",
+                    "id": "article",
+                    "label": "Article"
+                }
+            ]
+        }
+    ]
+}
+{% endschema %}

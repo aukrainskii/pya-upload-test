@@ -1,0 +1,15 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-404",
+      "settings": {
+        "heading": "<p><span>404</span> <em>not found</em></p>",
+        "description": "<p>Sorry, the page was not found, please return to the main page</p>",
+        "button_label": "On the main"
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}
