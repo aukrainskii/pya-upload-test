@@ -9,16 +9,90 @@
 */
 {
   "sections": {
+    "a4fe9344-1d08-4ce5-bb27-34777373803a": {
+      "type": "main-collection",
+      "settings": {
+        "section_padding_top_m": 24,
+        "section_padding_bottom_m": 64,
+        "section_padding_top_t": 24,
+        "section_padding_bottom_t": 64,
+        "section_padding_top_d": 24,
+        "section_padding_bottom_d": 80
+      }
+    },
+    "1796b800-014a-4c7d-af8e-e40363cfe6c6": {
+      "type": "collection-children",
+      "settings": {
+        "section_padding_top_m": 36,
+        "section_padding_bottom_m": 64,
+        "section_padding_top_d": 120,
+        "section_padding_bottom_d": 120
+      }
+    },
     "aa3d3189-638b-42e1-92db-fbb1683c8da7": {
       "type": "collection-products",
       "settings": {
-        "section_padding_top_m": 0,
-        "section_padding_bottom_m": 0,
-        "section_padding_top_t": 0,
-        "section_padding_bottom_t": 0,
-        "section_padding_top_d": 0,
-        "section_padding_bottom_d": 0,
+        "section_padding_top_m": 36,
+        "section_padding_bottom_m": 64,
+        "section_padding_top_t": 56,
+        "section_padding_bottom_t": 80,
+        "section_padding_top_d": 110,
+        "section_padding_bottom_d": 120,
         "not-found-img": "shopify://shop_images/Group_45305.png"
+      }
+    },
+    "d65370d6-5692-48dc-b57a-75018cf1d0a4": {
+      "type": "collection-list",
+      "disabled": true,
+      "settings": {
+        "section_padding_top_m": 36,
+        "section_padding_bottom_m": 64,
+        "section_padding_top_t": 48,
+        "section_padding_bottom_t": 80,
+        "section_padding_top_d": 110,
+        "section_padding_bottom_d": 120,
+        "heading": "Popular categories",
+        "collections": [
+          "selling-products-product-display-3d-ar-vr",
+          "marketing-and-conversion-cart-recovery-abandoned-cart",
+          "store-management-finances-accounting",
+          "store-design-page-enhancements-accessibility",
+          "store-management-customer-accounts-accounts-and-login",
+          "marketing-and-conversion-cart-modification-add-to-cart",
+          "marketing-and-conversion-advertising",
+          "marketing-and-conversion-advertising-advertising",
+          "marketing-and-conversion-advertising-affiliate-programs",
+          "marketing-and-conversion-advertising-advertising-other",
+          "store-management-privacy-and-security-age-verifier",
+          "store-management-analytics-analytics-other",
+          "store-design-images-and-media-audio-player",
+          "store-management-analytics",
+          "selling-products-digital-products-appointment-booking"
+        ]
+      }
+    },
+    "dev_about_c7CAKm": {
+      "type": "dev-about",
+      "settings": {
+        "section_padding_top_m": 36,
+        "section_padding_bottom_m": 64,
+        "section_padding_top_t": 48,
+        "section_padding_bottom_t": 80,
+        "section_padding_top_d": 110,
+        "section_padding_bottom_d": 120,
+        "heading": "About"
+      }
+    },
+    "468b1531-f670-44e1-abd1-24fe4f05272d": {
+      "type": "related-collection-cards",
+      "settings": {
+        "section_padding_top_m": 36,
+        "section_padding_bottom_m": 64,
+        "section_padding_top_t": 48,
+        "section_padding_bottom_t": 80,
+        "section_padding_top_d": 110,
+        "section_padding_bottom_d": 120,
+        "heading": "Related categories"
       }
     },
     "b0792b1d-797d-40fd-b0ce-5e263dcc16ea": {
@@ -30,7 +104,12 @@
     }
   },
   "order": [
+    "a4fe9344-1d08-4ce5-bb27-34777373803a",
+    "1796b800-014a-4c7d-af8e-e40363cfe6c6",
     "aa3d3189-638b-42e1-92db-fbb1683c8da7",
+    "d65370d6-5692-48dc-b57a-75018cf1d0a4",
+    "dev_about_c7CAKm",
+    "468b1531-f670-44e1-abd1-24fe4f05272d",
     "b0792b1d-797d-40fd-b0ce-5e263dcc16ea"
   ]
 }
