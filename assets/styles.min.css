@@ -1172,7 +1172,7 @@ td p + p {
   justify-content: center;
   align-items: center;
   position: absolute;
-  left: 12px;
+  left: 16px;
   top: 50%;
   transform: translateY(-50%);
   color: #202020;
