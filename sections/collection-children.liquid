@@ -25,7 +25,7 @@
               <a href="/">All categories</a>
             </li>
             {% for collection in collections %}
-              {% if collection.metafields.appstore.parent == blank and collection.metafields.appstore.in_sidebar == true %}
+              {% if collection.metafields.appstore.in_sidebar == true %}
                 <li class="{% if collection.url == request.path %} current {% endif %} {% if collection.metafields.appstore.popular == true %} popular {%endif %}">
                   <a href="{{ collection.url }}">{{ collection.title }}</a>
                 </li>

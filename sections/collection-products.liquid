@@ -52,7 +52,7 @@
               <a href="/">All categories</a>
             </li>
             {% for collection in collections %}
-              {% if collection.metafields.appstore.parent == blank and collection.metafields.appstore.in_sidebar == true %}
+              {% if collection.metafields.appstore.in_sidebar == true %}
                 <li class="{% if request.path contains collection.url %} current {% endif %} {% if collection.metafields.appstore.popular == true %} popular {%endif %}">
                   <a href="{{ collection.url }}">{{ collection.title }}</a>
                 </li>
@@ -276,11 +276,7 @@
                               <ul>
                                 {{ languages }}
                               </ul>
-                              {% if language_count > 6 %}
-                                <button type="button" open-category class="filter-item__button filter-item__button--open">{{ 'collection.show_more' | t }}</button>
-                                <button type="button" close-category class="filter-item__button filter-item__button--close">{{ 'collection.show_less' | t }}</button>
                             </div>
-                            {% endif %}
                           </div>
                         {% else %}
                           <div class="filter-item" data-filter={{ filter.param_name }}>
@@ -301,9 +297,8 @@
                             <p class="filter-dropdown-title">{{ filter.label }}<span class="filter-dropdown-title-current"></span> {% if f_counter > 1 %}<span>+{{m_counter}} more</span>{% endif %}</p>
                             <div class="filter-dropdown">
                               <ul>
-                                
                                 {%- for filter_value in filter.values -%}
-                                  <li class="{% if forloop.index <= 6 %}visible{% endif %}">
+                                  <li class="visible">
                                     {% assign value = filter_value.param_name | append: "=" | append: filter_value.value | replace: " ", "+" %}
                                     {% assign disabled = false %}
                                     {% if filter_value.count == 0 and filter_value.active == false %}
@@ -314,17 +309,10 @@
                                   </li>
                                 {%- endfor -%}
                               </ul>
-                              {% if filter.values.size > 6 %}
-                                <button type="button" open-category class="filter-item__button filter-item__button--open">{{ 'collection.show_more' | t }}</button>
-                                <button type="button" close-category class="filter-item__button filter-item__button--close">{{ 'collection.show_less' | t }}</button>
-                              {% endif %}
-
                             </div>
 
                           </div>
                         {% endif %}
-                      {%- when 'price_range' -%}
-                        
                     {%- endcase -%}
                     {% endif %}
                   {%- endfor -%}
@@ -345,9 +333,10 @@
                      {% assign free = true %}
                 {% endif %}
               {% endfor %}
-             <button {% if collection.sort_by == blank and free == false %}active{% endif %} value=''>{{ 'collection.all_apps' | t }}<span class="products-count">{{products_count}}</span></button>
-              <button {% if free == true %}active{%endif%} value='filter.p.m.appstore.only_free_plan=true'>{{ 'collection.free_apps' | t }}<span class="products-count">{{products_count}}</span></button>
-              <button {% if collection.sort_by == "price-descending" %}active{% endif %} value='sort_by=price-descending'>{{ 'collection.best_apps' | t }}<span class="products-count">{{products_count}}</span></button>
+
+             <button {% if collection.sort_by == blank and free == false %}active{% endif %} value=''>{{ 'collection.all_apps' | t }} <span class="products-count">({{products_count}})</span></button>
+              <button {% if free == true %}active{%endif%} value='filter.p.m.appstore.only_free_plan=true'>{{ 'collection.free_apps' | t }} <span class="products-count">({{products_count}})</span></button>
+              <button {% if collection.sort_by == "price-descending" %}active{% endif %} value='sort_by=price-descending'>{{ 'collection.best_apps' | t }} <span class="products-count">({{products_count}})</span></button>
               {% capture select-icon %}
                 <svg width="14" height="7" viewBox="0 0 14 7" class="icon icon-select" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 0.5L7 5.5L13 0.5" stroke="#1E1E1E"/></svg>
               {% endcapture %}
