@@ -3609,6 +3609,9 @@ body.open .filter {
   line-height: 140%;
   color: inherit;
 }
+.footer__bottom-list > li:last-child {
+  padding-right: 0;
+}
 .footer__bottom-list > li a, .footer__bottom-list > li a[href] {
   white-space: nowrap;
   color: inherit;
