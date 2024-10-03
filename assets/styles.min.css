@@ -496,7 +496,7 @@ td p + p {
 @media (min-width: 1240px) {
   .container-grid {
     --this-container-columns: 12;
-    max-width: 1240px;
+    max-width: 1300px;
   }
 }
 
