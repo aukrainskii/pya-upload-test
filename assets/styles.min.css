@@ -6967,7 +6967,7 @@ body.open .filter {
 @media (max-width: 991px) {
   .pw-main {
     padding-left: 20px;
-    padding-right: 20px;
+    padding-right: 0;
   }
 }
 
