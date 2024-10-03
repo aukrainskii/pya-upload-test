@@ -9,153 +9,19 @@
 */
 {
   "sections": {
-    "hamepage_main_section_e3iWkV": {
+    "hamepage_main_section_cYjGn6": {
       "type": "hamepage-main-section",
-      "blocks": {
-        "app_itbNBe": {
-          "type": "app",
-          "settings": {
-            "app": "easy-sale"
-          }
-        },
-        "app_4AFgh7": {
-          "type": "app",
-          "settings": {
-            "app": "easy-stock"
-          }
-        },
-        "app_dYJfpr": {
-          "type": "app",
-          "settings": {
-            "app": "product-description-tabs"
-          }
-        },
-        "app_nnenti": {
-          "type": "app",
-          "settings": {
-            "app": "easyorder"
-          }
-        },
-        "app_EQygM6": {
-          "type": "app",
-          "settings": {
-            "app": "spin-studio"
-          }
-        },
-        "app_yaimEN": {
-          "type": "app",
-          "settings": {
-            "app": "social-sign-in"
-          }
-        },
-        "app_9Pwy3G": {
-          "type": "app",
-          "settings": {
-            "app": "product-description-accordion"
-          }
-        }
-      },
-      "block_order": [
-        "app_itbNBe",
-        "app_4AFgh7",
-        "app_dYJfpr",
-        "app_nnenti",
-        "app_EQygM6",
-        "app_yaimEN",
-        "app_9Pwy3G"
-      ],
       "settings": {
-        "section_padding_top_m": 36,
+        "section_padding_top_m": 0,
         "section_padding_bottom_m": 0,
-        "section_padding_top_t": 56,
-        "section_padding_bottom_t": 32,
-        "section_padding_top_d": 112,
-        "section_padding_bottom_d": 148,
-        "heading": "<p>Find the <strong>best app<\/strong> for your Shopify store <strong>tailored<\/strong><\/p>",
-        "description": "",
-        "background": "shopify:\/\/shop_images\/hero-bg.png",
-        "image": "shopify:\/\/shop_images\/img_ff6fc36f-6f30-4352-a37f-c89967ebba0c.png",
-        "dynemic_collections": [
-          "marketing-and-conversion-cart-recovery-abandoned-cart",
-          "store-management-privacy-and-security-age-verifier",
-          "store-management-operations-bulk-editor",
-          "marketing-and-conversion-cart-modification-cart-modification",
-          "selling-products-digital-products"
-        ]
-      }
-    },
-    "popular_categories_zBJ6BA": {
-      "type": "popular-categories",
-      "blocks": {
-        "category_YBKJag": {
-          "type": "category",
-          "settings": {
-            "collection": "store-design"
-          }
-        },
-        "category_CDP7KX": {
-          "type": "category",
-          "settings": {
-            "collection": "orders-and-shipping"
-          }
-        },
-        "category_CKT8Dq": {
-          "type": "category",
-          "settings": {
-            "collection": "marketing-and-conversion"
-          }
-        }
-      },
-      "block_order": [
-        "category_YBKJag",
-        "category_CDP7KX",
-        "category_CKT8Dq"
-      ],
-      "settings": {
-        "section_padding_top_m": 48,
-        "section_padding_bottom_m": 68,
-        "section_padding_top_t": 0,
-        "section_padding_bottom_t": 128,
         "section_padding_top_d": 0,
-        "section_padding_bottom_d": 120,
-        "heading": "Apps from popular categories"
-      }
-    },
-    "most_apps_CKCYnG": {
-      "type": "most-apps",
-      "blocks": {
-        "category_PWJQBA": {
-          "type": "category",
-          "settings": {
-            "collection": "store-design-images-and-media-3d-ar-vr"
-          }
-        },
-        "category_8jfgQU": {
-          "type": "category",
-          "settings": {
-            "collection": "marketing-and-conversion-social-trust-product-reviews"
-          }
-        },
-        "category_H7zBDk": {
-          "type": "category",
-          "settings": {
-            "collection": "marketing-and-conversion-advertising"
-          }
-        }
-      },
-      "block_order": [
-        "category_PWJQBA",
-        "category_8jfgQU",
-        "category_H7zBDk"
-      ],
-      "settings": {
-        "section_padding_top_m": 64,
-        "section_padding_bottom_m": 64,
-        "section_padding_top_t": 80,
-        "section_padding_bottom_t": 80,
-        "section_padding_top_d": 120,
-        "section_padding_bottom_d": 120,
-        "heading": "Most popular apps"
+        "section_padding_bottom_d": 0,
+        "heading": "<p>Find <strong>the best app</strong> for your Shopify store tailored to</p>",
+        "description": "Unleash your creativity with out-of-this-world app inspiration from across Shopify",
+        "header_product_image": "shopify://shop_images/CMfzu9PG-IMDEAE.png",
+        "header_product_title": "Title goes here",
+        "header_product_text": "Text description goes here",
+        "header_product_link": ""
       }
     },
     "articles_list_PxnpgG": {
@@ -164,19 +30,26 @@
         "block_CDQye7": {
           "type": "block",
           "settings": {
-            "article": "news\/cut-through-the-shopify-app-clutter-with-takeyour-app"
+            "article": "news/cut-through-the-shopify-app-clutter-with-takeyour-app"
           }
         },
         "block_Bfwa6k": {
           "type": "block",
           "settings": {
-            "article": "news\/black-friday-and-cyber-monday-2023-online-sales-results-and-stats"
+            "article": "news/black-friday-and-cyber-monday-2023-online-sales-results-and-stats"
+          }
+        },
+        "block_M79QrE": {
+          "type": "block",
+          "settings": {
+            "article": "news/the-best-wholesale-app-for-shopify"
           }
         }
       },
       "block_order": [
         "block_CDQye7",
-        "block_Bfwa6k"
+        "block_Bfwa6k",
+        "block_M79QrE"
       ],
       "settings": {
         "section_padding_top_m": 64,
@@ -187,8 +60,8 @@
         "section_padding_bottom_d": 120,
         "heading": "Recommended articles",
         "blog-text": "See all articles",
-        "link": "shopify:\/\/blogs\/news",
-        "layout": "dark",
+        "link": "shopify://blogs/news",
+        "layout": "light",
         "tags": false,
         "content": false,
         "author": false,
@@ -276,7 +149,7 @@
         "section_padding_top_d": 110,
         "section_padding_bottom_d": 120,
         "heading": "Recent reviews",
-        "link": "shopify:\/\/collections",
+        "link": "shopify://collections",
         "link-text": "Browse apps"
       }
     },
@@ -287,21 +160,21 @@
           "type": "faq",
           "settings": {
             "question": "How is Pickyourapp.com works?",
-            "answer": "<p><a href=\"https:\/\/takeyour.app\/\" title=\"https:\/\/pickyourapp.com\">Pickyourapp.com<\/a> carefully collects and gathers all Shopify apps into collections for convenient usage. Check out our unbiased apps reviews  to find the best solution for your needs<\/p>"
+            "answer": "<p><a href=\"https://takeyour.app/\" title=\"https://pickyourapp.com\">Pickyourapp.com</a> carefully collects and gathers all Shopify apps into collections for convenient usage. Check out our unbiased apps reviews  to find the best solution for your needs</p>"
           }
         },
         "faq_eAYhBg": {
           "type": "faq",
           "settings": {
             "question": "Can I post an app on the Pickyourapp.com?",
-            "answer": "<p>Sure! Reach us via<a href=\"https:\/\/pickyourapp.com\/pages\/contact-us\" title=\"https:\/\/pickyourapp.com\/pages\/contact-us\"> Contact form<\/a> with your app details and we'll add it to the listing.<\/p>"
+            "answer": "<p>Sure! Reach us via<a href=\"https://pickyourapp.com/pages/contact-us\" title=\"https://pickyourapp.com/pages/contact-us\"> Contact form</a> with your app details and we'll add it to the listing.</p>"
           }
         },
         "faq_K4BxM4": {
           "type": "faq",
           "settings": {
             "question": "Does app listing is free?",
-            "answer": "<p>Yes, your app can be listed on the Pickyourapp.com for free. <\/p><p>Anyway, you can book premium placement in the listing and search results. <a href=\"https:\/\/pickyourapp.com\/pages\/contact-us\" title=\"https:\/\/pickyourapp.com\/pages\/contact-us\">Contact us<\/a> for details.<\/p>"
+            "answer": "<p>Yes, your app can be listed on the Pickyourapp.com for free. </p><p>Anyway, you can book premium placement in the listing and search results. <a href=\"https://pickyourapp.com/pages/contact-us\" title=\"https://pickyourapp.com/pages/contact-us\">Contact us</a> for details.</p>"
           }
         }
       },
@@ -319,67 +192,12 @@
         "section_padding_bottom_d": 120,
         "heading": "FAQ"
       }
-    },
-    "changelog_xkUjmy": {
-      "type": "changelog",
-      "blocks": {
-        "changelog_Pz9PW3": {
-          "type": "changelog",
-          "settings": {
-            "product": "osync-export-orders-to-sheets",
-            "date": "27, January",
-            "content": "<p>Launching the OSync! The app to Export Orders to Google Spreadsheets.<\/p>"
-          }
-        },
-        "changelog_9EjQWw": {
-          "type": "changelog",
-          "settings": {
-            "product": "404-fix-broken-links",
-            "date": "26, January",
-            "content": "<p>Launching the Doc 404 app. The app to Fix Broken Links & 404 Pages<\/p>"
-          }
-        },
-        "changelog_4Q3wMJ": {
-          "type": "changelog",
-          "settings": {
-            "product": "easy-stock",
-            "date": "12, January",
-            "content": "<p>EasyStock - Custom badges have arrived! We are happy to announce that the <a href=\"https:\/\/apps.shopify.com\/easy-stock\" target=\"_blank\" title=\"https:\/\/apps.shopify.com\/easy-stock\">EasyStock <\/a>app now has Custom Badges, which could be assigned to the exact product or whole product collection regardless of inventory availability.<\/p>"
-          }
-        }
-      },
-      "block_order": [
-        "changelog_Pz9PW3",
-        "changelog_9EjQWw",
-        "changelog_4Q3wMJ"
-      ],
-      "disabled": true,
-      "settings": {
-        "section_padding_top_m": 0,
-        "section_padding_bottom_m": 0,
-        "section_padding_top_t": 0,
-        "section_padding_bottom_t": 0,
-        "section_padding_top_d": 0,
-        "section_padding_bottom_d": 0,
-        "heading": "What’s New?"
-      }
-    },
-    "5ddd8795-3333-4fbe-ab26-53a2bfda91cf": {
-      "type": "navigation",
-      "settings": {
-        "menu": "section-navigation",
-        "layout": "accent"
-      }
     }
   },
   "order": [
-    "hamepage_main_section_e3iWkV",
-    "popular_categories_zBJ6BA",
-    "most_apps_CKCYnG",
+    "hamepage_main_section_cYjGn6",
     "articles_list_PxnpgG",
     "reviews_Ej7t7a",
-    "faq_9C8y9L",
-    "changelog_xkUjmy",
-    "5ddd8795-3333-4fbe-ab26-53a2bfda91cf"
+    "faq_9C8y9L"
   ]
 }
