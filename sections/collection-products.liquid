@@ -336,7 +336,7 @@
 
              <button {% if collection.sort_by == blank and free == false %}active{% endif %} value=''>{{ 'collection.all_apps' | t }} <span class="products-count">({{products_count}})</span></button>
               <button {% if free == true %}active{%endif%} value='filter.p.m.appstore.only_free_plan=true'>{{ 'collection.free_apps' | t }} <span class="products-count">({{products_count}})</span></button>
-              <button {% if collection.sort_by == "price-descending" %}active{% endif %} value='sort_by=price-descending'>{{ 'collection.best_apps' | t }} <span class="products-count">({{products_count}})</span></button>
+              
               {% capture select-icon %}
                 <svg width="14" height="7" viewBox="0 0 14 7" class="icon icon-select" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 0.5L7 5.5L13 0.5" stroke="#1E1E1E"/></svg>
               {% endcapture %}
@@ -351,11 +351,6 @@
                   value="filter.p.m.appstore.only_free_plan=true"
                   {% if free == true %}selected{%endif%} > 
                   {{ 'collection.free_apps' | t }}
-                </option>
-                <option
-                  value="sort_by=price-descending"
-                  {% if collection.sort_by == "price-descending" %}selected{% endif %}> 
-                  {{ 'collection.best_apps' | t }}
                 </option>
               {% endcapture %}
               <p class="filtered-apps-number">{{ filter_title }}</p>
