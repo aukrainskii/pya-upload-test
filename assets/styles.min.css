@@ -3625,7 +3625,7 @@ body.open .filter {
   .footer__bottom-list {
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    justify-content: flex-end;
   }
   .footer__bottom-list > li {
     padding: 0 22px;
