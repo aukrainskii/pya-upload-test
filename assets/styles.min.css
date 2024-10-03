@@ -3609,9 +3609,6 @@ body.open .filter {
   line-height: 140%;
   color: inherit;
 }
-.footer__bottom-list > li:last-child {
-  padding-right: 0;
-}
 .footer__bottom-list > li a, .footer__bottom-list > li a[href] {
   white-space: nowrap;
   color: inherit;
@@ -3626,9 +3623,7 @@ body.open .filter {
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
-  }
-  .footer__bottom-list > li {
-    padding: 0 22px;
+    gap: 44px;
   }
 }
 @media (min-width: 1240px) {
