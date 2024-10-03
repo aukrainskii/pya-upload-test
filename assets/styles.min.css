@@ -6676,7 +6676,7 @@ body.open .filter {
 }
 
 .pw-main {
-  padding: 55px 45px 50px;
+  padding: 55px 0 50px 45px;
   margin-left: auto;
   margin-right: auto;
 }
