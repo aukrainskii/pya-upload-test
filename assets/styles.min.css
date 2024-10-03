@@ -4010,12 +4010,13 @@ body.open .filter {
     display: block;
     position: absolute;
     top: 50%;
-    right: 24px;
+    right: 8px;
     transform: translateY(-50%);
     z-index: 4;
     background-color: transparent;
     border: none;
     cursor: pointer;
+    line-height: 0;
   }
 }
 .section-main-404 {
