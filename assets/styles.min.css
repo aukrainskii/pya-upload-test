@@ -5405,7 +5405,6 @@ body.open .filter {
     margin-bottom: 48px;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     column-gap: 36px;
-    row-gap: 80px;
   }
 }
 .main-search__articles {
@@ -5734,6 +5733,9 @@ body.open .filter {
   z-index: 2;
   background-color: var(--background-accent);
 }
+.search-result__list {
+  padding: 10px 0;
+}
 .search-result__list > li {
   cursor: pointer;
   font-size: 14px;
@@ -5747,14 +5749,18 @@ body.open .filter {
   width: 100%;
   color: inherit;
   padding: 12px 24px;
+  font-weight: 400;
 }
 .search-result__list > li > h3 {
   display: block;
   width: 100%;
   color: inherit;
   padding: 12px 24px;
-  font-size: 16px;
-  font-weight: 700;
+  line-height: 1.3;
+  text-transform: uppercase;
+  opacity: 0.5;
+  font-size: 12px;
+  font-weight: 400;
 }
 .search-result__list > li:hover {
   background-color: #f5f5f5;
