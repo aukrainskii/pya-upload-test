@@ -35,9 +35,9 @@
 
 {% style %}
     #shopify-section-{{ section.id }} {
-		padding-top: {{ section.settings.section_padding_top_m }}px;
-		padding-bottom: {{ section.settings.section_padding_bottom_m }}px;
-	}
+        padding-top: {{ section.settings.section_padding_top_m }}px;
+        padding-bottom: {{ section.settings.section_padding_bottom_m }}px;
+    }
 
     @media screen and (min-width: 600px) {
         #shopify-section-{{ section.id }} {
@@ -226,6 +226,80 @@
                     </ul>
                 </div>
             {% endif %}
+
+            {%- liquid
+              assign days_product_price_valid_until = 10 | times: 86400
+              if product.selected_or_first_available_variant.featured_media
+                assign seo_media = product.selected_or_first_available_variant.featured_media
+              else
+                assign seo_media = product.featured_media
+              endif
+
+              assign plans = product.metafields.appstore.pricing.value 
+            -%}
+
+            {% for char in 'price_only' %}
+                <p>{{char}}</p>
+                {% endfor %}
+
+            <script type="application/ld+json">
+              {
+                "@context": "https://schema.org/",
+                "@type": "Product",
+                "name": {{ product.title | json }},
+                {% if seo_media -%}
+                  "image": [
+                    {{ seo_media | image_url: width: seo_media.preview_image.width | prepend: "https:" | json }}
+                  ],
+                {%- endif %}
+                "description": {{ product.description | strip_html | json }},
+                "mpn": "",
+                "brand": {
+                  "@type": "Brand",
+                  "name": {{ product.vendor | json }}
+                },
+                "aggregateRating": {
+                  "@type": "AggregateRating",
+                  "ratingValue": {{ product.metafields.appstore.rating.value }},
+                  "reviewCount": {{ product.metafields.appstore.reviews.value }}
+                },
+                "offers": [
+                  {%- for plan in plans -%}
+                    {% assign price = plan.value | remove: "$" | remove: "/" | remove: "month" | remove: "Month" | remove: "year" | remove: "Year" | remove: " " %}
+                    {% assign description = '' %}
+                    {% for desc in plan.desc %}
+                        {% assign description = description | append: desc %}
+                        {% unless forloop.last %}{% assign description = description | append: ', ' %}{% endunless %} 
+                    {% endfor %}
+                    {
+                      "@type" : "Offer",
+                      "name" : "{{ plan.name | strip_html }}",
+                      "availability" : "InStock",
+                      {%- if price != blank -%}
+                      "price" : "{{ price }}",
+                      {%- else -%}
+                        "price" : "0",
+                      {%- endif -%}
+                      "priceCurrency" : "USD",
+                      "description" : "{{ description | strip_html }}",
+                      "priceValidUntil": "{{ 'now' | date: '%s' | plus: days_product_price_valid_until | date: '%Y-%m-%d' }}",
+                      {%- if shop.shipping_policy.body != blank -%}
+                        "shippingDetails": {
+                          "shippingSettingsLink": {{ shop.shipping_policy.url | prepend: request.origin | json }}
+                        },
+                      {%- endif -%}
+                      {%- if shop.refund_policy.body != blank -%}
+                        "hasMerchantReturnPolicy": {
+                          "merchantReturnLink": {{ shop.refund_policy.url | prepend: request.origin | json }}
+                        },
+                      {%- endif -%}
+                      "url" : {{ request.origin | append: product.url | json }}
+                    }{% unless forloop.last %},{% endunless %}
+                  {%- endfor -%}
+                ]
+              }
+            </script>
+
         </div>
     {% endif %}
 </div>

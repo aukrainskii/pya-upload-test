@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "type": "footer",
   "name": "Footer group",
@@ -10,7 +19,7 @@
     "footer": {
       "type": "footer",
       "settings": {
-        "logo": "shopify:\/\/shop_images\/logo_2x_bf9eac00-8e04-46dd-8220-9ca9b2021958.png",
+        "logo": "shopify://shop_images/pya-footer-logo.svg",
         "menu": "footer",
         "menu_2": "footer-menu"
       }

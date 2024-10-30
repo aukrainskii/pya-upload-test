@@ -41,37 +41,9 @@
         {% if search.results.size > 0 %}
         <div class="main-search__products">
                 {% for product in search.results %}
-                    <a class="product-card" href="{{ product.url }}">
-                        <div class="block-img-wrap product-card__img">
-                            <img    src="{{ product.metafields.appstore.icon.value}}?width=140"
-                                    alt="{{ product.title }}"
-                                    srcset="{{ product.metafields.appstore.icon.value}}?width=70 1x,
-                                            {{ product.metafields.appstore.icon.value}}?width=140 2x"
-                                    width="70"
-                                    height="70"
-                                    loading="lazy">
-                        </div>
-                        <div class="product-card__info">
-                        {% render 'sec-heading-5' | sec_heading-5: product.title %}
-                        {% if product.metafields.appstore.reviews.value > 0 %}
-                            <div class="product-card__rate">
-                                {{ s_product.metafields.appstore.rating.value }}
-                                <div class="block-img-wrap">
-                                    {{ settings.star-icon }}
-                                </div>
-                                ({{ product.metafields.appstore.reviews }})
-                            </div>
-                          {% else %}
-                            <div class="product-card__rate product-card__rate--no-reviews">
-                                <div class="block-img-wrap">
-                                    {{ settings.star-icon }}
-                                </div>
-                                {{ "accessibility.no-reviews" | t }}
-                            </div>
-                          {% endif %}
-                        {% render 'sec-description' | sec_description: product.metafields.appstore.card_subtitle %}
-                        </div>
-                    </a>
+
+                    {% render 'product-card', product: product %}
+
                 {% endfor %}
         </div>
         {% else %}

@@ -1,17 +1,18 @@
 /*
-* ------------------------------------------------------------
-* IMPORTANT: The contents of this file are auto-generated.
-*
-* This file may be updated by the Shopify admin theme editor
-* or related systems. Please exercise caution as any changes
-* made to this file may be overwritten.
-* ------------------------------------------------------------
-*/
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "current": {
     "gradient_1": "linear-gradient(91.66deg, rgba(0, 137, 80, 1) 51.85%, rgba(0, 226, 118, 1) 158.48%)",
     "gradient_2": "linear-gradient(180deg, rgba(245, 247, 255, 1) 68.49%, rgba(245, 247, 255, 0) 100%)",
     "text-primary": "#000000",
+    "type_header_font": "inter_n6",
     "type_body_font": "inter_n4",
     "favicon": "shopify://shop_images/favicon.png",
     "star-color-empty": "#ECEBEB",
@@ -31,7 +32,7 @@
       "header": {
         "type": "header",
         "settings": {
-          "logo": "shopify://shop_images/State_Desktop_2x_7843acdd-b5db-4614-979d-ca49a1eb416e.png",
+          "logo": "shopify://shop_images/pya-header-logo.svg",
           "menu": "main-menu"
         }
       },

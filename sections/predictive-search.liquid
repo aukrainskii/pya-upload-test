@@ -23,7 +23,7 @@
 
 <div class="search-result" id="predictive-search-products-list">
     {%- if predictive_search.resources.products.size > 0 -%}
-        <ul class="search-result__list">   
+        <ul class="search-result__list">
             {%- for product in predictive_search.resources.products -%}
                 <li>
                     <a href="{{ product.url }}">{{ product.title }}</a>
@@ -35,7 +35,7 @@
 
 <div class="search-result" id="predictive-search-articles-list">
     {%- if predictive_search.resources.articles.size > 0 -%}
-        <ul class="search-result__list">   
+        <ul class="search-result__list">
             {%- for article in predictive_search.resources.articles -%}
                 <li>
                     <a href="{{ article.url }}">{{ article.title }}</a>
@@ -47,10 +47,34 @@
 
 <div class="search-result" id="predictive-search-collection-list">
     {%- if predictive_search.resources.collections.size > 0 -%}
-        <ul class="search-result__list">   
+        <ul class="search-result__list">
             {%- for collection in predictive_search.resources.collections -%}
                 <li>
                     <a href="{{ collection.url }}">{{ collection.title | highlight: predictive_search.terms }}</a>
+                </li>
+            {%- endfor -%}
+        </ul>
+    {% endif %}
+</div>
+
+<div class="search-result" id="predictive-search-collection-product-list">
+    {%- if predictive_search.resources.collections.size > 0 -%}
+        <ul class="search-result__list">
+            <li><h3>Collections</h3></li>
+            {%- for collection in predictive_search.resources.collections -%}
+                <li>
+                    <a href="{{ collection.url }}">{{ collection.title | highlight: predictive_search.terms }}</a>
+                </li>
+            {%- endfor -%}
+        </ul>
+    {% endif %}
+
+    {%- if predictive_search.resources.products.size > 0 -%}
+        <ul class="search-result__list" style="border-top: 1px solid #eee">
+            <li><h3>Products</h3></li>
+            {%- for product in predictive_search.resources.products -%}
+                <li>
+                    <a href="{{ product.url }}">{{ product.title }}</a>
                 </li>
             {%- endfor -%}
         </ul>

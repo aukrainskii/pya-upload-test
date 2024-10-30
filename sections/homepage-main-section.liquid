@@ -1,0 +1,270 @@
+{% assign sec_id = section.id | slice: -6, 6 | replace: '-', '_' %}
+{% assign sec_id = sec_id | prepend: 'pw' %}
+
+{% style %}
+#shopify-section-{{ section.id }} {
+  padding-top: {{ section.settings.section_padding_top_m }}px;
+  padding-bottom: {{ section.settings.section_padding_bottom_m }}px;
+}
+@media screen and (min-width: 750px) {
+  #shopify-section-{{ section.id }} {
+  padding-top: {{ section.settings.section_padding_top_d }}px;
+  padding-bottom: {{ section.settings.section_padding_bottom_d }}px;
+  }
+}
+{% endstyle %}
+
+<div class="pw-main-section pw-section__{{sec_id}}">
+  <div class="pw-layout">
+    <div class="pw-sidebar-wrapper">
+      <div class="pw-sidebar">
+        <div class="pw-sidebar-inner">
+          <ul class="pw-sidebar-menu">
+            <li class="current">
+              <a href="/">All categories</a>
+            </li>
+            {% for collection in collections %}
+              {% if collection.metafields.appstore.in_sidebar == true %}
+                <li class="{% if collection.metafields.appstore.popular == true %} popular {% endif %}">
+                  <a href="{{ collection.url }}">{{ collection.title }}</a>
+                </li>
+              {% endif %}
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="pw-main-wrapper">
+      <div class="pw-main ">
+
+        <div class="pw-main-search-wrapper">
+          <div class="pw-row">
+
+            <div class="pw-col-lg-8">
+              <div class="search-content">
+
+                {% assign placeholder = 'accessibility.app_search_placeholder' | t %}
+
+                <div class="">
+                {% render 'sec-heading-1' | align: 'left', class: "search-content__title" %}
+
+                {% render 'sec-description' %}
+                </div>
+                {% render 'search-field' | input_name: "homepage-search" , placeholder: placeholder , search_type: "product" %}
+              </div>
+            </div>
+
+            <div class="pw-col-lg-4">
+              <a href="{{ section.settings.header_product_link }}" class="pw-header-product-wrapper">
+              {% if section.settings.header_product_image != blank %}
+                <div class="pw-header-product-img">
+                 {{ section.settings.header_product_image | image_url: width: 600 | image_tag }}
+                </div>
+              {% endif %}
+              {% if section.settings.header_product_title != blank %}
+                <div class="pw-header-product-title">
+                 {{ section.settings.header_product_title }}
+                </div>
+              {% endif %}
+              {% if section.settings.header_product_text != blank %}
+                <div class="pw-header-product-text">
+                 {{ section.settings.header_product_text }}
+                </div>
+              {% endif %}
+              </a>
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="pw-products__list">
+
+          <div class="category-filter-wrapper">
+
+            <div class="pw-select-wrapper pw-sidebar-menu-mobile ">
+              <select class="pw-sidebar-menu">
+                <option value="" data-value="/">All categories</option>
+                {% for collection in collections %}
+                {% if collection.metafields.appstore.parent == blank %}
+                <option value="{{ collection.url }}">{{ collection.title }}</option>
+                {% endif %}
+                {% endfor %}
+              </select>
+            </div>
+
+            <div class="pw-select-wrapper pw-product-tabs">
+              <select name="select-tabs" class="pw-main-select-tabs">
+                <option value="popular" selected>Popular</option>
+                <option value="free"> Free</option>
+                <option value="recent"> Recent</option>
+             </select>
+           </div>
+
+          </div>
+
+          <div class="pw-product-tabs-wrapper">
+            {% paginate collections['all-shopify-apps'].products by 200 %}
+              {% assign sorted_products = collections['all-shopify-apps'].products | sort: 'price' | reverse %}
+            {% endpaginate %}
+
+            <div class="pw-product-tab-content active" data-content="popular">
+              <div class="pw-row">
+                {% for product in sorted_products limit: 9 %}
+                <div class="pw-col-xl-4 pw-col-lg-6 pw-col-md-12 pw-col-sm-6">
+                  {% render 'product-card', product: product %}
+                </div>
+                {% endfor %}
+              </div>
+            </div>
+
+            <div class="pw-product-tab-content" data-content="free">
+              <div class="pw-row">
+                {% assign product_counter = 0 %}
+                {% for product in sorted_products %}
+                  {% if product.metafields.appstore.only_free_plan.value == 'true' and product_counter < 9 %}
+                    <div class="pw-col-xl-4 pw-col-lg-6 pw-col-md-12 pw-col-sm-6">
+                    {% render 'product-card', product: product %}
+                    </div>
+                    {% assign product_counter = product_counter | plus: 1 %}
+                  {% endif %}
+                {% endfor %}
+              </div>
+            </div>
+
+            <div class="pw-product-tab-content" data-content="recent">
+              <div class="pw-row">
+                {% paginate collections['recent-shopify-apps'].products by 9 %}
+                  {% assign newest_products = collections['recent-shopify-apps'].products | sort: 'created_at' | reverse %}
+                {% endpaginate %}
+                
+                {% for product in newest_products %}
+                  <div class="pw-col-xl-4 pw-col-lg-6 pw-col-md-12 pw-col-sm-6">
+                    {% render 'product-card', product: product %}
+                  </div>
+                {% endfor %}
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script src="{{ 'snippets-search-field.js' | asset_url }}" defer="defer"></script>
+
+<script src="{{ 'sections-collection-products.js' | asset_url }}" defer="defer"></script>
+
+<script>
+   document.addEventListener("DOMContentLoaded", function(){
+  let categorySelect = document.querySelector('select.pw-sidebar-menu');
+  categorySelect.addEventListener('change', function(e){
+    e.preventDefault();
+    let path = e.target.value;
+    window.location.href = path;
+  });
+   }); 
+</script>
+
+
+{% schema %}
+
+{
+  "name": "Homepage Main section",
+  "class": "section",
+  "tag": "section",
+  "blocks": [],
+  "presets": [
+    {
+      "name": "Homepage Main section"
+    }
+  ],
+  "settings": [
+    {
+      "type": "range",
+      "id": "section_padding_top_m",
+      "label": "Section Padding Top (mobile)",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "default": 0,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom_m",
+      "label": "Section Padding Bottom (mobile)",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "default": 0,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top_d",
+      "label": "Section Padding Top (desktop)",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "default": 0,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom_d",
+      "label": "Section Padding Bottom (desktop)",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "default": 0,
+      "unit": "px"
+    },
+    {
+      "type": "richtext",
+      "id": "heading",
+      "label": "Section title",
+      "default": "<p>Find <b>the best app</b> for your Shopify store tailored to</p>"
+    },
+    {
+      "type": "text",
+      "id": "description",
+      "label": "Section description",
+      "default": "Unleash your creativity with out-of-this-world app inspiration from across Shopify"
+    },
+    {
+      "type": "image_picker",
+      "id": "header_product_image",
+      "label": "Header Image"
+    },
+    {
+      "type": "text",
+      "id": "header_product_title",
+      "label": "Header product title",
+      "default": "Faire: Sell Wholesale"
+    },
+    {
+      "type": "text",
+      "id": "header_product_text",
+      "label": "Header product text",
+      "default": "Sell wholesale to independent retailers worldwide"
+    },
+    {
+      "type": "url",
+      "id": "header_product_link",
+      "label": "Header product link"
+    },
+    {
+      "type": "image_picker",
+      "id": "background",
+      "label": "Custom background"
+    }
+  ]
+}
+
+{% endschema %}

@@ -5,7 +5,7 @@ if (!customElements.get('c-search')) {
     constructor() {
       super();
       this.input = this.querySelector('input[type="search"]');
-      this.typeSearch = this.getAttribute("data-search-param");
+      //this.typeSearch = this.getAttribute("data-search-param");
       this.predictiveSearchResults = this.querySelector('#predictive-search');
       this.input.addEventListener('input', this.debounce(event => {
         this.onChange();
@@ -20,7 +20,7 @@ if (!customElements.get('c-search')) {
       this.getSearchResults(searchTerm);
     }
     getSearchResults(searchTerm) {
-      fetch(`/search/suggest?q=${searchTerm}&section_id=predictive-search&resources[type]=${this.typeSearch}`).then(response => {
+      fetch(`/search/suggest?q=${searchTerm}&section_id=predictive-search`).then(response => {
         if (!response.ok) {
           var error = new Error(response.status);
           this.close();
@@ -29,12 +29,15 @@ if (!customElements.get('c-search')) {
         return response.text();
       }).then(text => {
         let resultsMarkup;
+
         if (this.typeSearch == "product") {
           resultsMarkup = new DOMParser().parseFromString(text, 'text/html').querySelector('#predictive-search-products-list').outerHTML;
         } else if (this.typeSearch == "article") {
           resultsMarkup = new DOMParser().parseFromString(text, 'text/html').querySelector('#predictive-search-articles-list').outerHTML;
         } else if (this.typeSearch == "collection") {
           resultsMarkup = new DOMParser().parseFromString(text, 'text/html').querySelector('#predictive-search-collection-list').outerHTML;
+        } else {
+          resultsMarkup = new DOMParser().parseFromString(text, 'text/html').querySelector('#predictive-search-collection-product-list').outerHTML;
         }
         this.predictiveSearchResults.innerHTML = resultsMarkup;
         if (this.predictiveSearchResults) {

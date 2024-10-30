@@ -110,6 +110,12 @@
         "select_products_for_withdrawal": "primary_collections",
         "select_color_scheme": "light_scheme"
       }
+    },
+    "custom_liquid_fzeMFk": {
+      "type": "custom-liquid",
+      "settings": {
+        "custom_liquid": "<script>\n  document.addEventListener( 'DOMContentLoaded', function() {\n    let buttons = document.querySelectorAll('.link-to');\n    buttons.forEach(function(button){\n      button.addEventListener('click', function(e) {\n\n        let alv_app_developer = '{{product.metafields.appstore.developer}}';\n        let alv_app_name = '{{product.metafields.appstore.title}}';\n        let alv_btn_id = null;\n\n        if(button.classList.contains('product-pricing__link')) {\n          alv_btn_id = 'bottom';\n        } else {\n          alv_btn_id = 'top';\n        }\n\n        gtag('event', 'app_listing_visit', {\n          'alv_app_developer': alv_app_developer,\n          'alv_app_name': alv_app_name,\n          'alv_btn_id': alv_btn_id\n        });\n\n      });\n    });\n\n  });\n<\/script>"
+      }
     }
   },
   "order": [
@@ -117,6 +123,7 @@
     "content",
     "price",
     "kava_about_riley_PqNcyA",
-    "primary_collection"
+    "primary_collection",
+    "custom_liquid_fzeMFk"
   ]
 }

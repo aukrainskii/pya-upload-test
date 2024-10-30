@@ -1,16 +1,16 @@
 /*
-* ------------------------------------------------------------
-* IMPORTANT: The contents of this file are auto-generated.
-*
-* This file may be updated by the Shopify admin theme editor
-* or related systems. Please exercise caution as any changes
-* made to this file may be overwritten.
-* ------------------------------------------------------------
-*/
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
-    "hamepage_main_section_cYjGn6": {
-      "type": "hamepage-main-section",
+    "homepage_main_section_cYjGn6": {
+      "type": "homepage-main-section",
       "settings": {
         "section_padding_top_m": 0,
         "section_padding_bottom_m": 0,
@@ -18,10 +18,10 @@
         "section_padding_bottom_d": 0,
         "heading": "<p>Find <strong>the best app</strong> for your Shopify store tailored to</p>",
         "description": "Unleash your creativity with out-of-this-world app inspiration from across Shopify",
-        "header_product_image": "shopify://shop_images/CMfzu9PG-IMDEAE.png",
-        "header_product_title": "Title goes here",
-        "header_product_text": "Text description goes here",
-        "header_product_link": ""
+        "header_product_image": "shopify://shop_images/CNLivZfkvIYDEAE.webp",
+        "header_product_title": "Kava Sections: Theme Sections",
+        "header_product_text": "Simple & conversion-focused page builder.",
+        "header_product_link": "https://apps.shopify.com/kava-sections-page-builder?utm_medium=referral&utm_source=takeyourapp&utm_campaign=kava-sections-theme-sections&utm_content=install-from-shopify-appstore"
       }
     },
     "articles_list_PxnpgG": {
@@ -51,6 +51,7 @@
         "block_Bfwa6k",
         "block_M79QrE"
       ],
+      "disabled": true,
       "settings": {
         "section_padding_top_m": 64,
         "section_padding_bottom_m": 64,
@@ -195,7 +196,7 @@
     }
   },
   "order": [
-    "hamepage_main_section_cYjGn6",
+    "homepage_main_section_cYjGn6",
     "articles_list_PxnpgG",
     "reviews_Ej7t7a",
     "faq_9C8y9L"

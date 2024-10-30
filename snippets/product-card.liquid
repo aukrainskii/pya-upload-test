@@ -1,50 +1,56 @@
 <a class="product-card product-card-new" href="{{ product.url }}">
 
-	{% if product.media != blank %}
-		{% if product.media[0].media_type == 'image' %}
-			<div class="product-image-new">
-				{{ product.media[0] | image_url: width: 500 | image_tag: width: 250, alt: product.title, loading: "lazy" }}
-			</div>
-		{% endif %}
-	{% else %}
-		<div class="product-image-new product-icon-new">
-			<img src="{{ product.metafields.appstore.icon.value}}?width=140"
+  {% if product.metafields.appstore.screenshots.value.size > 0 %}
+    {% assign product_image = product.metafields.appstore.screenshots.value[0] %}
+
+    {% if product_image != blank %}
+      <div class="product-image-new">
+        <img src="{{ product_image }}?width=1000"
            alt="{{ product.title }}"
-           srcset="{{ product.metafields.appstore.icon.value}}?width=70 1x,
-                   {{ product.metafields.appstore.icon.value}}?width=140 2x"
+           srcset="{{ product_image }}?width=500 1x,
+                   {{ product_image }}?width=1000 2x"
+           width="500"
+           height="250"
+           loading="lazy">
+      </div>
+    {% endif %}
+
+  {% else %}
+    <div class="product-image-new product-icon-new">
+      <img src="{{ product.metafields.appstore.icon.value }}?width=140"
+           alt="{{ product.title }}"
+           srcset="{{ product.metafields.appstore.icon.value }}?width=70 1x,
+                   {{ product.metafields.appstore.icon.value }}?width=140 2x"
            width="70"
            height="70"
            loading="lazy">
-		</div>
-	{% endif %}
+    </div>
+  {% endif %}
 
-
-		
-
-	<div class="product-card__info">
-		{% render 'sec-heading-5' | sec_heading-5: product.title %}
-		{% if product.metafields.appstore.reviews.value > 0 %}
-			<div class="product-card__rate">
-				{{ product.metafields.appstore.rating.value }}
-				<div class="block-img-wrap">
-					{{ settings.star-icon }}
-				</div>
-				({{ product.metafields.appstore.reviews }})
-			</div>
-		{% else %}
-			<div class="product-card__rate product-card__rate--no-reviews">
-				<div class="block-img-wrap">
-					{{ settings.star-icon }}
-				</div>
-				{{ "accessibility.no-reviews" | t }}
-			</div>
-		{% endif %}
-		{% if product.metafields.appstore.trial_period != blank %}
-			&bullet;
-			<span class="product-card__trial">
-				{{ product.metafields.appstore.trial_period }}
-			</span>
-		{% endif %}
-		{% render 'sec-description' | sec_description: product.metafields.appstore.card_subtitle %}
-	</div>
+  <div class="product-card__info">
+    {% render 'sec-heading-5' | sec_heading-5: product.title %}
+    {% if product.metafields.appstore.reviews.value > 0 %}
+      <div class="product-card__rate">
+        {{ product.metafields.appstore.rating.value }}
+        <div class="block-img-wrap">
+          {{ settings.star-icon }}
+        </div>
+        ({{ product.metafields.appstore.reviews }})
+      </div>
+    {% else %}
+      <div class="product-card__rate product-card__rate--no-reviews">
+        <div class="block-img-wrap">
+          {{ settings.star-icon }}
+        </div>
+        {{ "accessibility.no-reviews" | t }}
+      </div>
+    {% endif %}
+    {% if product.metafields.appstore.trial_period != blank %}
+      &bullet;
+      <span class="product-card__trial">
+        {{ product.metafields.appstore.trial_period }}
+      </span>
+    {% endif %}
+    {% render 'sec-description' | sec_description: product.metafields.appstore.card_subtitle %}
+  </div>
 </a>
